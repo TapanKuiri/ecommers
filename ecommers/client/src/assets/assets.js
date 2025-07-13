@@ -27,9 +27,15 @@ import profile from './profile1.png';
 import electronics from './electronics.jpeg';
 import cart from './cart.png';
 import menu from './menu.png'
+import repair1 from './repair1.jpg';
+import repair2 from './repair2.jpg';
+import repair3 from './repair3.jpg';
 
 
 export const assets = {
+  repair1,
+  repair2,  
+  repair3,
   menu,
   cart,
   table_fan,

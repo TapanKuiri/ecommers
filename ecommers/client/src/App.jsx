@@ -19,12 +19,13 @@ import {FooterLayout } from './components/footer/FooterLayout';
 import { SearchBar } from './components/SearchBar';
 import { ToastContainer, toast } from 'react-toastify';
 import { Art } from './pages/Art';
-
+import { Repair } from './pages/Repair';
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 function App() {
   return (
-    <div className="m-2">
+    <div className="ml-10 mr-10">
        <ToastContainer/>
        <NavbarLayout/>
        <SearchBar/>
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products/>} />
           <Route path="/art" element={<Art />} />
+          <Route path="/repair" element={<Repair/>} />
           
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productId" element={<ProductLayout />} />
