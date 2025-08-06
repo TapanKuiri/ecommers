@@ -50,32 +50,8 @@ const userSchema = new mongoose.Schema({
   minimize: false   //  Keeps empty objects in DB
 });
 
-<<<<<<< HEAD:backend/models/userModel.js
-const userSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        require: true
-    },
-    email:{
-        type: String,
-        require : true,
-        unique: true
-    },
-    password:{
-        type: String,
-        require: true
-    },
-    cartData: {
-        type: Object, default: {}
-    },
-    repair: {
-        type: [repairSchema], // array of objects
-        default: []
-    },
-    
-=======
+ 
 // Prevent OverwriteModelError in dev (especially with hot-reloading)
 const userModel = mongoose.models.User || mongoose.model("User", userSchema);
->>>>>>> e4384a5 (env changes):ecommers/backend/models/userModel.js
 
 export default userModel;
