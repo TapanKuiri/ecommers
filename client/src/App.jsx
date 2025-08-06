@@ -27,7 +27,7 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   // const { user} = useContext(ShopContext);
   return (
-    <div className="ml-10 mr-10">
+    <div className="">
        <ToastContainer/>
        <NavbarLayout/>
        <SearchBar/>
