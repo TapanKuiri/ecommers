@@ -1,14 +1,56 @@
 import mongoose from "mongoose";
 
+// Define the repair sub-schema
 const repairSchema = new mongoose.Schema({
-  productName: String,
-  problemDescription: String,
+  productName: {
+    type: String,
+    required: true, //  Ensure this field is not empty
+    trim: true
+  },
+  problemDescription: {
+    type: String,
+    required: true, //  Ensure this field is not empty
+    trim: true
+  },
   date: {
     type: Date,
     default: Date.now
   }
+}, { _id: false }); //  Prevent Mongoose from creating unnecessary _id for each repair entry
+
+// Define the user schema
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,  
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true, //  Normalize email casing
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  cartData: {
+    type: Map,
+    of: Number,       //  Makes cartData more structured (e.g. { itemId: quantity })
+    default: {}
+  },
+  repair: {
+    type: [repairSchema], //  List of repair requests
+    default: []
+  }
+}, {
+  timestamps: true, //  Adds createdAt and updatedAt fields
+  minimize: false   //  Keeps empty objects in DB
 });
 
+<<<<<<< HEAD:backend/models/userModel.js
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
@@ -31,12 +73,9 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     
-
-
-},{minimize: false})
-
- 
-
-const userModel = mongoose.model.user || mongoose.model('user', userSchema);
+=======
+// Prevent OverwriteModelError in dev (especially with hot-reloading)
+const userModel = mongoose.models.User || mongoose.model("User", userSchema);
+>>>>>>> e4384a5 (env changes):ecommers/backend/models/userModel.js
 
 export default userModel;

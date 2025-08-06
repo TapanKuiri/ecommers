@@ -20,12 +20,19 @@ const ShopContextProvider = (props)=>{
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
     // let role = 'user';
+<<<<<<< HEAD:client/src/context/ShopContext.jsx
+
+
+ 
+ 
+=======
+>>>>>>> e4384a5 (env changes):ecommers/client/src/context/ShopContext.jsx
 
 
  
  
 
-    const addToCart= async (itemId, size)=>{
+    const addToCart= async (itemId)=>{
         console.log("cartItems : ",cartItems);
  
         let cartData = structuredClone(cartItems);

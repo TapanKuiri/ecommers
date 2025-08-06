@@ -61,21 +61,39 @@ const updateCart = async (req, res) => {
 
 
 //get user cart data
-const getUserCart = async (req, res)=>{
-    try{
+// const getUserCart = async (req, res)=>{
+//     try{
 
-        const {userId} = req.body;
-        // console.log("user id is: ",userId);
+//         const {userId} = req.body;
+//         // console.log("user id is: ",userId);
 
-        const userData = await userModel.findById(userId);
-        let cartData = await userData.cartData;
+//         const userData = await userModel.findById(userId);
+//         // let cartData = await userData.cartData;
+//         console.log("user data is: ",userData);
 
-        res.json({success: true, cartData});
+//         res.json({success: true, cartData});
 
-    }catch(err){
-        console.log(err);
-        res.json({success: false, message: err.message});
+//     }catch(err){
+//         console.log(err);
+//         res.json({success: false, message: err.message});
+//     }
+// }
+
+const getUserCart = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const userData = await userModel.findById(userId);
+    if (!userData) {
+      return res.json({ success: false, message: 'User not found' });
     }
-}
+
+    const cartData = userData.cartData || {}; // ✅ define cartData
+    res.json({ success: true, cartData });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, message: err.message });
+  }
+};
 
 export {addToCart, updateCart, getUserCart}; 
