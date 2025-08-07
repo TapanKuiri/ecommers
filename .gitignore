@@ -1,6 +1,25 @@
 # Ignore node_modules folder
+# Node modules (both frontend and backend)
 client/node_modules/
 backend/node_modules/
+
+# Build output
+client/dist/
+backend/build/
+
+# Logs
+*.log
+
+# Environment variables
+client/.env
+backend/.env
+admin/.env
+
+# IDE/Editor settings
+.vscode/
+*.swp
+.DS_Store
+
 admin/node_modules/
 
 # Ignore all .env files
