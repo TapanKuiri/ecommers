@@ -19,7 +19,7 @@ export const NavbarLayout = () => {
   return (
 
 
-    <div className='flex items-center justify-between bg-gray-300 text-white p-1  md:mx-10 mx-0'>
+    <div className='flex items-center justify-between bg-gray-300 text-white p-1 md:mx-10 mx-0'>
         <Link to='/' >
             <img src={assets.logo} className='w-19 rounded-2xl mx-2 ' alt='logo'/>
         </Link>
@@ -51,6 +51,5 @@ export const NavbarLayout = () => {
 
           </div>
     </div>
-  )
+)
 }
-

@@ -32,16 +32,10 @@ export const Products = () => {
     }
 
     if (category.length > 0) {
-      console.log("productCopy becour", productCopy);
-      productCopy = productCopy.filter(item => {
-        console.log("category", category);
-        console.log("item.category:", item.category );
+      productCopy = productCopy.filter(item =>
+         category.includes(item.category?.toLowerCase())
+      );
 
-        return category.includes(item.category?.toLowerCase());
-      });
-
-      console.log("productCopy after", productCopy);
-      
     }
 
     setFilterProducts(productCopy);
