@@ -28,6 +28,7 @@ export const BestSeller = () => {
             {
                 bestSeller.map((item, index)=>( 
                      <ProductItem
+                                  key={item._id}
                                   id={item._id}
                                   image={item.image}
                                   name={item.name}

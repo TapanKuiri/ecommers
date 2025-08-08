@@ -1,9 +1,4 @@
 import React from 'react'
- 
-import { LatestCollection } from '../components/LatestCollection'
-import { BestSeller } from '../components/BestSeller'
-import { OurPolicy } from '../components/footer/OurPolicy'
- 
 import { LatestCollection } from '../components/LatestCollection'
 import { BestSeller } from '../components/BestSeller'
 import { OurPolicy } from '../components/footer/OurPolicy'

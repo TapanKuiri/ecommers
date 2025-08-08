@@ -20,14 +20,19 @@ const ShopContextProvider = (props)=>{
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
     // let role = 'user';
+
+    const buyHandler = async(itemId) => {
+         let cartData = structuredClone(cartItems);
+        if (cartData[itemId]) {
+          setCartItems(cartData);
+        }
+    }
  
 
     const addToCart= async (itemId)=>{
-        console.log("cartItems : ",cartItems);
+        // console.log("cartItems : ",cartItems);
  
         let cartData = structuredClone(cartItems);
-        console.log("cartData", cartItems[itemId]);
-        // let cartData = structuredClone(cartItems);
 
         if (cartData[itemId]) {
             cartData[itemId] += 1;
@@ -162,7 +167,7 @@ const getProductsData = async () => {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity
-        ,getCartAmount, navigate, backendUrl, token, setToken, setCartItems, getUserCart
+        ,getCartAmount, navigate, backendUrl, token, setToken, setCartItems, getUserCart,buyHandler
     }
 
     return (

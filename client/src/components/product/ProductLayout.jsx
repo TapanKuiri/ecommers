@@ -11,7 +11,7 @@ export const ProductLayout = () => {
   
   const {productId} = useParams();
   // console.log(productId);
-  const {products, currency, addToCart} = useContext(ShopContext);
+  const {products, currency, addToCart, buyHandler} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
   const [size, setSize] = useState('');
@@ -35,7 +35,7 @@ export const ProductLayout = () => {
 
   useEffect(()=>{
     fetchProductData();
-  },[productId])
+  },[productId, products]);
 
   return  productData ? (
   <div>
@@ -48,7 +48,7 @@ export const ProductLayout = () => {
           <ProductImages productData={productData} image={image} setImage={setImage} />
 
       {/* product information --------------------------------------*/}
-          <ProductInfo setSize={setSize} productData={productData} currency={currency} size={size} addToCart={addToCart}/>
+          <ProductInfo setSize={setSize} productData={productData} currency={currency} size={size} addToCart={addToCart} buyHandler={buyHandler}/>
  
         </div>
 
