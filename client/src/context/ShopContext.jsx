@@ -10,6 +10,7 @@ import axios from 'axios';
 // export const ShopContext = createContext();
 
 const ShopContextProvider = (props)=>{
+
     const currency = '₹';
     const delivery_fee = 10;
     const [search , setSearch ] = useState('');
@@ -19,14 +20,37 @@ const ShopContextProvider = (props)=>{
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
-    // let role = 'user';
 
-    const buyHandler = async(itemId) => {
-         let cartData = structuredClone(cartItems);
-        if (cartData[itemId]) {
-          setCartItems(cartData);
+
+  const updateCartAndBuy = async(itemId)=> {
+    try {
+            const response = await axios.post(backendUrl + '/api/cart/add', { itemId }, {
+                headers: { token }
+            });
+            console.log("response", response)
+        } catch (err) {
+            console.log("error here")
+            console.error(err);
+            toast.error(err.message);
         }
-    }
+  }
+  const buyHandler = async (itemId) => {
+    let cartData = structuredClone(cartItems);
+  // Add item to cart
+
+  // Optionally, if you need size handling in cart
+  if (cartData[itemId]) {
+    cartData[itemId] += 1;
+  } else {
+    cartData[itemId] = 1;
+  }
+
+  setCartItems(cartData);
+  updateCartAndBuy(itemId);
+  navigate('/cart');
+};
+
+
  
 
     const addToCart= async (itemId)=>{
@@ -41,33 +65,24 @@ const ShopContextProvider = (props)=>{
         }
 
         setCartItems(cartData);
-        try {
-            const response = await axios.post(backendUrl + '/api/cart/add', { itemId }, {
-                headers: { token }
-            });
-            console.log("response", response)
-        } catch (err) {
-            console.log("error here")
-            console.error(err);
-            toast.error(err.message);
-        }
-
+        updateCartAndBuy(itemId);
 
     }
     const getCartCount = ()=>{
         let totalCount = 0;
+        // console.log("cart count is called", cartItems);
         // console.log("cartItems my ", products);
         for(const items in cartItems){
             totalCount += cartItems[items];
-            // for(const item in cartItems[items]){
-            //     try{
-            //         if(cartItems[items][item]> 0){
-            //             totalCount += cartItems[items][item];
-            //         }
-            //     }catch(e){
-            //         console.log(e);
-            //     }
-            // }
+            for(const item in cartItems[items]){
+                try{
+                    if(cartItems[items][item]> 0){
+                        totalCount += cartItems[items][item];
+                    }
+                }catch(e){
+                    console.log(e);
+                }
+            }
         }
         return totalCount;
     }

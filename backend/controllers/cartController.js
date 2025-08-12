@@ -6,7 +6,6 @@ const addToCart = async (req, res) => {
   try {
     // const userId = req.user.userId; // Extracted from token by auth middleware
     const { itemId, userId } = req.body;
-    console.log("Item ID:", itemId, "User ID:", userId);
 
     const userData = await userModel.findById(userId);
     if (!userData) {
@@ -16,9 +15,9 @@ const addToCart = async (req, res) => {
     let cartData = userData.cartData || {};
 
     if (cartData[itemId]) {
-      cartData[itemId] += 1;
+      cartData.set(itemId, cartData[itemId] + 1);
     } else {
-      cartData[itemId] = 1;
+      cartData.set(itemId, 1);
     }
 
     await userModel.findByIdAndUpdate(userId, { cartData });
@@ -45,9 +44,9 @@ const updateCart = async (req, res) => {
     let cartData = userData.cartData || {};
 
     if (quantity === 0) {
-      delete cartData[itemId];
+      cartData.delete(itemId);
     } else {
-      cartData[itemId] = quantity;
+      cartData.set(itemId, quantity);
     }
 
     await userModel.findByIdAndUpdate(userId, { cartData });

@@ -15,13 +15,13 @@ export const ProductRelatedProduct = ({ catagory, subCatagory }) => {
             // Filter by category and sub-category
             // console.log('productsCopy: ', productsCopy);
             productsCopy = productsCopy.filter((item)=> {
-                console.log('item.catagory', item.category, 'catagory', catagory);
+                // console.log('item.catagory', item.category, 'catagory', catagory);
                 return catagory === item.category
 
             });
 
             // productsCopy = productsCopy.filter((item)=> subCatagory === item.subCatagory);
-            console.log('productsCopy', productsCopy); 
+            // console.log('productsCopy', productsCopy); 
 
             // Take only the first 4 related products
             setRelatedProducts(productsCopy.slice(0, 4)); 

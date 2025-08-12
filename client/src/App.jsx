@@ -1,9 +1,7 @@
 import './App.css'
 import React from 'react';
 import './index.css';
-import { BrowserRouter, Route  } from 'react-router-dom';
-import ReactDOM from 'react-dom/client';
-import { Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Products } from './pages/Products';
 import { Contact } from './pages/Contact';
@@ -33,13 +31,6 @@ function App() {
        <SearchBar/>
        <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path='/admin'>
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="products" element={<AdminProducts />} />
-              <Route path="orders" element={<AdminOrders />} />
-              <Route path="features" element={<AdminFeatures />} />
-
-          </Route> */}
           <Route path="/products" element={<Products/>} />
           <Route path="/handMade" element={<HandMade/>} />
           <Route path="/repair" element={<Repair/>} />

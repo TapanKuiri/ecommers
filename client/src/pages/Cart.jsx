@@ -16,11 +16,10 @@ useEffect(() => {
   if (products.length > 0) {
     const tempData = [];
 
-    console.log("buyHandler", buyHandler);
-    if(cartItems.count === 0){
+     if(cartItems.count === 0){
       // setCartData(buyHandler);
     }
-
+    console.log("cartItems", cartItems);
     for (const itemId in cartItems) {
       if (cartItems[itemId] > 0) {
         tempData.push({
@@ -34,15 +33,16 @@ useEffect(() => {
   }
 }, [cartItems, products]);
 
-
+ 
   return (
-    <div className=' border-t pt-14 mx-2'>
+    <div className=' border-t pt-14 mx-2.5'>
       <div className='text-2xl mb-3'>
           <Title text1={'YOUR'} text2={'CART'}/>
       </div>
 
       <div>
         {
+ 
           cartData.map((item, index)=>{
             const productData = products.find((product)=> product._id === item._id);
             return (

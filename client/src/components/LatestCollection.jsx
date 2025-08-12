@@ -12,7 +12,7 @@ export const LatestCollection = () => {
   }, [products]);
 
   return (
-    <div className="my-10 px-5  py-12 rounded-xl shadow-md   duration-500">
+    <div className="my-1 px-5  py-12 rounded-xl shadow-md   duration-500">
       {/* Title Section */}
       <div className="text-center pb-8 text-3xl font-semibold text-gray-800 relative">
         <Title text1={'LATEST'} text2={'COLLECTION'} />

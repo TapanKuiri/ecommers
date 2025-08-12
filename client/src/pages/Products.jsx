@@ -11,8 +11,7 @@ export const Products = () => {
   const [category, setCategory] = useState([]);
   const [sortType, setSortType] = useState('relevent'); // fixed from ['relevent']
 
-  // ✅ Toggle selected categories (normalized to lowercase)
-  const toggleCategory = (e) => {
+   const toggleCategory = (e) => {
     const value = e.target.value.toLowerCase();
      if (category.includes(value)) {
       setCategory(prev => prev.filter(item => item !== value));
@@ -21,8 +20,7 @@ export const Products = () => {
     }
   };
  
-  // ✅ Filter products based on search and selected categories
-  const applyFilter = () => {
+   const applyFilter = () => {
     let productCopy = products.slice();
 
     if (showSearch && search) {
@@ -41,15 +39,14 @@ export const Products = () => {
     setFilterProducts(productCopy);
   };
 
-  // ✅ Sort filtered products
-  const sortProduct = () => {
+   const sortProduct = () => {
     let fpCopy = [...filterProducts];
     switch (sortType) {
       case 'low-high':
-        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        setFilterProducts(fpCopy.sort((a, b) => a.finalPrice - b.finalPrice));
         break;
       case 'high-low':
-        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+        setFilterProducts(fpCopy.sort((a, b) => b.finalPrice - a.finalPrice));
         break;
       default:
         applyFilter();

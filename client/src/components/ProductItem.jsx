@@ -17,7 +17,7 @@ export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
             {currency}{price}
           </p>
           <p className='text-sm font-medium text-red-500'>
-            %{discount}
+            {discount}%
           </p>
           <p className='text-sm font-medium text-green-600'>
             {currency}{finalPrice}

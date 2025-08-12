@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { assets } from '../../assets/assets';
@@ -14,6 +14,10 @@ export const NavbarLayout = () => {
     const [isVisible, setIsVisible] = useState(false);
     const {setShowSearch, showSearch, getCartCount} = useContext(ShopContext);
     const [value, setValue] = useState('home');
+
+    useEffect(()=>{
+        getCartCount();
+    },[])
  
 
   return (
