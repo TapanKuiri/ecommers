@@ -16,7 +16,7 @@ export const NavSidebarMenu = ({ isVisible, setIsVisible }) => {
                         <NavLink onClick={()=>setIsVisible(false)} className='py-2 pl-6 border' to='/'> HOME</NavLink>
                         <NavLink onClick={()=>setIsVisible(false)} className='py-2 pl-6 border' to='/products'> PRODUCTS </NavLink>
                         <NavLink onClick={()=>setIsVisible(false)} className='py-2 pl-6 border' to='/HandMade'> HANDMADE</NavLink>   
-                        <NavLink onClick={()=>setIsVisible(false)} className='py-2 pl-6 border' to='/repair'> REPAIR</NavLink>
+                        <NavLink onClick={()=>setIsVisible(false)} className='py-2 pl-6 border' to='/service'> SERVICE</NavLink>
                     </div>
 
                 </div>

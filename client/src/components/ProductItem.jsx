@@ -4,8 +4,7 @@ import { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 
 export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
-    // console.log(id, name, price);
-    const {currency} = useContext(ShopContext);
+     const {currency} = useContext(ShopContext);
   return (
     <Link to={`/product/${id}`} className='text-green-700 cursor-pointer'>
         <div className='overflow-hidden'>

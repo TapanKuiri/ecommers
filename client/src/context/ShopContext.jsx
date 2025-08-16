@@ -169,14 +169,18 @@ const getProductsData = async () => {
         // console.log("myproducts: ",products);
         getProductsData();
     }, [])
-
+ 
 
     useEffect(()=>{
-        if( !token && localStorage.getItem('token')){
-            setToken(localStorage.getItem('token'));
-            getUserCart(localStorage.getItem('token'));
-        }
-    },[])
+      if (!token && localStorage.getItem('token')) {
+        const savedToken = localStorage.getItem('token');
+        setToken(savedToken);
+        getUserCart(savedToken);
+      }
+    }, [token]);
+
+
+
 
     const value = {
         products, currency, delivery_fee,

@@ -13,7 +13,7 @@ import { Login } from './components/Login';
 import {ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
-import { Repair } from './page/Repair';
+import { Services } from './page/Services.';
 
 // export const backendUrl = import.meta.env.BACKEND_RUL;
 // export const backendUrl = import.meta.env.VITE_BACKEND_URL; 
@@ -48,7 +48,7 @@ function App() {
               <Route path='/list' element={<List token={token}/>} />
               <Route path='/orders' element={<Orders token={token}/>} />
               {/* <Route path='/' element={<h1>Welcome to Admin Dashboard</h1>} /> */}
-              <Route path='/repair' element={<Repair token={token}/>}/>
+              <Route path='/services' element={<Services token={token}/>}/>
             </Routes>
           </div>
        </div>

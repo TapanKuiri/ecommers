@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { Title } from '../components/Title';
 
-export const Repair = () => {
+export const Service = () => {
   const { backendUrl, token } = useContext(ShopContext);
   const allImages = [assets.repair1, assets.repair2, assets.repair3];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,13 +52,13 @@ export const Repair = () => {
     }
 
     try {
-      const repairData = {
+      const serviceData = {
         address: formData,
         productName,
         problemDescription,
       };
 
-      const response = await axios.post(`${backendUrl}/api/repair/add`, repairData, {
+      const response = await axios.post(`${backendUrl}/api/service/add`, serviceData, {
         headers: { token },
       });
 

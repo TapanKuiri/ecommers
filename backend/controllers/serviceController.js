@@ -1,5 +1,5 @@
 import userModel from "../models/userModel.js";
-import repairModel from "../models/repairModel.js";
+import serviceModel from "../models/serviceModel.js";
 // const productData = async (req, res) => {
 //   try {
 //     const {userId, productName, problemDescription } = req.body;
@@ -32,7 +32,7 @@ import repairModel from "../models/repairModel.js";
 //   }
 // }
 
-const placeRepair = async (req, res) => {
+const placeService = async (req, res) => {
   try {
     const { userId, address, productName, problemDescription } = req.body;
 
@@ -40,7 +40,7 @@ const placeRepair = async (req, res) => {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
-    const repairData = {
+    const serviceData = {
       userId,
       productName,
       problemDescription,
@@ -48,25 +48,57 @@ const placeRepair = async (req, res) => {
       date: Date.now(),
     };
 
-    const newRepair = new repairModel(repairData);
-    console.log("New Repair Data:", newRepair);
-    await newRepair.save();
+    const newService = new serviceModel(serviceData);
+    console.log("New Repair Data:", newService);
+    await newService.save();
 
-    res.json({ success: true, message: "Repair request submitted successfully!" });
+    res.json({ success: true, message: "Service request submitted successfully!" });
   } catch (err) {
-    console.error("Repair Error:", err);
+    console.error("Service Error:", err);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
-const listRepair = async (req, res)=>{
+const listService = async (req, res)=>{
  try{
-          const repair = await repairModel.find({});
-          res.json({success: true, repair});
+          const service = await serviceModel.find({});
+          res.json({success: true, service});
      }catch(err){
           console.log(err);
           res.json({success: false, message: err.message});
      }
 }
 
-export { placeRepair,listRepair };
+const cancelService = async (req, res) => {
+  try{
+    const {serviceId} = req.body;
+    if(!serviceId){
+      return res.status(500).json({success: false, message: "Service ID is required"});
+    }
+
+    const service = await serviceModel.findById(serviceId);
+    if(!service){
+      return res.status(404).json({success: false, message: "Service not found"});
+    }
+    console.log("Service to cancel:", service);
+    if(service.status === 'Completed'){
+      return res.status(400).json({success: false, message: "Cannot cancel a completed service"});
+    }
+    if(service.status === 'Cancelled'){
+      return res.status(400).json({success: false, message: "Service is already cancelled"});
+    }
+    service.status = 'Cancelled';
+    await service.save();
+     return res.status(200).json({
+      success: true,
+      message: "Service cancelled successfully",
+      service
+    });
+
+  }catch(err){
+    console.error("Error", err);
+    res.status(500).json({success: false, message: "Internal server error"});
+  }
+}
+
+export { placeService,listService, cancelService};

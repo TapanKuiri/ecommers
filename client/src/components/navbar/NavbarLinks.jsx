@@ -17,8 +17,8 @@ export const NavbarLinks = ({value, setValue}) => {
                         <NavLink to='/HandMade'  onClick={()=>setValue('HandMade')} >
                             <p className={`${value === 'HandMade' ? 'bg-black text-white rounded-2xl' : 'text-black'} p-1  flex flex-col items-center gap-1 font-extrabold`} >HANDMADE</p>
                         </NavLink>
-                         <NavLink to='/repair'  onClick={()=>setValue('repair')} >
-                            <p className={`${value === 'repair' ? 'bg-black text-white rounded-2xl' : 'text-black'} p-1  flex flex-col items-center gap-1 font-extrabold`} >REPAIR</p>
+                         <NavLink to='/service'  onClick={()=>setValue('service')} >
+                            <p className={`${value === 'service' ? 'bg-black text-white rounded-2xl' : 'text-black'} p-1  flex flex-col items-center gap-1 font-extrabold`} >SERVICE</p>
                         </NavLink>
         
                         {/* <NavLink to='/contact'  onClick={()=>setValue('contact')} >

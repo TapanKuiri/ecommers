@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // Define the repair sub-schema
-const repairSchema = new mongoose.Schema({
+const serviceSchema = new mongoose.Schema({
   productName: {
     type: String,
     required: true, //  Ensure this field is not empty
@@ -41,8 +41,8 @@ const userSchema = new mongoose.Schema({
     of: Number,       //  Makes cartData more structured (e.g. { itemId: quantity })
     default: {}
   },
-  repair: {
-    type: [repairSchema], //  List of repair requests
+  service: {
+    type: [serviceSchema], //  List of repair requests
     default: []
   }
 }, {

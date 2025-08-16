@@ -11,7 +11,8 @@ export const Orders = () => {
   const [expandedOrderIndex, setExpandedOrderIndex] = useState(null);
 
   const loadOrderData = async () => {
-    if (!token) return;
+    // if (!token) return;
+    console.log("token", token);
     try {
       const response = await axios.post(
         `${backendUrl}/api/order/userorders`,

@@ -56,7 +56,7 @@ export const NavProfile = () => {
 
       {/* Dropdown Menu */}
       {token && dropdownVisible && (
-        <div className="absolute right-0 mt-2 w-42 h-30 bg-white border border-gray-200 rounded-md shadow-md">
+        <div className="absolute right-0 mt-2 w-42 h-40 bg-white border border-gray-200 rounded-md shadow-md">
           <div className="flex flex-col gap-2.5 font-semibold py-2 px-2 text-lg text-gray-700">
             <p className="cursor-pointer hover:text-black transition hover:bg-blue-300 rounded-md">👤 My Profile</p>
 
@@ -67,6 +67,15 @@ export const NavProfile = () => {
             >
               📦 Orders
             </Link>
+
+            <Link
+              to="/services"
+              className="cursor-pointer hover:text-black transition hover:bg-green-300 rounded-md"
+              onClick={() => setDropdownVisible(false)}
+            >
+              🛠️ Services
+            </Link>
+
 
             <p
               onClick={logout}

@@ -17,8 +17,9 @@ import {FooterLayout } from './components/footer/FooterLayout';
 import { SearchBar } from './components/SearchBar';
 import { ToastContainer, toast } from 'react-toastify';
 import { HandMade } from './pages/HandMade';
-import { Repair } from './pages/Repair';
 import { ShopContext } from './context/ShopContext';
+import { Service } from './pages/Service';
+import { MyServices } from './pages/MyServices';
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -33,7 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products/>} />
           <Route path="/handMade" element={<HandMade/>} />
-          <Route path="/repair" element={<Repair/>} />
+          <Route path="/service" element={<Service/>} />
           
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productId" element={<ProductLayout />} />
@@ -41,6 +42,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/place-order" element={<PlaceOrder/>} />
           <Route path="/orders" element={<Orders/>} />
+          <Route path="/services" element={<MyServices/>} />
+
        </Routes>
        <FooterLayout/>
     </div>

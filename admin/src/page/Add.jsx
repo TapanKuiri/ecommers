@@ -129,6 +129,7 @@ export const Add = ({ token }) => {
             <option value="Electric & Electronic">Electric & Electronic</option>
             <option value="Home & Kitchen">Home & Kitchen</option>
             <option value="Mobile & Laptop">Mobile & Laptop</option>
+            <option value="Hand Made">Hand Made</option>
             <option value="Bag & Luggage">Bag & Luggage</option>
             <option value="Fasion">Fasion</option>
             <option value="Festive & Gift">Festive & Gift</option>

@@ -4,19 +4,20 @@ import axios from 'axios';
 import { backendUrl } from '../App';
 import { assets } from '../assets/assets';
 
-export const Repair = ({ token }) => {
-  const [repairList, setRepairList] = useState([]);
-
-  const fetchAllRepairs = async () => {
+export const Services = ({ token }) => {
+  const [serviceList, setServiceList] = useState([]);
+ 
+  const fetchAllServices = async () => {
     if (!token) return;
     try {
       const response = await axios.post(
-        `${backendUrl}/api/repair/list`,
+        `${backendUrl}/api/service/list`,
         {},
         { headers: { token } }
       );
+ 
       if (response.data.success) {
-        setRepairList(response.data.repair);
+        setServiceList(response.data.service);
       } else {
         toast.error(response.data.message);
       }
@@ -27,17 +28,17 @@ export const Repair = ({ token }) => {
   };
 
   useEffect(() => {
-    fetchAllRepairs();
+    fetchAllServices();
   }, [token]);
 
   return (
     <div className="p-4 sm:p-6">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Your Repair Requests</h2>
 
-      {repairList.length === 0 ? (
-        <p className="text-center text-gray-600">No repair requests found.</p>
+      {serviceList.length === 0 ? (
+        <p className="text-center text-gray-600">No service requests found.</p>
       ) : (
-        repairList.map((order, index) => (
+        serviceList.map((order, index) => (
           <div
             key={index}
             className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr] gap-4 border border-gray-300 rounded-xl p-3 sm:p-6 my-2 bg-blue-300 shadow-md hover:shadow-lg transition duration-300"
@@ -75,10 +76,9 @@ export const Repair = ({ token }) => {
               value={order.status}
               onChange={(e) => statusHandler(e, order._id)}
             >
-              <option value="Repair Requested">Repair Requested</option>
-              <option value="Diagnosing">Diagnosing</option>
-              <option value="Repairing">Repairing</option>
-              <option value="Ready for Pickup">Ready for Pickup</option>
+              <option value="Repair Requested">Request Submitted</option>
+              <option value="Diagnosing">Under Review</option>
+               <option value="Ready for Pickup">Repair Completed</option>
               <option value="Delivered">Delivered</option>
             </select>
             }

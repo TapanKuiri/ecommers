@@ -20,9 +20,9 @@ export const Sidebar = () => {
                 <img className='w-5 h-5' src={assets.add} alt="add" />
                 <p className='hidden md:block'>Orders</p>
             </NavLink>
-            <NavLink to='/repair' className='flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l'>
+            <NavLink to='/services' className='flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l'>
                 <img className='w-5 h-5' src={assets.repair} alt="add" />
-                <p className='hidden md:block'>Repair</p>
+                <p className='hidden md:block'>Service</p>
             </NavLink>
         </div>
     </div>

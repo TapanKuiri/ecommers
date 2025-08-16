@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const repairSchema = new mongoose.Schema({
+const serviceSchema = new mongoose.Schema({
   userId: { type: Object, required: true },
   productName: { type: String, required: true },
   problemDescription: { type: String, required: true },
   address: { type: Object, required: true },
-  status: { type: String, required: true, default: 'Repair Requested' },
+  status: { type: String, required: true, default: 'service Requested' },
   date: { type: Number, required: true }
 });
 
-const repairModel = mongoose.models.repair || mongoose.model("repair", repairSchema);
-export default repairModel;
+const serviceModel = mongoose.models.service || mongoose.model("service", serviceSchema);
+export default serviceModel;

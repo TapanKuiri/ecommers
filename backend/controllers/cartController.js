@@ -87,7 +87,7 @@ const getUserCart = async (req, res) => {
       return res.json({ success: false, message: 'User not found' });
     }
 
-    const cartData = userData.cartData || {}; // ✅ define cartData
+    const cartData = userData.cartData || {};  
     res.json({ success: true, cartData });
   } catch (err) {
     console.log(err);
