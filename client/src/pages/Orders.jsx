@@ -12,7 +12,6 @@ export const Orders = () => {
 
   const loadOrderData = async () => {
     // if (!token) return;
-    console.log("token", token);
     try {
       const response = await axios.post(
         `${backendUrl}/api/order/userorders`,

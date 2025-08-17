@@ -13,7 +13,7 @@ import { NavProfile } from './NavProfile/';
 export const NavbarLayout = () => {
     const [isVisible, setIsVisible] = useState(false);
     const {setShowSearch, showSearch, getCartCount} = useContext(ShopContext);
-    const [value, setValue] = useState('home');
+     
 
     useEffect(()=>{
         getCartCount();
@@ -30,7 +30,7 @@ export const NavbarLayout = () => {
             <img src={assets.logo} className='w-13 rounded-2xl mx-2 ' alt='logo'/>
         </Link>
 
-          <NavbarLinks value={value} setValue ={setValue}/>
+          <NavbarLinks/>
 
 
           <div className='flex  items-center gap-6'>

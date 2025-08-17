@@ -19,7 +19,6 @@ useEffect(() => {
      if(cartItems.count === 0){
       // setCartData(buyHandler);
     }
-    console.log("cartItems", cartItems);
     for (const itemId in cartItems) {
       if (cartItems[itemId] > 0) {
         tempData.push({

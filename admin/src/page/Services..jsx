@@ -27,6 +27,18 @@ export const Services = ({ token }) => {
     }
   };
 
+  const statusHandler = async (event, orderId)=>{
+    try{
+      const response = await axios.post(`${backendUrl}/api/service/status`, {orderId, status:event.target.value}, {headers: {token}});
+      if(response.data.success){
+        await fetchAllServices();
+      }
+    }catch(err){
+      console.error(err);
+      toast.error(err.message);
+    }
+  }
+
   useEffect(() => {
     fetchAllServices();
   }, [token]);
@@ -76,9 +88,9 @@ export const Services = ({ token }) => {
               value={order.status}
               onChange={(e) => statusHandler(e, order._id)}
             >
-              <option value="Repair Requested">Request Submitted</option>
-              <option value="Diagnosing">Under Review</option>
-               <option value="Ready for Pickup">Repair Completed</option>
+              <option value="Request Submitted">Request Submitted</option>
+              <option value="Under Review">Under Review</option>
+               <option value="Ready for Pickup">Ready for Pickup</option>
               <option value="Delivered">Delivered</option>
             </select>
             }

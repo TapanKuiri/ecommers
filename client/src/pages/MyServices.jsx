@@ -20,7 +20,6 @@ export const MyServices = () => {
 
       if (response.data.success) {
         setServicesData(response.data.service.reverse());
-        console.log('Services loaded:', response.data.service);
       } else {
         toast.error('Failed to load services');
       }
@@ -39,14 +38,14 @@ export const MyServices = () => {
   };
 
   const cancelService = async (serviceId) => {
-    console.log("Cancel Service ID:", serviceId);
+    // console.log("Cancel Service ID:", serviceId);
     try {
       const res = await axios.post(
         `${backendUrl}/api/service/cancel`,
         { serviceId },
         { headers: { token } }
       );
-      console.log("Cancel Service Response:", res.data.success);
+      // console.log("Cancel Service Response:", res.data.success);
       if (res.data.success) {
         toast.success('Service cancelled successfully');
         loadServicesData();
@@ -95,7 +94,7 @@ export const MyServices = () => {
               <div className="flex items-start gap-5 text-sm">
                 <img
                   className="w-20 sm:w-24 h-20 object-cover rounded-lg border border-gray-200"
-                  src={service?.image || 'https://via.placeholder.com/80'}
+                  src={service?.image }
                   alt={service.productName || 'Service Item'}
                 />
                 <div>
@@ -158,10 +157,28 @@ export const MyServices = () => {
             {/* Tracking Steps */}
             {expandedServiceIndex === index && (
               <div className="mt-4 pl-4 border-l-4 border-blue-300 text-sm text-gray-700 space-y-1">
-                <p>✅ <strong>Request Submitted</strong></p>
-                <p>{['In Progress', 'Completed'].includes(service.status) ? '✅' : '⏳'} <strong>Under Review</strong></p>
-                <p>{['Completed'].includes(service.status) ? '✅' : '⏳'} <strong>Repair Completed</strong></p>
-                <p>{service.status === 'Completed' ? '✅' : '⏳'} <strong>Delivered</strong></p>
+                 <p>✅ <strong>Request Submitted</strong></p>
+                <p>
+                  {["Under Review", "Ready for Pickup", "Delivered"].includes(service.status)
+                    ? "✅"
+                    : "⏳"}{" "}
+                  <strong>Under Review</strong>
+                </p>
+                <p>
+                  {["Ready for Pickup", "Delivered"].includes(service.status)
+                    ? "✅"
+                    : "⏳"}{" "}
+                  <strong>Ready for Pickup</strong>
+                </p>
+                <p>
+                  {["Delivered"].includes(service.status) ? "✅" : "⏳"}{" "}
+                  <strong>Delivered</strong>
+                </p>
+                {/* <p>✅ <strong>Request Submitted</strong></p>
+                <p>{['Under Review', 'Deivered','Ready for Pickup'].includes(service.status) ? '✅' : '⏳'} <strong>Under Review</strong></p>
+                <p>{['Deivered', 'Ready for Pickup'].includes(service.status) ? '✅' : '⏳'} <strong>Ready for Pickup</strong></p>
+                <p>{['Deivered'].includes(service.status) ? '✅': '⏳'} <storng>Deivered</storng></p> */}
+                {/* <p>{service.status === 'Completed' ? '✅' : '⏳'} <strong>Delivered</strong></p> */}
               </div>
             )}
           </div>

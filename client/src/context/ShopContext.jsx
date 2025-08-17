@@ -27,7 +27,6 @@ const ShopContextProvider = (props)=>{
             const response = await axios.post(backendUrl + '/api/cart/add', { itemId }, {
                 headers: { token }
             });
-            console.log("response", response)
         } catch (err) {
             console.log("error here")
             console.error(err);

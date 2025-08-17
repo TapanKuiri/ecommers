@@ -80,8 +80,7 @@ const cancelService = async (req, res) => {
     if(!service){
       return res.status(404).json({success: false, message: "Service not found"});
     }
-    console.log("Service to cancel:", service);
-    if(service.status === 'Completed'){
+    if(service.status === 'Delevered' || service.status === 'Completed'){
       return res.status(400).json({success: false, message: "Cannot cancel a completed service"});
     }
     if(service.status === 'Cancelled'){
@@ -101,4 +100,30 @@ const cancelService = async (req, res) => {
   }
 }
 
-export { placeService,listService, cancelService};
+const statusService = async (req, res)=>{
+  try{
+    const {orderId, status} = req.body;
+    if(!orderId || !status){
+      return res.status(400).json({success: false, message: "Order ID and status are required"});
+    }
+    const service = await serviceModel.findById(orderId);
+    if(!service){
+      return res.status(404).json({success: false, message: "Service not found"});
+    }
+    if(service.status === "Delivered"){
+      return res.status(400).json({success: false, message: "Cannot change status of a completed service"});
+    }
+    service.status = status;
+    await service.save();
+    return res.status(200).json({
+      success: true,
+      message: "Service status updated successfully",
+      service
+    });
+  }catch(err){
+    console.error("Error", err);
+    res.status(500).json({success: false, message: "Internal server error"});
+  }
+}
+
+export { placeService,listService, cancelService, statusService};

@@ -5,11 +5,13 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { Title } from '../components/Title';
+import { useNavigate } from 'react-router-dom';
 
 export const Service = () => {
   const { backendUrl, token } = useContext(ShopContext);
   const allImages = [assets.repair1, assets.repair2, assets.repair3];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate  = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,6 +79,8 @@ export const Service = () => {
           country: '',
           phone: '',
         });
+
+        navigate('/services')
       } else {
         toast.error(response.data.message);
       }
