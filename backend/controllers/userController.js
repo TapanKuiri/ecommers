@@ -12,8 +12,8 @@ const createToken = (id)=>{
 // Route for user login
 const loginUser = async(req, res)=>{                                
     try{
-
         const {email, password} = req.body;
+        console.log("inside user login: ", email, password);
     
         const user = await userModel.findOne({email});
         if(!user){

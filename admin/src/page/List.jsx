@@ -1,80 +1,103 @@
-import React from 'react'
-import { currency } from '../App';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { backendUrl } from '../App';
-  
-export const List = ({token}) => {
+import React, { useState, useEffect } from "react";
+import { currency, backendUrl } from "../App";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+export const List = ({ token }) => {
   const [list, setList] = useState([]);
-  // console.log(backendUrl+'/api/product/list')
-  const fetchList = async()=>{
-    try{
-      const response = await axios.get(backendUrl + '/api/product/list', {headers: {token}});
-      // console.log(list);
-      if(response.data.success){
+
+  const fetchList = async () => {
+    try {
+      const response = await axios.get(backendUrl + "/api/product/list", {
+        headers: { token },
+      });
+      if (response.data.success) {
         setList(response.data.products);
-      }else{
+      } else {
         toast.error(response.data.message);
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
       toast.error(err.message);
     }
-  }
+  };
 
-  const removeProduct = async (id) =>{
-      try{
-        const response = await axios.post(backendUrl+ '/api/product/remove',  {id}, {headers: {token}} );
-        if(response.data.success){
-          toast.success(response.data.message);
-          await fetchList();
-        }else{
-          toast.error(response.data.message);
-        }
-        // console.log(response.d ata.success)
-
-      }catch(err){
-        console.log(err);
-        toast.error(err.message);
+  const removeProduct = async (id) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/product/remove",
+        { id },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        await fetchList();
+      } else {
+        toast.error(response.data.message);
       }
-  }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchList();
   }, []);
 
   return (
-    <div>
-      <p className='mb-2'>All Products List</p>
-      <div className='flex flex-col gap-2'>
-        {/* --------list Table  title- --------------------- */}
-        <div className='hidden md:grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
-            <b>Image</b>
-            <b>Name</b>
-            <b>Category</b>
-            <b>Price</b>
-            <b className='text-center'>Action</b>
+    <div className="p-6 sm:p-10 bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        📦 All Products List
+      </h2>
+
+      <div className="flex flex-col gap-3">
+        {/* -------- Table Head -------- */}
+        <div className="hidden md:grid grid-cols-[1fr_2fr_1fr_1fr_1fr] items-center py-3 px-4 
+        border-b bg-gray-100 text-sm font-semibold text-gray-600 uppercase tracking-wide rounded-t-lg">
+          <span>Image</span>
+          <span>Name</span>
+          <span>Category</span>
+          <span>Price</span>
+          <span className="text-center">Action</span>
         </div>
 
-        {/* -------------product list---------------- */}
-            {
-              list.map((item, index)=>{
-                return (
-                 <div className='grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm'
-                  key={index}>
-                  <img className="w-12" src={item.image[0]} alt="" />
-                  <p>{item.name}</p>
-                  <p>{item.category}</p>
-                  <p>{currency}{item.price}</p>
-                  <p onClick={()=> removeProduct(item._id)} className='text-right md:text-center cursor-pointer text-lg' >X</p>
+        {/* -------- Product Rows -------- */}
+        {list.map((item, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-[1fr_2fr_1fr] md:grid-cols-[1fr_2fr_1fr_1fr_1fr] items-center 
+            gap-4 py-4 px-4 border bg-white shadow-sm hover:shadow-md transition rounded-lg text-sm"
+          >
+            {/* Product Image */}
+            <img
+              className="w-16 h-16 object-cover rounded-lg border"
+              src={item.image[0]}
+              alt={item.name}
+            />
 
-                 </div>
+            {/* Name */}
+            <p className="font-medium text-gray-800">{item.name}</p>
 
-                ) 
-              })
-            }
+            {/* Category */}
+            <p className="text-gray-600">{item.category}</p>
+
+            {/* Price */}
+            <p className="font-semibold text-blue-600">
+              {currency}
+              {item.price}
+            </p>
+
+            {/* Delete Button */}
+            <button
+              onClick={() => removeProduct(item._id)}
+              className="text-red-500 hover:text-red-700 font-bold text-center transition"
+            >
+              ✖
+            </button>
+          </div>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
