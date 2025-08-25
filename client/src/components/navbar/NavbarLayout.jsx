@@ -41,12 +41,13 @@ export const NavbarLayout = () => {
                 
 
                  <NavProfile/>
-
-                <NavLink onClick={()=>setValue('')} to='/cart' className='relative'> 
-                    <img src={assets.cart}
-                    className='w-6.5 min-w-5 bg-gray-300' alt='cart'/>
-                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
+                <NavLink to='/cart' className='relative'>
+                <img src={assets.cart} className='w-6.5 min-w-5 bg-gray-300' alt='cart'/>
+                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>
+                    {getCartCount()}
+                </p>
                 </NavLink>
+
 
                 <img  onClick={()=>{setIsVisible(!isVisible)}  }
                 src={assets.menu}

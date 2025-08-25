@@ -4,11 +4,13 @@ import axios from 'axios';
 import { redirect } from 'react-router-dom';
 import { toast } from "react-toastify";
 import {jwtDecode} from 'jwt-decode';
+import { assets } from '../assets/assets';
 
 
 
 export const Login = () => {
     const [currentState , setCurrentState] = useState('Login');
+    const [isloading, setIsLoading] = useState(false);
 
     const { token, setToken, navigate, backendUrl} = useContext(ShopContext);
     
@@ -24,15 +26,17 @@ export const Login = () => {
             // console.log(response.data);
             if(response.data.success){
               setToken(response.data.token);
+              setIsLoading(false);
               localStorage.setItem('token', response.data.token)
             }else{
               toast.error(response.data.message);
             }
         }else{
           const response = await axios.post(backendUrl+'/api/user/login', {email, password});
-          console.log("response: - ",response.data);
+          // console.log("response: - ",response.data);
           
           if(response.data.success){
+            setIsLoading(false);
             setToken(response.data.token);
             localStorage.setItem('token', response.data.token);
           
@@ -78,8 +82,21 @@ export const Login = () => {
               : <p onClick={()=> setCurrentState('Login')} className='cursor-pointer'>Login Here</p>
             }
           </div>
+          <button 
+          className="bg-black text-white flex items-center justify-center gap-2 font-light px-8 py-2 mt-4 relative rounded-2xl 
+             hover:bg-white hover:text-black hover:border-black 
+             active:bg-white active:text-black active:border-black border border-transparent"
+          >
+            {
+             isloading &&  <img 
+                src={assets.spinner} 
+                alt="loading" 
+                className="w-5 h-5 animate-spin text-white"
+              />
+            }
+            {currentState === 'Login' ? 'Login' : 'Sign Up'}
+          </button>
 
-          <button className='bg-black text-white font-light px-8 py-2 mt-4'>{currentState === 'Login' ? 'Login' : 'Sign Up' }</button>
 
           
     </form>

@@ -19,17 +19,6 @@ const loginUser = async(req, res)=>{
         if(!user){
             return res.json({success: false, message: 'User dose not exists'});
         }
-        if(user.role === 'admin'){
-            if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
-                // const token = jwt.sign(email+password, process.env.JWT_SECRET);
-                const token = createToken(user._id);
-                res.json({success: true, token});
-            }else{
-                res.json({success: false, message: 'Invalid credentials'});
-            }
-        }else{
-            // console.log("user: ", user);
-
             const isMatch = await bcrypt.compare(password, user.password);
         
             if(isMatch){
@@ -38,7 +27,7 @@ const loginUser = async(req, res)=>{
             }else{
                 res.json({success:false, message: 'Invalid credentials'});
             }
-        }
+        
     
     }catch(err){
         console.log(err);
@@ -92,8 +81,8 @@ const adminLogin = async(req, res)=>{
     // console.log("inside admin login");
     try{
         const {email, password} = req.body;
-        // console.log("inside Admin: ", email, password);
-        // console.log("process mail: ", process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD);
+        console.log("inside Admin: ", email, password);
+        console.log("process mail: ", process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD);
         
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
             const token = jwt.sign(email+password, process.env.JWT_SECRET);

@@ -8,7 +8,7 @@ import { assets } from '../assets/assets';
 import {CartTotal} from '../components/cart/CartTotal';
 
 export const Cart = () => {
-  const {products, currency, cartItems,updateQuantity, navigate, buyHandler} = useContext(ShopContext);
+  const {products, currency, cartItems,updateQuantity, navigate} = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   // console.log("products: cart", products);
 
@@ -16,9 +16,7 @@ useEffect(() => {
   if (products.length > 0) {
     const tempData = [];
 
-     if(cartItems.count === 0){
-      // setCartData(buyHandler);
-    }
+    console.log("cartItems:", cartItems);
     for (const itemId in cartItems) {
       if (cartItems[itemId] > 0) {
         tempData.push({

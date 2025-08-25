@@ -29,8 +29,10 @@ import electronics from './electronics.jpeg';
 import upload_icon from './uploadIcon.png';
 import parcel from './parcel.png';
 import repair from './repair.jpg';
+import mlogo from './mlogo.png';
 
 export const assets = {
+  mlogo,
   repair,
   parcel,
   table_fan,

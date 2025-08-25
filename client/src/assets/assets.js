@@ -24,22 +24,22 @@ import bin from './bin.png';
 // import razory form './razoruypa.png';
 import razoruypa from './razorypay.jpeg';
 import profile from './profile1.png';
-import electronics from './electronics.jpeg';
 import cart from './cart.png';
 import menu from './menu.png'
 import repair1 from './repair1.jpg';
 import repair2 from './repair2.jpg';
 import repair3 from './repair3.jpg';
+import spinner from  './spinner.svg';
 
 
 export const assets = {
+  spinner,
   repair1,
   repair2,  
   repair3,
   menu,
   cart,
   table_fan,
-  electronics,
   profile,
     fan1,
     watches,
