@@ -175,10 +175,12 @@ const getProductsData = async () => {
     useEffect(()=>{
       if (!token && localStorage.getItem('token')) {
         const savedToken = localStorage.getItem('token');
+        if (profileImage) localStorage.setItem("profileImage", profileImage);
+        // setProfileImage(localStorage.getItem("profileImage") || "");
         setToken(savedToken);
         getUserCart(savedToken);
       }
-    }, [token]);
+    }, [token, profileImage]);
 
 
 

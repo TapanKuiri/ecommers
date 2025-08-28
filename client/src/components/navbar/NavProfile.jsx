@@ -5,7 +5,6 @@ import { ShopContext } from '../../context/ShopContext';
 
 export const NavProfile = () => {
   const { token, setToken, setCartItems, profileImage, setProfileImage } = useContext(ShopContext);
-  console.log("profileImage:", profileImage);
   const navigate = useNavigate();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -29,23 +28,16 @@ export const NavProfile = () => {
     }
   };
 
-  // 👇 Hide dropdown on click outside
+  // 👇 Close dropdown when clicking outside
   useEffect(() => {
-    setProfileImage(localStorage.getItem('profileImage'));
     const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownVisible(false);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -79,7 +71,6 @@ export const NavProfile = () => {
             >
               🛠️ Services
             </Link>
-
 
             <p
               onClick={logout}

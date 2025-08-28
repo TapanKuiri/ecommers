@@ -32,6 +32,7 @@ export const Login = () => {
       if (response.data.success) {
         setToken(response.data.token)
         localStorage.setItem('token', response.data.token)
+        localStorage.setItem('profileImage', assets.profile);
       } else {
         toast.error(response.data.message)
       }
@@ -62,11 +63,11 @@ export const Login = () => {
           if (result.data.success) {
             const { email, name, image } = result.data.user
             // console.log("Google user:", { email, name, image })
-            setProfileImage(image);
             const token = result.data.token
             setToken(token)
             localStorage.setItem('token', token);
-            // localStorage.setItem('profileImage', image);
+            localStorage.setItem('profileImage', image || assets.profile);
+            setProfileImage(image || assets.profile);
 
           } else {
             toast.error(result.data.message)
