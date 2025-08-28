@@ -11,7 +11,7 @@ export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
             <img src={image[0]} alt='img0'  />
         </div>
         <p className='pt-3 pb-1 text-sm'>{name}</p>
-       <div className='flex justify-between px-2'>
+       <div className='flex justify-between px-4'>
           <p className='text-sm font-medium line-through text-gray-500'>
             {currency}{price}
           </p>

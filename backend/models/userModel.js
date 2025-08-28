@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true, //  Normalize email casing
     trim: true
   },
+  image: {
+    type: String,
+    default: "" //  URL to user's profile picture
+  },
   password: {
     type: String,
     required: true

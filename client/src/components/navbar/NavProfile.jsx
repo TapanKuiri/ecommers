@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../../context/ShopContext';
 
 export const NavProfile = () => {
-  const { token, setToken, setCartItems } = useContext(ShopContext);
+  const { token, setToken, setCartItems, profileImage, setProfileImage } = useContext(ShopContext);
+  console.log("profileImage:", profileImage);
   const navigate = useNavigate();
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -12,6 +13,8 @@ export const NavProfile = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('profileImage');
+    setProfileImage('');
     setToken('');
     setCartItems({});
     navigate('/login');
@@ -50,8 +53,8 @@ export const NavProfile = () => {
       <img
         onClick={toggleDropdown}
         className="w-8 h-8 rounded-full border border-gray-300 cursor-pointer hover:scale-105 transition duration-300"
-        src={assets.profile}
-        alt="Profile Icon"
+        src={profileImage || assets.profile}
+        alt="Profile"
       />
 
       {/* Dropdown Menu */}

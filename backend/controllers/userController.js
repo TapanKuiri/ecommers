@@ -2,19 +2,19 @@ import userModel from "../models/userModel.js";
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
+import  oauth2client  from '../config/googleConfig.js';
 
-
-const createToken = (id)=>{
-    return jwt.sign({id}, process.env.JWT_SECRET);
-    // user?.role === "admin"
-}
+const createToken = (id) => {
+  return jwt.sign(
+    { id }, process.env.JWT_SECRET, { expiresIn: "7d" }
+  );
+};
 
 // Route for user login
 const loginUser = async(req, res)=>{                                
     try{
         const {email, password} = req.body;
-        console.log("inside user login: ", email, password);
-    
         const user = await userModel.findOne({email});
         if(!user){
             return res.json({success: false, message: 'User dose not exists'});
@@ -98,4 +98,58 @@ const adminLogin = async(req, res)=>{
     }
 }
 
-export {loginUser, registerUser, adminLogin};
+ 
+// controllers/googleAuthController.js
+ 
+const googleLogin = async (req, res) => {
+  try {
+    const { code } = req.body;
+    if (!code) {
+      return res.status(400).json({ success: false, message: "Authorization code is required" });
+    }
+
+    // 1. Get tokens
+    const googleRes = await oauth2client.getToken(code);
+    oauth2client.setCredentials(googleRes.tokens);
+
+    // 2. Get user profile
+    const userRes = await axios.get(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+    );
+    const { email, name, picture } = userRes.data;
+    // console.log("Google user info:", { email, name, picture });
+    // 3. Check if user exists
+    let user = await userModel.findOne({ email });
+
+    if (!user) {
+      // Create new user
+      user = new userModel({
+        name,
+        email,
+        password: await bcrypt.hash(email + process.env.JWT_SECRET, 10),
+        image: picture, 
+      });
+      await user.save();
+    } 
+
+    // 4. Generate JWT
+    const token = createToken(user._id);
+
+    return res.status(200).json({
+      success: true,
+      message: user.isNew ? "User registered successfully" : "Login successful",
+      user,
+      token,
+    });
+  } catch (err) {
+    console.error("Google login error:", err.response?.data || err.message);
+    res.status(400).json({ success: false, message: err.response?.data || err.message });
+  }
+};
+
+
+
+export default googleLogin;
+
+
+export {loginUser, registerUser, adminLogin, googleLogin};

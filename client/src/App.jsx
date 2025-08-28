@@ -21,10 +21,17 @@ import { ShopContext } from './context/ShopContext';
 import { Service } from './pages/Service';
 import { MyServices } from './pages/MyServices';
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
+import {GoogleOAuthProvider} from '@react-oauth/google';
 
 function App() {
   // const { user} = useContext(ShopContext);
+  const GoogleAuthWrapper = ()=>{
+    return(
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <Login/>
+      </GoogleOAuthProvider>
+    )
+  }
   return (
     <div className="pt-16">
        <ToastContainer/>
@@ -39,7 +46,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productId" element={<ProductLayout />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/login" element={<GoogleAuthWrapper/>} />
           <Route path="/place-order" element={<PlaceOrder/>} />
           <Route path="/orders" element={<Orders/>} />
           <Route path="/services" element={<MyServices/>} />

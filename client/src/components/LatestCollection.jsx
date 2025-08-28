@@ -15,14 +15,10 @@ export const LatestCollection = () => {
   }, [products]);
 
   return (
-    <div className="my-1 px-5 py-12 rounded-xl shadow-md duration-500">
+    <div className="my-1 px-1 py-12 rounded-xl shadow-md duration-500" >
       {/* Title Section */}
       <div className="text-center pb-8 text-3xl font-semibold text-gray-800 relative">
         <Title text1={'LATEST'} text2={'COLLECTION'} />
-        <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto mt-2 rounded-full animate-pulse"></div>
-      </div>
-
-      {/* Show Loaders or Products */}
       {isLoading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -41,7 +37,7 @@ export const LatestCollection = () => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 gap-y-7">
           {latestProducts.map((item, index) => (
             <div
               key={index}
@@ -59,6 +55,8 @@ export const LatestCollection = () => {
           ))}
         </div>
       )}
+      </div>
+
     </div>
   );
 };
