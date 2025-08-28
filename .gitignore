@@ -15,6 +15,7 @@ client/.env
 backend/.env
 admin/.env
 
+
 # IDE/Editor settings
 .vscode/
 *.swp

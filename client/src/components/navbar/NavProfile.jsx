@@ -31,6 +31,7 @@ export const NavProfile = () => {
 
   // 👇 Hide dropdown on click outside
   useEffect(() => {
+    setProfileImage(localStorage.getItem('profileImage'));
     const handleClickOutside = (event) => {
       if (
         dropdownRef.current &&
