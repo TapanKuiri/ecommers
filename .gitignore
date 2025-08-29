@@ -25,4 +25,6 @@ admin/node_modules/
 
 # Ignore all .env files
 *.env
- 
+ .env
+backend/.env
+client/.env
