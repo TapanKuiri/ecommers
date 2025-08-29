@@ -4,29 +4,19 @@ import {Title} from '../Title.jsx';
 import { ProductItem } from '../ProductItem.jsx';
 import { Link } from 'react-router-dom'
 
-export const ProductRelatedProduct = ({ catagory, subCatagory }) => {
+export const ProductRelatedProduct = ({ category }) => {
     const { products } = useContext(ShopContext);
     const [relatedProducts, setRelatedProducts] = useState([]);
 
     useEffect(() => {
         if (products.length > 0) {
-            // Clone the array
             let productsCopy = products.slice();
-            // Filter by category and sub-category
-            // console.log('productsCopy: ', productsCopy);
             productsCopy = productsCopy.filter((item)=> {
-                // console.log('item.catagory', item.category, 'catagory', catagory);
-                return catagory === item.category
-
+                return category === item.category
             });
-
-            // productsCopy = productsCopy.filter((item)=> subCatagory === item.subCatagory);
-            // console.log('productsCopy', productsCopy); 
-
-            // Take only the first 4 related products
             setRelatedProducts(productsCopy.slice(0, 4)); 
         }
-    }, [products, catagory, subCatagory]);
+    }, [products, category]);
 
     return (
         <div className="my-24">
@@ -37,7 +27,7 @@ export const ProductRelatedProduct = ({ catagory, subCatagory }) => {
                 {relatedProducts.map((item, index) => (
                     //  key={index} className='text-green-700 cursor-pointer'>
                      <ProductItem   
-                       key={item._id}  id={item._id} name={item.name} price={item.price} image={item.image} />
+                       key={item._id}  id={item._id} name={item.name} price={item.price} finalPrice={item.finalPrice} discount={item.discount} image={item.image} />
                     // </Link>
                 ))}
             </div>

@@ -22,6 +22,7 @@ import { Service } from './pages/Service';
 import { MyServices } from './pages/MyServices';
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 import {GoogleOAuthProvider} from '@react-oauth/google';
+import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
   // const { user} = useContext(ShopContext);
@@ -34,6 +35,7 @@ function App() {
   }
   return (
     <div className="pt-16">
+       <ScrollToTop/>
        <ToastContainer/>
        <NavbarLayout/>
        <SearchBar/>

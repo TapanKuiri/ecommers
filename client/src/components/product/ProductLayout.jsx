@@ -33,6 +33,7 @@ export const ProductLayout = () => {
   }
 
 
+
   useEffect(()=>{
     fetchProductData();
   },[productId, products]);
@@ -65,7 +66,7 @@ export const ProductLayout = () => {
 
         {/* ----------------------display related products------------------ */}
 
-      <ProductRelatedProduct catagory={productData.catagory} subCatagory={productData.subCatagory} />  
+      <ProductRelatedProduct category={productData.category} />  
 
     <div>
 
