@@ -28,3 +28,5 @@ admin/node_modules/
  .env
 backend/.env
 client/.env
+backend/.env
+client/.env
