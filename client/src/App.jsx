@@ -27,6 +27,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 function App() {
   // const { user} = useContext(ShopContext);
   const GoogleAuthWrapper = ()=>{
+    console.log("Google Client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
     return(
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <Login/>
