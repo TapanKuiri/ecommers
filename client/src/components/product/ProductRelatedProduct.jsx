@@ -11,12 +11,14 @@ export const ProductRelatedProduct = ({ category }) => {
     useEffect(() => {
         if (products.length > 0) {
             let productsCopy = products.slice();
-            productsCopy = productsCopy.filter((item)=> {
-                return category === item.category
-            });
-            setRelatedProducts(productsCopy); 
+            // Filter by category
+            productsCopy = productsCopy.filter((item) => category === item.category);
+            // Shuffle the filtered products
+            productsCopy = productsCopy.sort(() => Math.random() - 0.5);
+            setRelatedProducts(productsCopy);
         }
     }, [products, category]);
+
 
     return (
         <div className="my-24">

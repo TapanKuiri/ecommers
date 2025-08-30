@@ -145,14 +145,19 @@ const updateQuantity = async (itemId, quantity) => {
   return totalAmount;
 };
 
-
 const getProductsData = async () => {
   try {
     const response = await axios.get(backendUrl + '/api/product/list');
-    // console.log("response list:", response.data.products);
 
     if (response.data.success) {
-      setProducts(response.data.products);
+      // Get products
+      let productsData = response.data.products;
+
+      // Shuffle products
+      productsData = productsData.sort(() => Math.random() - 0.5);
+
+      // Set products
+      setProducts(productsData);
     } else {
       toast.error(response.data.message);
     }
@@ -162,6 +167,7 @@ const getProductsData = async () => {
     toast.error(err.message);
   }
 };
+
 
     // const 
      
