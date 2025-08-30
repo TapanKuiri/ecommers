@@ -37,7 +37,8 @@ export const NavbarLayout = () => {
                 <img className='w-6 cursor-pointer' 
                 src={assets.search_icon}
                 alt='Search Icon'
-                onClick={()=>setShowSearch(!showSearch)}/>
+                onClick={()=>setShowSearch(!showSearch)}
+                />
                 
 
                  <NavProfile/>

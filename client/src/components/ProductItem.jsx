@@ -11,17 +11,19 @@ export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
         <div className='overflow-hidden'>
             <img src={image[0]} alt='img0'  />
         </div>
-        <p className='pt-3 pb-1 text-sm'>{name}</p>
-       <div className='flex justify-between px-4'>
-          <p className='text-sm font-medium line-through text-gray-500'>
-            {currency}{price}
-          </p>
-          <p className='text-sm font-medium text-red-500'>
-            {discount}%
-          </p>
-          <p className='text-sm font-medium text-green-600'>
-            {currency}{finalPrice}
-          </p>
+        <div className='mx-2'>
+          <p className='pt-3 pb-1 text-sm'>{name}</p>
+        <div className='flex justify-between px-4'>
+            <p className='text-sm font-medium line-through text-gray-500'>
+              {currency}{price}
+            </p>
+            <p className='text-sm font-medium text-red-500'>
+              {discount}%
+            </p>
+            <p className='text-sm font-medium text-green-600'>
+              {currency}{finalPrice}
+            </p>
+        </div>
       </div>
 
 

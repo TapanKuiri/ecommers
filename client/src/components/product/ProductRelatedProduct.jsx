@@ -14,7 +14,7 @@ export const ProductRelatedProduct = ({ category }) => {
             productsCopy = productsCopy.filter((item)=> {
                 return category === item.category
             });
-            setRelatedProducts(productsCopy.slice(0, 4)); 
+            setRelatedProducts(productsCopy); 
         }
     }, [products, category]);
 
