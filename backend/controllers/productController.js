@@ -53,14 +53,26 @@ const addProduct = async (req, res) => {
 
 // list products
 const listProducts = async (req, res) => {
-    try{
-        const products = await productModel.find({});
-        // console.log("products---: ", products);
-        res.json({success: true, products});
-    }catch(err){
-        console.log("inside products")
-        console.log(err);
-        res.json({success: false, message: err.message});
+     try {
+        const page = parseInt(req.body.page) || 1;
+        const limit = parseInt(req.body.limit) || 16;
+        const skip = (page - 1) * limit;
+
+        const products = await productModel.find()
+        .skip(skip)
+        .limit(limit);
+
+        const total = await productModel.countDocuments();
+
+        res.json({
+        success: true,
+        products,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 }
 

@@ -145,31 +145,89 @@ const updateQuantity = async (itemId, quantity) => {
   return totalAmount;
 };
 
-const getProductsData = async () => {
-  try {
-    const response = await axios.get(backendUrl + '/api/product/list');
+// const getProductsData = async (page = 1, limit = 16) => {
+//   try {
+//     const response = await axios.post(backendUrl + "/api/product/list", {
+//       page,
+//       limit,
+//     });
 
-    if (response.data.success) {
-      // Get products
-      let productsData = response.data.products;
+//     if (response.data.success) {
+//       let productsData = response.data.products;
 
-      // Shuffle products
-      productsData = productsData.sort(() => Math.random() - 0.5);
+//       // Shuffle products
+//       productsData = productsData.sort(() => Math.random() - 0.5);
 
-      // Set products
-      setProducts(productsData);
-    } else {
-      toast.error(response.data.message);
-    }
+//       // If first page, replace; else append
+//       if (page === 1) {
+//         setProducts(productsData);
+//       } else {
+//         setProducts((prev) => [...prev, ...productsData]);
+//       }
+//     } else {
+//       toast.error(response.data.message);
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     toast.error(err.message);
+//   }
+// };
 
-  } catch (err) {
-    console.log(err);
-    toast.error(err.message);
-  }
-};
+// const getProductsData = async () => {
+//   try {
+//     const response = await axios.get(backendUrl + '/api/product/list');
+
+//     if (response.data.success) {
+//       // Get products
+//       let productsData = response.data.products;
+
+//       // Shuffle products
+//       productsData = productsData.sort(() => Math.random() - 0.5);
+
+//       // Set products
+//       setProducts(productsData);
+//     } else {
+//       toast.error(response.data.message);
+//     }
+
+//   } catch (err) {
+//     console.log(err);
+//     toast.error(err.message);
+//   }
+// };
 
 
     // const 
+
+  const getProductsData = async (page = 1, limit = 16) => {
+
+  try {
+    const res = await axios.post(`${backendUrl}/api/product/list`, {
+      page,
+      limit
+    });
+
+
+    if (res.data.success) {
+      let productsData = res.data.products;
+      productsData = productsData.sort(() => Math.random() - 0.5);
+
+      setProducts(prev =>
+        page === 1 ? productsData : [...prev, ...productsData]
+      );
+
+      return true;
+    } else {
+      toast.error(res.data.message);
+      return false;
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error(err.message);
+    return false;
+  }
+};
+
      
     useEffect(()=>{
         // addToCart()
@@ -194,7 +252,7 @@ const getProductsData = async () => {
     const value = {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantity
+        cartItems, addToCart, getCartCount, updateQuantity, getProductsData
         ,getCartAmount, navigate, backendUrl, token, setToken, setCartItems, getUserCart,buyHandler
         ,setProfileImage, profileImage
     }

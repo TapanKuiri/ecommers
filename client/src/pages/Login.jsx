@@ -33,6 +33,7 @@ export const Login = () => {
         setToken(response.data.token)
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('profileImage', assets.profile);
+        setProfileImage(assets.profile);
       } else {
         toast.error(response.data.message)
       }
