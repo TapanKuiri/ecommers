@@ -7,7 +7,7 @@ export const NavbarLinks = () => {
 
   return (
     <div>
-      <ul className="hidden sm:flex gap-11 text-sm text-gray-700">
+      <ul className="hidden sm:flex lg:gap-11 md:gap-4 text-sm text-gray-700">
         {/* HOME */}
         <NavLink to="/">
           <p

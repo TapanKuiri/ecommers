@@ -18,16 +18,16 @@ export const SearchBar = () => {
 
 
   return (
-    <div className='flex border-t border-b  bg-gray-50 text-center '>
-      <div className='inline-flex  items-center justify-center border border-gray-500 px-5 h-14 w-75 rounded-md'>
+    <div className='flex border-t border-b w-[48%]  bg-gray-50 text-center md:w-40 lg:w-96 rounded-md'>
+      <div className='inline-flex  items-center justify-center border border-gray-500 px-5 h-12 rounded-md'>
         <input
           type='text'
           placeholder='Search'
-          className='flex-1 outline-none bg-inherit py-2 h-full text-gray-950 text-xl'
+          className='flex-1 outline-none lg:w-80  w-full  py-2 bg-amber-30 text-gray-950 text-xl rounded-md'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <img className='w-4 cursor-pointer' src={assets.searchicon} alt='search' />
+        <img className='w-6 cursor-pointer' src={assets.searchicon} alt='search' />
       </div>
       {/* <img
         src={assets.search_icon}

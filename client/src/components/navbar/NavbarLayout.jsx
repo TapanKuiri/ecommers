@@ -27,18 +27,18 @@ export const NavbarLayout = () => {
 
    
     {/* // <div className='flex fixed items-center justify-between bg-gray-300 text-white p-1 md:mx-10 mx-0'> */}
-    <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-10 py-2'>
+    <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-7 py-2'>
 
         <Link to='/' >
-            <img src={assets.logo} className='w-13 rounded-2xl mx-2 ' alt='logo'/>
+            <img src={assets.logo} className='w-13 rounded-2xl mx-1  ' alt='logo'/>
         </Link>
 
-        <SearchBar/>
 
+        <SearchBar/>
           <NavbarLinks/>
 
 
-          <div className='flex  items-center gap-6'>
+          <div className='flex  items-center gap-2'>
                 {/* <img className='w-6 cursor-pointer' 
                 src={assets.search_icon}
                 alt='Search Icon'
@@ -47,12 +47,12 @@ export const NavbarLayout = () => {
                 
 
                  <NavProfile/>
-                <NavLink to='/cart' className='relative'>
-                <img src={assets.cart} className='w-6.5 min-w-5 mr-4 bg-gray-300' alt='cart'/>
-                <p className='absolute right-[-5px] bottom-[-5px] w-4 mr-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>
+                <Link to='/cart' className='relative '>
+                <img src={assets.cart} className='w-6.5 min-w-5 h-7 mr-3 bg-gray-300' alt='cart'/>
+                <p className='absolute right-[-5px] bottom-[-5px] w-4 mr-3 text-center leading-4 bg-green-500 text-black aspect-square rounded-full text-[10px]'>
                     {getCartCount()}
                 </p>
-                </NavLink>
+                </Link>
 
 
                 {/* <img  onClick={()=>{setIsVisible(!isVisible)}  }
@@ -65,7 +65,7 @@ export const NavbarLayout = () => {
            
           </div>
     </div>
-    <div className='w-full lg:hidden'>
+    <div className='w-full lg:hidden sm:hidden md:hidden '>
         <NavSidebarMenu/>
     </div>
       </div>

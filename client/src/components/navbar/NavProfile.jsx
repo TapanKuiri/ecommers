@@ -40,11 +40,11 @@ export const NavProfile = () => {
   }, []);
 
   return (
-    <div className="relative z-11" ref={dropdownRef}>
+    <div className="relative z-53" ref={dropdownRef}>
       {/* Profile Icon */}
       <img
         onClick={toggleDropdown}
-        className="w-8 h-8 rounded-full border border-gray-300 cursor-pointer hover:scale-105 transition duration-300"
+        className="w-9 h-9 rounded-full border border-gray-300 cursor-pointer hover:scale-105 transition duration-300"
         src={profileImage || assets.profile}
         alt="Profile"
       />
