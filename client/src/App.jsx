@@ -38,7 +38,7 @@ function App() {
        <ScrollToTop/>
        <ToastContainer/>
        <NavbarLayout/>
-       <SearchBar/>
+       {/* <SearchBar/> */}
        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products/>} />

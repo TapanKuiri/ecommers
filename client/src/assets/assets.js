@@ -31,9 +31,22 @@ import repair2 from './repair2.jpg';
 import repair3 from './repair3.jpg';
 import spinner from  './spinner.svg';
 import google from './google.png';
+import coll1 from './coll1.png';
+import coll2 from './coll2.png';
+import coll3 from './coll3.jpg';
+import coll4 from './coll4.jpeg';
+import coll5 from './coll5.jpeg';
+// import coll3 from './coll3.jpeg';
+// import coll4 from './coll4.jpeg';
+
 
 
 export const assets = {
+  coll1,
+  coll2,
+  coll3,
+  coll4,
+  coll5,
   google,
   spinner,
   repair1,
@@ -62,112 +75,3 @@ export const assets = {
     bin,
     razoruypa
 }
-
-export const products = [
-  {
-    _id: 'p001',
-    name: 'table fan',
-    description: 'A comfortable and stylish white t-shirt made from 100% cotton, perfect for casual wear.',
-    price: 499,
-    image: [table_fan],
-    category: 'Men',
-    subCategory: 'Topwear',
-    size: ['S', 'M', 'L'],
-    date: '2023-10-01',
-    bestseller: true,
-  },{
-    _id: 'p002',
-    name: 'fan',
-    description: 'A comfortable and stylish white t-shirt made from 100% cotton, perfect for casual wear.',
-    price: 499,
-    image: [fan],
-    category: 'Men',
-    subCategory: 'Topwear',
-    size: ['S', 'M', 'L'],
-    date: '2023-10-01',
-    bestseller: true,
-  },{
-    _id: 'p003',
-    name: 'wathces',
-    description: 'A comfortable and stylish white t-shirt made from 100% cotton, perfect for casual wear.',
-    price: 499,
-    image: [watches],
-    category: 'Men',
-    subCategory: 'Topwear',
-    size: ['S', 'M', 'L'],
-    date: '2023-10-01',
-    bestseller: true,
-  },{
-    _id: 'p004',
-    name: 'watches 2',
-    description: 'A comfortable and stylish white t-shirt made from 100% cotton, perfect for casual wear.',
-    price: 499,
-    image: [watches1],
-    category: 'Men',
-    subCategory: 'Topwear',
-    size: ['S', 'M', 'L'],
-    date: '2023-10-01',
-    bestseller: true,
-  },
-    {
-      _id: 'p005',
-      name: 'Men’s Classic White T-Shirt',
-      description: 'A comfortable and stylish white t-shirt made from 100% cotton, perfect for casual wear.',
-      price: 499,
-      image: [fan1],
-      category: 'Men',
-      subCategory: 'Topwear',
-      size: ['S', 'M', 'L'],
-      date: '2023-10-01',
-      bestseller: true,
-    },
-    {
-      _id: 'p006',
-      name: 'Kids Cartoon Hoodie',
-      description: 'Soft and cozy hoodie featuring fun cartoon prints, ideal for kids aged 3-10.',
-      price: 899,
-      image: [p2],
-      category: 'Kids',
-      subCategory: 'Topwear',
-      size: ['S', 'M', 'L'],
-      date: '2023-10-01',
-      bestseller: true,
-    },
-    {
-      _id: 'p007',
-      name: 'Women’s Floral Top',
-      description: 'Lightweight floral print top made with breathable fabric, suitable for summer days.',
-      price: 749,
-      image: [p1,p2,p3,p4],
-      category: 'Women',
-      subCategory: 'Topwear',
-      size: ['S', 'M', 'L'],
-      date: '2023-10-01',
-      bestseller: true,
-    },
-    {
-      _id: 'p008',
-      name: 'Women’s Winter Sweater',
-      description: 'Warm and elegant winter sweater made of wool blend to keep you cozy in cold weather.',
-      price: 1499,
-      image: [p1,p2,p3,p4],
-      category: 'Women',
-      subCategory: 'Winterwear',
-      size: ['S', 'M', 'L'],
-      date: '2023-10-01',
-      bestseller: false,
-    },
-    {
-      _id: 'p009',
-      name: 'fan',
-      description: 'Cute printed t-shirt for everyday wear, made with kid-friendly breathable fabric.',
-      price: 399,
-      image: [p1,p2,p3,p4],
-      category: 'Kids',
-      subCategory: 'Topwear',
-      size: ['S', 'M', 'L'],
-      date: '2023-10-01',
-      bestseller: true,
-    },
-  ];
-  

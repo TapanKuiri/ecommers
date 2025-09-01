@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react"
 export const ShopContext = createContext();
-import { products } from "../assets/assets";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

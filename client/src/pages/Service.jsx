@@ -16,8 +16,8 @@ export const Service = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % allImages.length);
-    }, 3000);
-    return () => clearInterval(interval);
+    }, 2000);
+    // return () => clearInterval(interval);
   }, []);
 
   const [formData, setFormData] = useState({
