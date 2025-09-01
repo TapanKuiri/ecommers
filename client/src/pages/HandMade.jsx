@@ -24,7 +24,7 @@ export const HandMade = () => {
   // console.log(myProducts);
 
   return (
-    <div className='container mx-auto px-2 py-8'>
+    <div className='container mx-auto mt-5 px-2 py-8'>
        <div className=' grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
         {
           myProducts.map((product, index)=>{

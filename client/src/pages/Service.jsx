@@ -93,7 +93,7 @@ export const Service = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'
+      className='flex flex-col sm:flex-row justify-between gap-4 pt-12 sm:pt-14 min-h-[80vh] border-t'
     >
       <div className='flex flex-col items-center gap-4 w-full px-4 animate-fade-in-down'>
         {/* Banner with fade animation */}
