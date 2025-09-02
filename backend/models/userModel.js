@@ -20,9 +20,14 @@ const serviceSchema = new mongoose.Schema({
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
     required: true,  
+    trim: true
+  },
+  lastName: {
+    type: String,
+    required: true,
     trim: true
   },
   email: {

@@ -9,7 +9,6 @@ export const LatestCollection = () => {
     useContext(ShopContext);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,11 +23,6 @@ export const LatestCollection = () => {
     }, 2000);
     return () => clearInterval(intervalId);
   }, []);
-
-  // 🔹 Fetch products (infinite scroll)
-  useEffect(() => {
-    getProductsData(page).then(() => setIsLoading(false));
-  }, [page]);
 
   // 🔹 Apply filter logic
   const applyFilter = () => {
@@ -54,23 +48,7 @@ export const LatestCollection = () => {
     applyFilter();
   }, [search, showSearch, products, category]);
 
-  // 🔹 Infinite scroll listener
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      if (
-        container.scrollTop + container.clientHeight + 100 >=
-        container.scrollHeight
-      ) {
-        setPage((prev) => prev + 1);
-      }
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+ 
 
   return (
     <div
@@ -134,16 +112,7 @@ export const LatestCollection = () => {
           </div>
         )}
 
-        {/* 🔹 Infinite scroll loader */}
-        {isLoading && products.length > 0 && (
-          <div className="flex justify-center my-6">
-            <img
-              src={assets.spinner}
-              alt="Loading more..."
-              className="w-8 h-8 animate-spin"
-            />
-          </div>
-        )}
+          
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const ShopContextProvider = (props)=>{
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
-    const [profileImage, setProfileImage] = useState(localStorage.getItem("profileImage") || "");
+    const [profileImage, setProfileImage] = useState();
 
 
 
@@ -238,8 +238,8 @@ const updateQuantity = async (itemId, quantity) => {
     useEffect(()=>{
       if (!token && localStorage.getItem('token')) {
         const savedToken = localStorage.getItem('token');
-        if (profileImage) localStorage.setItem("profileImage", profileImage);
-        // setProfileImage(localStorage.getItem("profileImage") || "");
+        // if (profileImage) localStorage.setItem("profileImage", profileImage);
+        setProfileImage(localStorage.getItem("profileImage"));
         setToken(savedToken);
         getUserCart(savedToken);
       }

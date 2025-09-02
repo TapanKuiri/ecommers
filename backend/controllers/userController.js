@@ -16,6 +16,7 @@ const loginUser = async(req, res)=>{
     try{
         const {email, password} = req.body;
         const user = await userModel.findOne({email});
+        const  profileImage = user.image;
         if(!user){
             return res.json({success: false, message: 'User dose not exists'});
         }
@@ -23,7 +24,7 @@ const loginUser = async(req, res)=>{
         
             if(isMatch){
                 const token = createToken(user._id);
-                res.json({success:true, token})
+                res.json({success:true, token, profileImage})
             }else{
                 res.json({success:false, message: 'Invalid credentials'});
             }
@@ -37,44 +38,64 @@ const loginUser = async(req, res)=>{
 }
 
 //Route for user register
-const registerUser = async(req, res)=>{
-   try{
-        const {name, email, password} = req.body;
 
-        //check if email already exists or not
-        const exists = await userModel.findOne({email});
-        if(exists){
-            return res.json({success: false, message: 'User already exists'});
-        } 
+const registerUser = async (req, res) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
 
-        //validating email format and strong password
-        if(!validator.isEmail(email)){
-            return res.json({success: false, message: 'Please enter a valid email'});
-        }
-        if(password.length < 8){
-            return res.json({success: false, message: 'Please enter a strong passworde'});
-        }
+    // 1. Check if email already exists
+    const exists = await userModel.findOne({ email });
+    if (exists) {
+      return res.json({ success: false, message: "User already exists" });
+    }
 
-        //Hasing user password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+    // 2. Validate email format
+    if (!validator.isEmail(email)) {
+      return res.json({ success: false, message: "Please enter a valid email" });
+    }
 
-        const newUser = new userModel({
-            name,
-            email,
-            password: hashedPassword
-        })
+    // 3. Validate password strength
+    if (password.length < 8) {
+      return res.json({
+        success: false,
+        message: "Password must be at least 8 characters",
+      });
+    }
 
-        const user = await newUser.save();
+    // 4. Hash user password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-        const token = createToken(user._id);
-        res.json({success: true, token})
+    // 5. Generate profile image initials
+    const profileImage =
+      firstName[0].toUpperCase() + lastName[0].toUpperCase();
 
-   }catch(err){
-        console.log(err);
-        res.json({success: false, message:err.message})
-   }
-}
+    // 6. Create new user
+    const newUser = new userModel({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      image: profileImage,
+    });
+
+    const user = await newUser.save();
+
+    // 7. Create JWT token
+    const token = createToken(user._id);
+
+    // 8. Send response with token + user details
+    res.json({
+      success: true,
+      token,
+      profileImage
+    });
+  } catch (err) {
+    console.error("Register error:", err);
+    res.json({ success: false, message: err.message });
+  }
+};
+
 
 //Route for admin login
 const adminLogin = async(req, res)=>{
@@ -98,6 +119,17 @@ const adminLogin = async(req, res)=>{
     }
 }
 
+
+const totalUser = async (req, res) => {
+  try {
+    const count = await userModel.countDocuments();  
+    res.json({ success: true, totalUsers: count });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ success: false, message: "Something went wrong" });
+  }
+};
+
  
 // controllers/googleAuthController.js
  
@@ -120,10 +152,17 @@ const googleLogin = async (req, res) => {
     // 3. Check if user exists
     let user = await userModel.findOne({ email });
 
+
     if (!user) {
       // Create new user
+      let firstName = "", lastName = "";
+      const parts = name.split(" ");
+      firstName = parts[0];
+      lastName = parts.slice(1).join(" ") || "";
+
       user = new userModel({
-        name,
+        firstName,
+        lastName,
         email,
         password: await bcrypt.hash(email + process.env.JWT_SECRET, 10),
         image: picture, 
@@ -151,4 +190,4 @@ const googleLogin = async (req, res) => {
 export default googleLogin;
 
 
-export {loginUser, registerUser, adminLogin, googleLogin};
+export {loginUser, registerUser, adminLogin, googleLogin, totalUser};
