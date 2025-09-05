@@ -22,8 +22,7 @@ const ShopContextProvider = (props)=>{
     const [profileImage, setProfileImage] = useState();
 
 
-
-  const updateCartAndBuy = async(itemId)=> {
+   const updateCartAndBuy = async(itemId)=> {
     try {
             const response = await axios.post(backendUrl + '/api/cart/add', { itemId }, {
                 headers: { token }
@@ -198,39 +197,26 @@ const updateQuantity = async (itemId, quantity) => {
 
     // const 
 
-  const getProductsData = async (page = 1, limit = 16) => {
+  const getProductsData = async () => {
 
   try {
-    const res = await axios.post(`${backendUrl}/api/product/list`, {
-      page,
-      limit
-    });
-
-
-    if (res.data.success) {
-      let productsData = res.data.products;
+    const response = await axios.post(`${backendUrl}/api/product/list`);
+    if (response.data.success) {
+      let productsData = response.data.products;
       productsData = productsData.sort(() => Math.random() - 0.5);
 
-      setProducts(prev =>
-        page === 1 ? productsData : [...prev, ...productsData]
-      );
-
-      return true;
+      setProducts(productsData);
     } else {
       toast.error(res.data.message);
-      return false;
     }
   } catch (err) {
     console.error(err);
     toast.error(err.message);
-    return false;
   }
 };
 
      
     useEffect(()=>{
-        // addToCart()
-        // console.log("myproducts: ",products);
         getProductsData();
     }, [])
  
@@ -238,7 +224,6 @@ const updateQuantity = async (itemId, quantity) => {
     useEffect(()=>{
       if (!token && localStorage.getItem('token')) {
         const savedToken = localStorage.getItem('token');
-        // if (profileImage) localStorage.setItem("profileImage", profileImage);
         setProfileImage(localStorage.getItem("profileImage"));
         setToken(savedToken);
         getUserCart(savedToken);

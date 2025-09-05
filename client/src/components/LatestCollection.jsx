@@ -5,8 +5,7 @@ import { ProductItem } from "./ProductItem";
 import { assets } from "../assets/assets";
 
 export const LatestCollection = () => {
-  const { products, getProductsData, search, showSearch } =
-    useContext(ShopContext);
+  const { products, getProductsData, search, showSearch } = useContext(ShopContext);
 
   const [isLoading, setIsLoading] = useState(true);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -16,7 +15,7 @@ export const LatestCollection = () => {
 
   const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
 
-  // 🔹 Banner auto-rotation
+  //  Banner auto-rotation
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % allImages.length);
@@ -24,7 +23,7 @@ export const LatestCollection = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // 🔹 Apply filter logic
+  //  Apply filter logic
   const applyFilter = () => {
     let productCopy = products.slice();
 
@@ -43,10 +42,10 @@ export const LatestCollection = () => {
     setFilterProducts(productCopy);
   };
 
-  // 🔹 Run filters when dependencies change
+  //  Run filters when dependencies change
   useEffect(() => {
     applyFilter();
-  }, [search, showSearch, products, category]);
+  }, [search, showSearch, products]);
 
  
 
@@ -55,7 +54,7 @@ export const LatestCollection = () => {
       ref={containerRef}
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
-      {/* 🔹 Show rotating banner only when no search */}
+      {/* Show rotating banner only when no search */}
       {(!showSearch || !search) && (
         <div className="h-[300px] md:h-[400px] w-full overflow-hidden rounded-xl transition-all duration-700 relative">
           <img
@@ -69,10 +68,10 @@ export const LatestCollection = () => {
       <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
         <Title text1="LATEST" text2="COLLECTION" />
 
-        {/* 🔹 Loading state */}
+        {/* Loading state */}
         {isLoading && products.length === 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {[1, 2, 3, 4, 5, 6,7,8].map((i) => (
               <div
                 key={i}
                 className="flex flex-col items-center justify-center border rounded-lg p-4 h-48 bg-gray-50 shadow-sm"

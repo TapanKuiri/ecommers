@@ -48,5 +48,9 @@ const productSchema = mongoose.Schema({
   }
 });
 
+productSchema.index({ category: 1 });
+
+
+
 const productModel = mongoose.models.products || mongoose.model('products', productSchema);
 export default productModel;

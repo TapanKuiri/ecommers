@@ -3,21 +3,36 @@ import { ShopContext } from '../../context/ShopContext';
 import {Title} from '../Title.jsx';
 import { ProductItem } from '../ProductItem.jsx';
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+ 
 
 export const ProductRelatedProduct = ({ category }) => {
-    const { products } = useContext(ShopContext);
+    const { products, backendUrl } = useContext(ShopContext);
     const [relatedProducts, setRelatedProducts] = useState([]);
 
-    useEffect(() => {
-        if (products.length > 0) {
-            let productsCopy = products.slice();
-            // Filter by category
-            productsCopy = productsCopy.filter((item) => category === item.category);
-            // Shuffle the filtered products
-            productsCopy = productsCopy.sort(() => Math.random() - 0.5);
-            setRelatedProducts(productsCopy);
+    const fetchRelatedProducts=async()=>{
+        try{
+             const response = await axios.post(`${backendUrl}/api/product/relatedProducts`, {category});
+              if(response.data.success){
+                   setRelatedProducts(response.data.products);
+             }else{
+                console.log("error")
+             }
+        }catch(err){
+            console.log(err);
         }
-    }, [products, category]);
+    }
+    useEffect(() => {
+        fetchRelatedProducts();
+        // if (products.length > 0) {
+        //     let productsCopy = products.slice();
+        //     // Filter by category
+        //     productsCopy = productsCopy.filter((item) => category === item.category);
+        //     // Shuffle the filtered products
+        //     productsCopy = productsCopy.sort(() => Math.random() - 0.5);
+        //     setRelatedProducts(productsCopy);
+        // }
+    }, [ category]);
 
 
     return (

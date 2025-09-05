@@ -5,6 +5,8 @@ import { assets } from '../../assets/assets';
 import { ProductImages } from './ProductImages';
 import { ProductInfo } from './ProductInfo';
 import { ProductRelatedProduct } from './ProductRelatedProduct';
+import { backendUrl } from '../../App';
+import axios from 'axios'
 
 
 export const ProductLayout = () => {
@@ -21,15 +23,24 @@ export const ProductLayout = () => {
   // console.log("size is", size);
 
   const fetchProductData = async () =>{
-    products.map((item) => {
-      if(item._id === productId){
-        setProductData(item);
-        // console.log(item).image[0];
-        setImage(item.image[0]);
-        // console.log("product: ",item.sizes[0]); // it give null
-        return null;
-      }
-    })
+    try{
+        const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
+        if(response.data.success){
+           setProductData(response.data.product);
+          setImage(response.data.product.image[0]);
+        }
+    }catch(err){
+        console.log(err);
+    }
+    // products.map((item) => {
+    //   if(item._id === productId){
+    //     setProductData(item);
+    //     // console.log(item).image[0];
+    //     setImage(item.image[0]);
+    //     // console.log("product: ",item.sizes[0]); // it give null
+    //     return null;
+    //   }
+    // })
   }
 
 

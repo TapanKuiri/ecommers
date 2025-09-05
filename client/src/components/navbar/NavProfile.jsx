@@ -5,8 +5,7 @@ import { ShopContext } from "../../context/ShopContext";
 
 export const NavProfile = () => {
   const { token, setToken, setCartItems, profileImage, setProfileImage } = useContext(ShopContext);
-console.log("imaes", profileImage)
-  const navigate = useNavigate();
+   const navigate = useNavigate();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
 

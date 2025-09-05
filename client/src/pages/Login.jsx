@@ -95,7 +95,7 @@ export const Login = () => {
           });
 
           if (result.data.success) {
-            const { email, firstName, lastName, image } = result.data.user;
+            const {image } = result.data.user;
             const token = result.data.token;
             setToken(token)
             localStorage.setItem('token', token);
@@ -195,6 +195,8 @@ export const Login = () => {
         )}
         {currentState === 'Login' ? 'Login' : 'Sign Up'}
       </button>
+
+      
 
       <div
         onClick={() => googleLogin()}

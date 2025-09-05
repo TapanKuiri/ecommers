@@ -1,6 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary';
 import productModel from '../models/productModel.js';
-// add product
+ // add product
 const addProduct = async (req, res) => {
     try{
         const {name, description, price,discount,finalPrice,  category, subCategory, bestseller} = req.body;
@@ -54,7 +54,7 @@ const addProduct = async (req, res) => {
 // list products
 const listProducts = async (req, res) => {
      try {
-        const products = await productModel.find();
+        const products = await productModel.find({},{name:1, price:1, discount:1, finalPrice:1, image:1});
         res.json({
         success: true,
         products,
@@ -90,4 +90,48 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export { addProduct, listProducts, removeProduct, singleProduct }
+const relatedProducts = async (req, res)=>{
+    try{
+        const {category} = req.body; 
+        console.log(category);
+        
+        const products = await productModel.find(
+           { category: category },  
+           { name: 1, image: 1, price: 1, finalPrice: 1, discount:1  }  
+        );
+        console.log(products);
+        res.json({success: true, products});
+
+    }catch(err){
+      console.log(err);
+    }
+}
+
+
+// Search products by name, description, or category
+const searchProduct = async (req, res) => {
+  try {
+    const { search } = req.body; // { search: "shirt" }
+    if (!search || search.trim() === "") {
+      return res.status(400).json({ success: false, message: "Search query required" });
+    }
+
+    // Case-insensitive partial match
+    const products = await productModel.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+      ],
+    });
+
+   res.json({ success: true, products });
+  } catch (err) {
+    console.error("Search error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
+export { addProduct, listProducts, removeProduct, singleProduct, relatedProducts,searchProduct }
