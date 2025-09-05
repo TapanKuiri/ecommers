@@ -6,7 +6,7 @@ import { ProductItem } from '../components/ProductItem';
 import axios from 'axios';
 
 export const Products = () => {
-  const { products, search, showSearch, backendUrl } = useContext(ShopContext);
+  const { products, search, backendUrl } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]); // selected categories
@@ -29,10 +29,10 @@ export const Products = () => {
     let productCopy = [...products];
 
     // Search filter
-    if (showSearch && search) {
-      productCopy = productCopy.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
-      );
+    if (search) {
+      // productCopy = productCopy.filter((item) =>
+      //   item.name.toLowerCase().includes(search.toLowerCase())
+      // );
     }
 
     // Category filter - fetch from backend
@@ -79,10 +79,10 @@ export const Products = () => {
   // Re-apply filters whenever dependency changes
   useEffect(() => {
     applyFilter();
-  }, [category, search, showSearch, sortType]);
+  }, [category, search, sortType]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 w-full sm:gap-10 pt-12 border-t mx-2">
+    <div className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto">
       {/* Filter Sidebar */}
       <div className="min-w-60 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl">
         <p

@@ -20,6 +20,7 @@ const ShopContextProvider = (props)=>{
     const [products, setProducts] = useState([]);
     const [token, setToken] = useState('');
     const [profileImage, setProfileImage] = useState();
+    const [searchFilteredProducts, setSearchFilterProducts] = useState([]);
 
 
    const updateCartAndBuy = async(itemId)=> {
@@ -48,9 +49,6 @@ const ShopContextProvider = (props)=>{
   updateCartAndBuy(itemId);
   navigate('/cart');
 };
-
-
- 
 
     const addToCart= async (itemId)=>{
         // console.log("cartItems : ",cartItems);
@@ -142,61 +140,8 @@ const updateQuantity = async (itemId, quantity) => {
 
   return totalAmount;
 };
-
-// const getProductsData = async (page = 1, limit = 16) => {
-//   try {
-//     const response = await axios.post(backendUrl + "/api/product/list", {
-//       page,
-//       limit,
-//     });
-
-//     if (response.data.success) {
-//       let productsData = response.data.products;
-
-//       // Shuffle products
-//       productsData = productsData.sort(() => Math.random() - 0.5);
-
-//       // If first page, replace; else append
-//       if (page === 1) {
-//         setProducts(productsData);
-//       } else {
-//         setProducts((prev) => [...prev, ...productsData]);
-//       }
-//     } else {
-//       toast.error(response.data.message);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     toast.error(err.message);
-//   }
-// };
-
-// const getProductsData = async () => {
-//   try {
-//     const response = await axios.get(backendUrl + '/api/product/list');
-
-//     if (response.data.success) {
-//       // Get products
-//       let productsData = response.data.products;
-
-//       // Shuffle products
-//       productsData = productsData.sort(() => Math.random() - 0.5);
-
-//       // Set products
-//       setProducts(productsData);
-//     } else {
-//       toast.error(response.data.message);
-//     }
-
-//   } catch (err) {
-//     console.log(err);
-//     toast.error(err.message);
-//   }
-// };
-
-
-    // const 
-
+  
+ 
   const getProductsData = async () => {
 
   try {
@@ -205,7 +150,13 @@ const updateQuantity = async (itemId, quantity) => {
       let productsData = response.data.products;
       productsData = productsData.sort(() => Math.random() - 0.5);
 
-      setProducts(productsData);
+      if(searchFilteredProducts.length > 0){
+         setProducts(searchFilteredProducts);
+       }else{
+        setProducts(productsData);
+
+      }
+
     } else {
       toast.error(res.data.message);
     }
@@ -218,7 +169,7 @@ const updateQuantity = async (itemId, quantity) => {
      
     useEffect(()=>{
         getProductsData();
-    }, [])
+    }, [searchFilteredProducts])
  
 
     useEffect(()=>{
@@ -231,14 +182,14 @@ const updateQuantity = async (itemId, quantity) => {
     }, [token, profileImage]);
 
 
-
+  
 
     const value = {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity, getProductsData
         ,getCartAmount, navigate, backendUrl, token, setToken, setCartItems, getUserCart,buyHandler
-        ,setProfileImage, profileImage
+        ,setProfileImage, profileImage, setProducts, searchFilteredProducts, setSearchFilterProducts
     }
 
     return (

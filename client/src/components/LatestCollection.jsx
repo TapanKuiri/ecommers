@@ -8,9 +8,7 @@ export const LatestCollection = () => {
   const { products, getProductsData, search, showSearch } = useContext(ShopContext);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [filterProducts, setFilterProducts] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef(null);
 
   const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
@@ -23,30 +21,7 @@ export const LatestCollection = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  //  Apply filter logic
-  const applyFilter = () => {
-    let productCopy = products.slice();
-
-    if (showSearch && search) {
-      productCopy = productCopy.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-
-    if (category.length > 0) {
-      productCopy = productCopy.filter((item) =>
-        category.includes(item.category?.toLowerCase())
-      );
-    }
-
-    setFilterProducts(productCopy);
-  };
-
-  //  Run filters when dependencies change
-  useEffect(() => {
-    applyFilter();
-  }, [search, showSearch, products]);
-
+  
  
 
   return (
@@ -55,7 +30,7 @@ export const LatestCollection = () => {
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
       {/* Show rotating banner only when no search */}
-      {(!showSearch || !search) && (
+      {( !search) && (
         <div className="h-[300px] md:h-[400px] w-full overflow-hidden rounded-xl transition-all duration-700 relative">
           <img
             className="w-full h-full object-cover rounded-xl"
@@ -87,11 +62,11 @@ export const LatestCollection = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 gap-y-7">
-            {filterProducts.length > 0 ? (
-              filterProducts.map((item, index) => (
+            {products.length > 0 ? (
+              products.map((item, index) => (
                 <div
                   key={index}
-                  className="transition-transform transform overflow-hidden"
+                  className="transition-transform transform overflow-hidden "
                 >
                   <ProductItem
                     id={item._id}

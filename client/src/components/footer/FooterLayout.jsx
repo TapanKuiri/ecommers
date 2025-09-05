@@ -8,7 +8,7 @@ export const FooterLayout = () => {
             <div className='flex flex-col items-center justify-center text-center py-6'>
             <img src={assets.logo} className='mb-5 w-32' alt='logo' />
             <p className='w-full md:w-2/3 text-gray-400'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, doloremque.
+                We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones.
             </p>
         </div>
 
@@ -26,8 +26,8 @@ export const FooterLayout = () => {
             <div>
                 <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
                 <ul className='flex flex-col gap-1 text-gray-600'>
-                    <li>+1-232-454-7500 us</li>
-                    <li>contact@gmail.com</li>
+                    <li>+91 8617892989 us</li>
+                    <li>fixybuy@gmail.com</li>
                 </ul>
             </div>
 
