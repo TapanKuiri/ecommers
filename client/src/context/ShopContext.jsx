@@ -25,6 +25,7 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [productClicked, setProductClicked] =  useState(false);
 
   const navigate = useNavigate();
 
@@ -261,6 +262,8 @@ const ShopContextProvider = (props) => {
     isLoading,
     setIsLoading,
     hasMore,
+    setProductClicked,
+    productClicked
   };
 
   return (

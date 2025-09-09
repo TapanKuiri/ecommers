@@ -5,10 +5,10 @@ import { ShopContext } from '../context/ShopContext'
 
 
 export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
-     const {currency} = useContext(ShopContext);
+     const {currency, setProductClicked} = useContext(ShopContext);
   return (
-    <Link to={`/product/${id}`} className='text-green-700 cursor-pointer '>
-        <div className='overflow-hidden'>
+    <Link to={`/product/${id}`} onClick={()=>setProductClicked(false)} className='text-green-700 cursor-pointer '>
+        <div className='overflow-hidden'> 
             <img src={image[0]} alt='img0'  />
         </div>
         <div className='mx-2'>

@@ -14,7 +14,7 @@ export const ProductLayout = () => {
   
   const {productId} = useParams();
   // console.log(productId);
-  const {products, currency, addToCart, buyHandler} = useContext(ShopContext);
+  const {products, currency, addToCart, buyHandler, productClicked, setProductClicked} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
   const [size, setSize] = useState('');
@@ -23,11 +23,15 @@ export const ProductLayout = () => {
   const fetchProductData = async () =>{
     try{
         const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
-        if(response.data.success){
+        if(response.data.success){ 
           
-            setProductData(response.data.product);
+          setProductData(response.data.product); 
+          // setTimeout(()=>{
 
-          setImage(response.data.product.image[0]);
+            setProductClicked(true);
+          // },3000)
+
+          setImage(response.data.product.image[0]); 
         }
     }catch(err){
         console.log(err);
@@ -40,7 +44,7 @@ export const ProductLayout = () => {
     fetchProductData();
   },[productId, products]);
 
-  return  productData ? (
+  return  (productClicked) ? (
   <div>
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
         {/* product data */}
@@ -64,7 +68,7 @@ export const ProductLayout = () => {
 
     </div>    
   </div>
-  ) 
+  )                         
   : (
    <div className="flex flex-col items-center justify-center mt-12 space-y-6">
   {/* Spinner */}
