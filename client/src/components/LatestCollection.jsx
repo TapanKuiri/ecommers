@@ -108,9 +108,7 @@ export const LatestCollection = () => {
             ))
           ) : (
             // No products case
-            <p className="col-span-full text-gray-500 text-lg mt-10">
-              No products found 😞
-            </p>
+            <p></p>
           )}
         </div>
 

@@ -83,8 +83,6 @@ export const HandMade = () => {
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
       <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
-        <h2 className="mb-6">Handmade Products</h2>
-
         {isLoading && myProducts.length === 0 ? (
           <Loading />
         ) : (
