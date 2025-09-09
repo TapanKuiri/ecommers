@@ -46,8 +46,8 @@ export const NavProfile = () => {
         className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-800 cursor-pointer hover:scale-105 transition duration-300 bg-gray-200 overflow-hidden"
       >
         {profileImage ? (
-          profileImage.startsWith('http') ? (
-            <img src={profileImage} className="w-full h-full object-cover"  />
+          profileImage.startsWith('https') ? (
+            <img src={profileImage} alt="IMG" className="w-full h-full object-cover"  />
           ):
           <span className="text-lg font-bold text-gray-800">
             {profileImage}

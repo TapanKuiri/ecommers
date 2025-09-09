@@ -14,8 +14,9 @@ const addToCart = async (req, res) => {
 
     let cartData = userData.cartData || {};
 
-    if (cartData[itemId]) {
-      cartData.set(itemId, cartData[itemId] + 1);
+
+    if (cartData.has(itemId)) {
+      cartData.set(itemId, cartData.get(itemId) + 1);
     } else {
       cartData.set(itemId, 1);
     }

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 export const ProductInfo = ({productData, currency, addToCart, buyHandler}) => {
 
   const navigate = useNavigate();  
+  // console.log("id: ", productData._id);
+
 
   // const buyHandler = () => {
   //   console.log("Buy Now clicked");
@@ -20,7 +22,7 @@ export const ProductInfo = ({productData, currency, addToCart, buyHandler}) => {
             {currency}{productData.price}
           </p>
           <p className="text-2xl font-semibold text-red-600">
-            %{productData.discount}
+            {productData.discount}%
           </p>
           <p className="text-3xl font-bold text-green-600">
             {currency}{productData.finalPrice}

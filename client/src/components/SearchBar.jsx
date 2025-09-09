@@ -16,6 +16,8 @@ export const SearchBar = () => {
       }
       const response = await axios.post(`${backendUrl}/api/product/searchProduct`, { search });
       setSearchFilterProducts(response.data.products || []);
+      // console.log("search: ",response.data.products)
+      console.log(response.data.products);
 
        
     } catch (err) {

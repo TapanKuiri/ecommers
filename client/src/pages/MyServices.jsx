@@ -17,9 +17,9 @@ export const MyServices = () => {
         {},
         { headers: { token } }
       );
-
+      
       if (response.data.success) {
-        setServicesData(response.data.service.reverse());
+        setServicesData(response.data.services.reverse());
       } else {
         toast.error('Failed to load services');
       }

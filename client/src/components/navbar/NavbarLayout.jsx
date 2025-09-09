@@ -16,10 +16,7 @@ export const NavbarLayout = () => {
     const {setShowSearch, showSearch, getCartCount} = useContext(ShopContext);
      
 
-    useEffect(()=>{
-        getCartCount();
-    },[])
- 
+     
 
   return (
 
@@ -39,13 +36,7 @@ export const NavbarLayout = () => {
 
 
           <div className='flex  items-center gap-2'>
-                {/* <img className='w-6 cursor-pointer' 
-                src={assets.search_icon}
-                alt='Search Icon'
-                onClick={()=>setShowSearch(!showSearch)}
-                /> */}
-                
-
+                 
                  <NavProfile/>
                 <Link to='/cart' className='relative '>
                 <img src={assets.cart} className='w-6.5 min-w-5 h-7 mr-3 bg-gray-300' alt='cart'/>

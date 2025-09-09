@@ -9,7 +9,7 @@ export const Login = () => {
   const [currentState, setCurrentState] = useState('Login');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { token, setToken, navigate, backendUrl, setProfileImage } = useContext(ShopContext);
+  const { token, setToken, navigate, backendUrl, setProfileImage, getCartCount } = useContext(ShopContext);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -65,7 +65,7 @@ export const Login = () => {
           // console.log("userImage", user?.image)
           setProfileImage(profileImage || assets.profile);
         }
-
+        await getCartCount();
 
       } else {
         toast.error(response.data.message);
@@ -81,6 +81,7 @@ export const Login = () => {
   // ------------------ Redirect if logged in ------------------
   useEffect(() => {
     if (token) {
+      getCartCount();
       navigate('/');
     }
   }, [token]);

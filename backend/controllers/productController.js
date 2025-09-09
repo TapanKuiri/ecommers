@@ -52,17 +52,43 @@ const addProduct = async (req, res) => {
 }
 
 // list products
-const listProducts = async (req, res) => {
-     try {
-        const products = await productModel.find({},{name:1, price:1, discount:1, finalPrice:1, image:1});
-        res.json({
-        success: true,
-        products,
-        });
-    } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
-    }
-}
+
+const listProducts = async(req, res)=>{
+
+ 
+try {
+    let { page, limit } = req.body;
+
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 20;
+
+    const skip = (page - 1) * limit;
+
+    const products = await productModel
+      .find(
+        {}, // no filter, fetch all
+        { name: 1, price: 1, discount: 1, finalPrice: 1, image: 1 } // only necessary fields
+          // { name: 1,  image: 1 } 
+      )
+      .skip(skip)
+      .limit(limit)
+      // .sort({ createdAt: -1 });
+      // console.log(products);
+
+    const total = await productModel.countDocuments();
+
+    res.json({
+      success: true,
+      products,
+      total,
+      hasMore: page * limit < total,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+
+  }
 
 //removing product  
 const removeProduct = async (req, res) => {
@@ -80,32 +106,69 @@ const removeProduct = async (req, res) => {
 
 //single product info
 const singleProduct = async (req, res) => {
-    try{
-        const {productId} = req.body;
-        const product = await productModel.findById(productId);
-        res.json({success: true, product});
-    }catch(err){
-        console.log(err);
-        res.json({success: false, message: err.message});
-    }
-}
+  try {
+    const { productId } = req.body;
 
-const relatedProducts = async (req, res)=>{
-    try{
-        const {category} = req.body; 
-        console.log(category);
-        
-        const products = await productModel.find(
-           { category: category },  
-           { name: 1, image: 1, price: 1, finalPrice: 1, discount:1  }  
-        );
-        console.log(products);
-        res.json({success: true, products});
 
-    }catch(err){
-      console.log(err);
+    // Use findById for single product
+    const product = await productModel.findById(
+      productId,
+      { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, description: 1, category: 1 }
+    );
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
     }
-}
+
+    res.json({ success: true, product });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, message: err.message });
+  }
+};
+
+
+// controllers/productController.js
+ const relatedProducts = async (req, res) => {
+  try {
+    let { category, page = 1, limit = 20 } = req.body;
+
+    // convert to number (req.body values come as strings sometimes)
+    page = parseInt(page);
+    limit = parseInt(limit);
+ 
+    if (!category) {
+      return res.status(400).json({ success: false, message: "Category is required" });
+    }
+
+
+    const products = await productModel
+      .find(
+        { category },
+        { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, category: 1 }
+      )
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+ 
+    const totalCount = await productModel.countDocuments({ category });
+
+    res.json({
+      success: true,
+      products,
+      pagination: {
+        page,
+        limit,
+        totalPages: Math.ceil(totalCount / limit),
+        totalProducts: totalCount,
+      },
+    });
+  } catch (err) {
+    console.error("Error fetching related products:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 
 
 // Search products by name, description, or category
@@ -117,13 +180,12 @@ const searchProduct = async (req, res) => {
     }
 
     // Case-insensitive partial match
-    const products = await productModel.find({
-      $or: [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-        { category: { $regex: search, $options: "i" } },
-      ],
+   const products = await productModel.find({
+      name: { $regex: search, $options: "i" }
     });
+
+    
+
 
    res.json({ success: true, products });
   } catch (err) {
@@ -132,6 +194,18 @@ const searchProduct = async (req, res) => {
   }
 };
 
+const totalProducts = async (req, res) => {
+  try {
+    const count = await productModel.countDocuments(); // counts all products
+    return res.json({ success: true, count });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, error: "Server error" });
+  }
+};
 
 
-export { addProduct, listProducts, removeProduct, singleProduct, relatedProducts,searchProduct }
+
+
+export { addProduct, listProducts, removeProduct,
+     singleProduct, relatedProducts,searchProduct,totalProducts }

@@ -38,10 +38,11 @@ import coll4 from './coll4.jpeg';
 import coll5 from './coll5.jpeg';
 // import coll3 from './coll3.jpeg';
 // import coll4 from './coll4.jpeg';
-
+import textSvg from './textSvg.svg'
 
 
 export const assets = {
+  textSvg,
   coll1,
   coll2,
   coll3,

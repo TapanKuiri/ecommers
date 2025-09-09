@@ -13,7 +13,7 @@ import { Services } from './page/Services.';
 // Export backend URL
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 console.log('Backend URL:', backendUrl);
-export const currency = '$';
+export const currency = '₹';
 
 function App() {
   const [token, setToken] = useState(
@@ -47,6 +47,8 @@ function App() {
               <div className="w-[85%] mx-auto text-slate-400">
                 <Routes>
                   <Route path="/add" element={<Add token={token} />} />
+                  <Route path="/" element={<Add token={token} />} />
+
                   <Route path="/list" element={<List token={token} />} />
                   <Route path="/orders" element={<Orders token={token} />} />
                   <Route path="/services" element={<Services token={token} />} />

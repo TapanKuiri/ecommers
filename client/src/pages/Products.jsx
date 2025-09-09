@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
 import { Title } from '../components/Title';
 import { ProductItem } from '../components/ProductItem';
 import axios from 'axios';
+import { Loading } from '../components/loading/Loading';
 
 export const Products = () => {
-  const { products, search, backendUrl } = useContext(ShopContext);
+  const { products, search, backendUrl, page, setPage, isLoading, setIsLoading } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
-  const [category, setCategory] = useState([]); // selected categories
+  const [category, setCategory] = useState([]);
   const [sortType, setSortType] = useState('relevent');
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const containerRef = useRef(null);
 
-  // Handle checkbox toggle → only updates category state
+  // Toggle category filter
   const toggleCategory = (e) => {
     const value = e.target.value;
     if (category.includes(value)) {
@@ -23,39 +25,26 @@ export const Products = () => {
     }
   };
 
-  // Apply filters (fetch from backend when categories selected)
+  // Apply filters
   const applyFilter = async () => {
-    setLoading(false);
+    setIsLoading(true);
     let productCopy = [...products];
 
-    // Search filter
-    if (search) {
-      // productCopy = productCopy.filter((item) =>
-      //   item.name.toLowerCase().includes(search.toLowerCase())
-      // );
-    }
-
-    // Category filter - fetch from backend
+    // Category filter - backend fetch
     if (category.length > 0) {
       try {
-        const { data } = await axios.post(
-          `${backendUrl}/api/product/relatedProducts`,
-          { category: category } // send array of categories
-        );
-
-        console.log(data)
-
+        const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
+          category,
+        });
         if (data?.success) {
           productCopy = data.products;
-          console.log(productCopy)
-          setLoading(false);
         }
       } catch (err) {
         console.error('Error fetching category filtered products:', err.message);
       }
     }
 
-    // Sorting logic
+    // Sorting
     switch (sortType) {
       case 'low-high':
         productCopy.sort((a, b) => a.finalPrice - b.finalPrice);
@@ -68,21 +57,51 @@ export const Products = () => {
     }
 
     setFilterProducts(productCopy);
-    setLoading(false);
+    setIsLoading(false);
   };
 
-  // Initialize filterProducts when products load
+  // Initialize products
   useEffect(() => {
     setFilterProducts(products);
   }, [products]);
 
-  // Re-apply filters whenever dependency changes
+  // Re-apply filters
   useEffect(() => {
     applyFilter();
   }, [category, search, sortType]);
 
+  // ✅ Infinite Scroll (inside container)
+  const handelInfiniteScroll = () => {
+    if(category.length > 0 ) return;
+    
+    const container = containerRef.current;
+    if (!container) return;
+
+    const { scrollTop, clientHeight, scrollHeight } = container;
+
+    // console.log("ScrollTop:", scrollTop, "ClientHeight:", clientHeight, "ScrollHeight:", scrollHeight);
+
+    // Check if reached bottom
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      console.log("Reached bottom ✅");
+      setPage((prev) => prev + 1); // load next page
+    }
+  };
+
+  useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
+  
+      container.addEventListener("scroll", handelInfiniteScroll);
+      return () => container.removeEventListener("scroll", handelInfiniteScroll);
+
+  }, [category]);
+
   return (
-    <div className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto">
+    <div
+      ref={containerRef}
+      className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
+    >
       {/* Filter Sidebar */}
       <div className="min-w-60 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl">
         <p
@@ -99,13 +118,13 @@ export const Products = () => {
           />
         </p>
 
-        {/* Category Filter */}
+        {/* Categories */}
         <div
           className={`border border-gray-300 sm:block pl-1 py-3 mt-6 ${
             showFilter ? '' : 'hidden sm:block'
           }`}
         >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p> 
+          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             {[
               'Electric & Electronic',
@@ -126,7 +145,7 @@ export const Products = () => {
                   value={cat}
                   checked={category.includes(cat)}
                   onChange={toggleCategory}
-                />{' '}
+                />
                 {cat}
               </label>
             ))}
@@ -134,42 +153,22 @@ export const Products = () => {
         </div>
       </div>
 
-      {/* Product Listing Area */}
+      {/* Products */}
       <div className="flex-1">
-        <div className=''>
-        <div className="flex justify-between text-base sm:text-2xl mb-4  ">
+        <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1="ALL" text2="COLLECTIONS" />
           <select
             onChange={(e) => setSortType(e.target.value)}
-            className="border-1 rounded-2xl  bg-gradient-to-r from-green-500 to-emerald-600 text-sm px-2"
+            className="border-1 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-sm px-2"
           >
-            <option value="relevent">Sort By: Relevent</option>
+            <option value="relevent">Sort By: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
           </select>
         </div>
 
-        </div>
-
         {/* Product Cards */}
-      {loading ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-1 gap-0">
-          {
-          [1,2,3,4,5,6,7,8,9,10].map((i) => (
-              <div
-               key={i}
-             className="flex flex-col items-center justify-center border h-40 w-40  rounded-lg lg:h-48 shadow-sm"
-
-             >
-               <img
-                 src={assets.spinner} alt="Loading..."
-                 className="w-10 h-10 animate-spin"/>
-               <p className="text-xs text-gray-800 mt-2">Loading...</p>
-             </div>
-             ))
-            }
-        </div>
-) :  (
+         
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
             {filterProducts.length > 0 ? (
               filterProducts.map((item, index) => (
@@ -183,13 +182,18 @@ export const Products = () => {
                   image={item.image}
                 />
               ))
+            
+            
             ) : (
-              <p className="col-span-full text-center text-gray-500">
-                No products found
-              </p>
+              <p className="col-span-full text-center text-gray-500">No products found</p>
             )}
           </div>
-        )}
+          {isLoading && (
+            <div className=" ">
+              <Loading />
+            </div>
+          )}
+         
       </div>
     </div>
   );

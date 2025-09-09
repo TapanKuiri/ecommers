@@ -1,66 +1,127 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import { ProductItem } from '../components/ProductItem';
-import { assets } from '../assets/assets'; // make sure spinner exists here
-import axios from 'axios';
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
+import { ProductItem } from "../components/ProductItem";
+import { assets } from "../assets/assets";
+import { Loading } from "../components/loading/Loading";
+import axios from "axios";
 
 export const HandMade = () => {
-  const { backendUrl } = useContext(ShopContext);
+  const { backendUrl, search,  searchFilteredProducts } = useContext(ShopContext);
+
   const [myProducts, setMyProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
 
-  const filterHandMadeProducts = async () => {
+  const containerRef = useRef(null);
+
+  // Fetch products by page
+  const fetchHandMadeProducts = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/api/product/relatedProducts`, { 
-        category: 'Hand Made' 
-      });
+      setIsLoading(true);
+      // if(!search){
+        
+        const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
+          category: "Hand Made",
+          page,
+          limit: 50, // adjust as needed
+        });
+      
 
-      setMyProducts(response.data.products || []);
-      if(response.data.products.length > 0) setLoading(false);
-    } catch (error) {
-      console.error("Error fetching handmade products:", error.message);
-    } 
+      if (data.success) {
+        const newProducts = data.products || [];
+        if (newProducts.length === 0) {
+          setHasMore(false);
+        } else {
+          setMyProducts((prev) => [...prev, ...newProducts]);
+        }
+      }
+    // }else{
+    //   setMyProducts(searchFilteredProducts);
+    // }
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Error fetching handmade products:", err.message);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    filterHandMadeProducts();
+    fetchHandMadeProducts();
+  }, [page]);
+
+  // Infinite scroll
+  const handleInfiniteScroll = () => {
+    try {
+      const container = containerRef.current;
+      if (!container || !hasMore || isLoading) return;
+
+      const { scrollTop, clientHeight, scrollHeight } = container;
+
+      console.log(scrollTop, clientHeight, scrollHeight)
+
+      if (scrollTop + clientHeight >= scrollHeight - 5) {
+        console.log("Reached bottom ✅");
+        setPage((prev) => prev + 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleInfiniteScroll);
+    return () => container.removeEventListener("scroll", handleInfiniteScroll);
   }, []);
 
   return (
-    <div className="container mx-auto mt-5 px-2 py-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+    <div
+      ref={containerRef}
+      className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
+    >
+      <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
+        <h2 className="mb-6">Handmade Products</h2>
 
-        {/* Loading state */}
-        {loading ? (
-          [1, 2, 3, 4, 5, 6,7,8].map((i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center border rounded-lg p-4 h-48 bg-gray-50 shadow-sm"
-            >
-              <img
-                src={assets.spinner}
-                alt="Loading..."
-                className="w-10 h-10 animate-spin"
-              />
-              <p className="text-xs text-gray-400 mt-2">Loading...</p>
-            </div>
-          ))
-        ) : myProducts.length > 0 ? (
-          myProducts.map((product, index) => (
-            <ProductItem
-              key={index}
-              name={product.name}
-              id={product._id}
-              price={product.price}
-              finalPrice={product.finalPrice}
-              image={product.image}
-              category={product.category}
-            />
-          ))
+        {isLoading && myProducts.length === 0 ? (
+          <Loading />
         ) : (
-          <p className="col-span-full text-center text-gray-500">
-            No handmade products found
-          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 gap-y-7">
+            {myProducts.length > 0 ? (
+              myProducts.map((item, index) => (
+                <div
+                  key={index}
+                  className="transition-transform transform overflow-hidden"
+                >
+                  <ProductItem
+                    id={item._id}
+                    image={item.image}
+                    name={item.name}
+                    price={item.price}
+                    discount={item.discount}
+                    finalPrice={item.finalPrice}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="col-span-full text-gray-500 text-lg mt-10">
+                No handmade products found 😞
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Spinner at bottom for new pages */}
+        {isLoading && myProducts.length > 0 && (
+          <div className="flex justify-center py-4">
+            <img
+              src={assets.spinner}
+              alt="Loading..."
+              className="w-10 h-10 animate-spin"
+            />
+          </div>
         )}
       </div>
     </div>

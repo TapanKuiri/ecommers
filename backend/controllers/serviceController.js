@@ -60,9 +60,13 @@ const placeService = async (req, res) => {
 };
 
 const listService = async (req, res)=>{
- try{
-          const service = await serviceModel.find({});
-          res.json({success: true, service});
+ try{    const {userId} = req.body;
+          // const service = await serviceModel.find({});
+          // console.log("id: ", userId);
+          const services = await serviceModel.find({ userId }).sort({ createdAt: -1 });
+          // console.log(services);
+
+          res.json({success: true, services});
      }catch(err){
           console.log(err);
           res.json({success: false, message: err.message});

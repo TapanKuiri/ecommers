@@ -12,6 +12,7 @@ export const ProductRelatedProduct = ({ category }) => {
 
     const fetchRelatedProducts=async()=>{
         try{
+             console.log("cate", category );
              const response = await axios.post(`${backendUrl}/api/product/relatedProducts`, {category});
               if(response.data.success){
                    setRelatedProducts(response.data.products);
@@ -36,7 +37,7 @@ export const ProductRelatedProduct = ({ category }) => {
 
 
     return (
-        <div className="my-24">
+        <div className="my-10">
             <div className="text-center text-3xl py-2">
                  <Title text1={'RELATED'} text2={'PRODUCTS'}/>
             </div>
