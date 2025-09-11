@@ -4,7 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const Orders = () => {
+export default function Orders  ()  {
   const { backendUrl, token, currency } = useContext(ShopContext);
   const [orderData, setOrderData] = useState([]);
   const [status, setStatus] = useState('');

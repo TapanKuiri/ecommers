@@ -6,7 +6,7 @@ import { ProductItem } from '../components/ProductItem';
 import axios from 'axios';
 import { Loading } from '../components/loading/Loading';
 
-export const Products = () => {
+export default function Products() {
   const { products, search, backendUrl, page, setPage, isLoading, setIsLoading } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -14,6 +14,8 @@ export const Products = () => {
   const [sortType, setSortType] = useState('relevent');
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+
+  // console.log("products run:");
 
   // Toggle category filter
   const toggleCategory = (e) => {
@@ -70,7 +72,7 @@ export const Products = () => {
     applyFilter();
   }, [category, search, sortType]);
 
-  // ✅ Infinite Scroll (inside container)
+  //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
     if(category.length > 0 ) return;
     
@@ -83,7 +85,7 @@ export const Products = () => {
 
     // Check if reached bottom
     if (scrollTop + clientHeight >= scrollHeight - 5) {
-      console.log("Reached bottom ✅");
+      console.log("Reached bottom ");
       setPage((prev) => prev + 1); // load next page
     }
   };
@@ -103,9 +105,9 @@ export const Products = () => {
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
       {/* Filter Sidebar */}
-      <div className="min-w-60 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl">
+      <div className="min-w-60 bg-gradient-to-r  rounded-2xl">
         <p
-          className="my-2 text-xl flex items-center cursor-pointer gap-2 pl-2"
+          className="my-2 text-xl flex items-center cursor-pointer bg-green-500 rounded-2xl gap-2 pl-2"
           onClick={() => setShowFilter(!showFilter)}
         >
           FILTERS
@@ -121,7 +123,7 @@ export const Products = () => {
         {/* Categories */}
         <div
           className={`border border-gray-300 sm:block pl-1 py-3 mt-6 ${
-            showFilter ? '' : 'hidden sm:block'
+            showFilter ? '' : 'hidden sm:block '
           }`}
         >
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>

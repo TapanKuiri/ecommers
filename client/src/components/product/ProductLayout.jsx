@@ -10,7 +10,7 @@ import axios from 'axios'
 import { Loading } from '../loading/Loading';
 
 
-export const ProductLayout = () => {
+export default function ProductLayout(){
   
   const {productId} = useParams();
   // console.log(productId);

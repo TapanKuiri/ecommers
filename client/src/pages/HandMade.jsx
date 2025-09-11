@@ -5,7 +5,7 @@ import { assets } from "../assets/assets";
 import { Loading } from "../components/loading/Loading";
 import axios from "axios";
 
-export const HandMade = () => {
+export default function HandMade(){
   const { backendUrl, search,  searchFilteredProducts } = useContext(ShopContext);
 
   const [myProducts, setMyProducts] = useState([]);

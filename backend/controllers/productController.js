@@ -72,6 +72,8 @@ try {
       )
       .skip(skip)
       .limit(limit)
+      .lean();  // returns plain JS objects (faster than Mongoose docs).
+
       // .sort({ createdAt: -1 });
       // console.log(products);
 
@@ -206,6 +208,21 @@ const totalProducts = async (req, res) => {
 
 
 
+  const listAdminProducts = async (req, res) => {
+  try {
+    console.log("run");
+
+    // Await the query to get the data
+    const allProducts = await productModel.find({});
+
+    // Send plain JS objects
+    res.json({ success: true, allProducts });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 
 export { addProduct, listProducts, removeProduct,
-     singleProduct, relatedProducts,searchProduct,totalProducts }
+     singleProduct, relatedProducts,searchProduct,totalProducts,listAdminProducts }

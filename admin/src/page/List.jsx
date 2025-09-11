@@ -8,13 +8,13 @@ export const List = ({ token }) => {
 
   const fetchList = async () => {
     try {
-      const response = await axios.post(backendUrl + "/api/product/list", {
+      const response = await axios.post(backendUrl + "/api/product/listAdmin", {
         headers: { token },
       });
 
       console.log("response", response);
       if (response.data.success) {
-        setList(response.data.products);
+        setList(response.data.allProducts);
       } else {
         toast.error(response.data.message);
       }

@@ -6,7 +6,7 @@ import { ShopContext } from '../context/ShopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const PlaceOrder = () => {
+export default function PlaceOrder  ()  {
   const [method, setMethod] = useState('cod');
   const {
     navigate,

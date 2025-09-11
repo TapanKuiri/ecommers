@@ -7,7 +7,7 @@ import { ShopContext } from '../context/ShopContext';
 import { Title } from '../components/Title';
 import { useNavigate } from 'react-router-dom';
 
-export const Service = () => {
+export default function Service(){
   const { backendUrl, token } = useContext(ShopContext);
   const allImages = [assets.repair1, assets.repair2, assets.repair3];
   const [currentIndex, setCurrentIndex] = useState(0);

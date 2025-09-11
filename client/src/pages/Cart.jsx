@@ -7,7 +7,7 @@ import { assets } from '../assets/assets';
 // import { CartTotal } from '../components/cart/CartTotal';
 import {CartTotal} from '../components/cart/CartTotal';
 
-export const Cart = () => {
+export default  function Cart(){
   const {products, currency, cartItems,updateQuantity, navigate} = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   // console.log("products: cart", products);

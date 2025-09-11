@@ -5,7 +5,7 @@ import { ProductItem } from "./ProductItem";
 import { assets } from "../assets/assets";
 import { Loading } from "./loading/Loading";
 
-export const LatestCollection = () => {
+export const LatestCollection =  () => {
   // Context state coming from ShopContext
   const { products, search, setPage, page, isLoading, hasMore } = useContext(ShopContext);
 
@@ -48,7 +48,7 @@ export const LatestCollection = () => {
       // When user is near the bottom (5px threshold)
       if (scrollTop + clientHeight >= scrollHeight - 5) {
         setPage((prev) => prev + 1);
-        console.log("Fetching page:", page + 1);
+        // console.log("Fetching page:", page + 1);
       }
     } catch (err) {
       console.log("Scroll error:", err);

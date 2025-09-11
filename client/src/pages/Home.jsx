@@ -3,7 +3,7 @@ import { LatestCollection } from '../components/LatestCollection'
 import { BestSeller } from '../components/BestSeller'
 import { OurPolicy } from '../components/footer/OurPolicy'
 
-export const Home = () => {
+export default function Home   (){
   return (
     <div className=' md:mx-10 mx-2'> 
       

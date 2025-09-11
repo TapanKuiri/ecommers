@@ -2,10 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
+import { memo } from 'react'
 
 
-export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
+export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) => {
      const {currency, setProductClicked} = useContext(ShopContext);
+
+     console.log("run...")
   return (
     <Link to={`/product/${id}`} onClick={()=>setProductClicked(false)} className='text-green-700 cursor-pointer '>
         <div className='overflow-hidden'> 
@@ -29,4 +32,4 @@ export const ProductItem = ({id, image, name, price,discount,finalPrice}) => {
 
     </Link>
   )
-}
+})

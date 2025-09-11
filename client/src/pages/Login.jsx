@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { assets } from '../assets/assets';
 import { useGoogleLogin } from '@react-oauth/google';
 
-export const Login = () => {
+export default function Login  () {
   const [currentState, setCurrentState] = useState('Login');
   const [isLoading, setIsLoading] = useState(false);
 

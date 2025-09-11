@@ -4,7 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const MyServices = () => {
+export default function MyServices  ()  {
   const { backendUrl, token, currency } = useContext(ShopContext);
   const [servicesData, setServicesData] = useState([]);
   const [expandedServiceIndex, setExpandedServiceIndex] = useState(null);

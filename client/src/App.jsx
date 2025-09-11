@@ -1,65 +1,65 @@
 import './App.css'
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { Products } from './pages/Products';
-import { Contact } from './pages/Contact';
-// import { Product } from './pages/Product'; 
-import {ProductLayout} from './components/product/ProductLayout'
- 
-import { Cart } from './pages/Cart';
-import { Login } from './pages/Login';
-import { PlaceOrder } from './pages/PlaceOrder';
-import { Orders } from './pages/Orders';
-import {NavbarLayout } from './components/navbar/NavbarLayout';
-import {FooterLayout } from './components/footer/FooterLayout';
-import { SearchBar } from './components/SearchBar';
-import { ToastContainer, toast } from 'react-toastify';
-import { HandMade } from './pages/HandMade';
-import { ShopContext } from './context/ShopContext';
-import { Service } from './pages/Service';
-import { MyServices } from './pages/MyServices';
-export const backendUrl = import.meta.env.VITE_BACKEND_URL;
-import {GoogleOAuthProvider} from '@react-oauth/google';
+
+const Home = lazy(() => import('./pages/Home'));
+const Products = lazy(() => import('./pages/Products'));
+const HandMade = lazy(() => import('./pages/HandMade'));
+const Service = lazy(() => import('./pages/Service'));
+const Contact = lazy(() => import('./pages/Contact'));
+const ProductLayout = lazy(() => import('./components/product/ProductLayout'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Login = lazy(() => import('./pages/Login'));
+const PlaceOrder = lazy(() => import('./pages/PlaceOrder'));
+const Orders = lazy(() => import('./pages/Orders'));
+const MyServices = lazy(() => import('./pages/MyServices'));
+
+import { NavbarLayout } from './components/navbar/NavbarLayout';
+import { FooterLayout } from './components/footer/FooterLayout';
+import { ToastContainer } from 'react-toastify';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ScrollToTop } from './components/ScrollToTop';
+import { Loading } from './components/loading/Loading';
+import { assets } from './assets/assets';
+
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
-  // const { user} = useContext(ShopContext);
-  const GoogleAuthWrapper = ()=>{
-    return(
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <Login/>
-      </GoogleOAuthProvider>
-    )
-  }
+  const GoogleAuthWrapper = () => (
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <Login />
+    </GoogleOAuthProvider>
+  );
+
   return (
     <div className="pt-16">
-       <ScrollToTop/>
-       <ToastContainer/>
-       <NavbarLayout/>
-       {/* <SearchBar/> */}
-       <Routes>
+      <ScrollToTop />
+      <ToastContainer />
+      <NavbarLayout />
+
+      <Suspense fallback={<div className="flex justify-center items-center mt-50 mb-40">
+  <img src={assets.spinner} className="w-20 h-20" alt="Loading..." />
+</div>
+}>
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products/>} />
-          <Route path="/handMade" element={<HandMade/>} />
-          <Route path="/service" element={<Service/>} />
-          
+          <Route path="/products" element={<Products />} />
+          <Route path="/handMade" element={<HandMade />} />
+          <Route path="/service" element={<Service />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productId" element={<ProductLayout />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<GoogleAuthWrapper/>} />
-          <Route path="/place-order" element={<PlaceOrder/>} />
-          <Route path="/orders" element={<Orders/>} />
-          <Route path="/services" element={<MyServices/>} />
+          <Route path="/login" element={<GoogleAuthWrapper />} />
+          <Route path="/place-order" element={<PlaceOrder />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/services" element={<MyServices />} />
+        </Routes>
+      </Suspense>
 
-       </Routes>
-       <FooterLayout/>
+      <FooterLayout />
     </div>
   );
 }
-
- 
-
 
 export default App;
