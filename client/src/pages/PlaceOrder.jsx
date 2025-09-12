@@ -37,7 +37,11 @@ export default function PlaceOrder  ()  {
   };
 
   const onSubmitHandler = async (e) => {
+
     e.preventDefault();
+    if(getCartAmount() < 10){
+      return;
+    }  
     try {
       if (!token) return toast.error("Please login first");
 

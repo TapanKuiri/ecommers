@@ -134,10 +134,11 @@ const ShopContextProvider = (props) => {
 
     if (itemInfo && cartItems[itemId] > 0) {
       totalAmount += itemInfo.finalPrice * cartItems[itemId];
+      console.log(totalAmount);
     }
   }
 
-  return totalAmount;
+  return parseFloat(totalAmount.toFixed(2));
 };
   
 
