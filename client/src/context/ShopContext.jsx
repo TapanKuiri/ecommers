@@ -26,6 +26,7 @@ const ShopContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [productClicked, setProductClicked] =  useState(false);
+  const [totalCartAmount, setTotalCartAmount] = useState(0); 
 
   const navigate = useNavigate();
 
@@ -65,7 +66,6 @@ const ShopContextProvider = (props) => {
     }  
         // console.log("cartItems : ",cartItems);
         let cartData = structuredClone(cartItems);
-        console.log("cartF: ", cartData);
  
         if (cartData[itemId]) {
             cartData[itemId] ++;
@@ -81,7 +81,6 @@ const ShopContextProvider = (props) => {
   const updateQuantity = async (itemId, quantity) => {
   // Clone cartItems and update quantity
   let cartData = structuredClone(cartItems);
-  console.log(cartItems);
 
   if (quantity === 0) {
     delete cartData[itemId];
@@ -93,53 +92,42 @@ const ShopContextProvider = (props) => {
 
   try {
     if (token) {
-      await axios.post(backendUrl + '/api/cart/update', {
-        itemId,
-        quantity
-      }, {
-        headers: { token }
-      });
+      await axios.post(backendUrl + '/api/cart/update', { itemId, quantity }, {headers: { token }});
     }
   } catch (err) {
     console.log(err);
     toast.error(err.message);
   }
 };
-     const getCartCount = () =>{
+
+const getCartCount = () =>{
          
         let totalCount = 0;
-        // console.log("cart count is called", cartItems);
-        // console.log("cartItems my ", products);
         for(const items in cartItems){
             totalCount += cartItems[items];
-            // for(const item in cartItems[items]){
-            //     try{
-            //         if(cartItems[items][item]> 0){
-            //             totalCount += cartItems[items][item];
-            //         }
-            //     }catch(e){
-            //         console.log(e);
-            //     }
-            // }
         }
-        // console.log("total", totalCount);
         return totalCount;
-    }
+}
 
-  const getCartAmount = () => {
-  let totalAmount = 0;
+//   const getCartAmount = () => {
+//   let totalAmount = 0;
 
-  for (const itemId in cartItems) {
-    let itemInfo = products.find((product) => product._id === itemId);
+//   for (const itemId in cartItems) {
+//     // let itemInfo = products.find((product) => product._id === itemId);
 
-    if (itemInfo && cartItems[itemId] > 0) {
-      totalAmount += itemInfo.finalPrice * cartItems[itemId];
-      console.log(totalAmount);
-    }
-  }
+//     // if (itemInfo && cartItems[itemId] > 0) {
+//     //   totalAmount += itemInfo.finalPrice * cartItems[itemId];
+//     // }
 
-  return parseFloat(totalAmount.toFixed(2));
-};
+//     try{
+//       // const response
+//     }catch(err){
+
+//     }
+//   }
+
+//   return parseFloat(totalAmount.toFixed(2));
+// };
   
 
    const getUserCart = async (token) => {
@@ -246,7 +234,7 @@ const ShopContextProvider = (props) => {
     buyHandler,
     updateQuantity,
     getCartCount,
-    getCartAmount,
+    // getCartAmount,
     getUserCart,
     navigate,
     backendUrl,
@@ -264,7 +252,9 @@ const ShopContextProvider = (props) => {
     setIsLoading,
     hasMore,
     setProductClicked,
-    productClicked
+    productClicked,
+    setTotalCartAmount,
+    totalCartAmount
   };
 
   return (

@@ -110,6 +110,7 @@ const removeProduct = async (req, res) => {
 const singleProduct = async (req, res) => {
   try {
     const { productId } = req.body;
+    console.log("productId", productId);
 
 
     // Use findById for single product
@@ -128,6 +129,7 @@ const singleProduct = async (req, res) => {
     res.json({ success: false, message: err.message });
   }
 };
+
 
 
 // controllers/productController.js
@@ -186,9 +188,6 @@ const searchProduct = async (req, res) => {
       name: { $regex: search, $options: "i" }
     });
 
-    
-
-
    res.json({ success: true, products });
   } catch (err) {
     console.error("Search error:", err);
@@ -210,7 +209,7 @@ const totalProducts = async (req, res) => {
 
   const listAdminProducts = async (req, res) => {
   try {
-    console.log("run");
+    // console.log("run");
 
     // Await the query to get the data
     const allProducts = await productModel.find({});

@@ -89,7 +89,7 @@ export default function PlaceOrder  ()  {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className='flex flex-col sm:flex-row justify-between gap-4 pt-5 mx-2 sm:pt-14 min-h-[80vh] border-t'
+      className='flex flex-col sm:flex-row justify-between gap-4 pt-5 mt-11 lg:mt-0 mx-2 sm:pt-14 min-h-[80vh] border-t'
     >
       {/* Left Side - Delivery Info */}
       <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
@@ -195,7 +195,7 @@ export default function PlaceOrder  ()  {
           <CartTotal />
         </div>
 
-        <div className='mt-12'>
+        <div className='mt-12 items-center justify-center bg-green-300 p-3 rounded-xl mb-2 flex flex-col'>
           <Title text1='PAYMENT' text2='METHOD' />
           <div className='flex gap-3 flex-col lg:flex-row'>
             <div
@@ -213,10 +213,10 @@ export default function PlaceOrder  ()  {
             </div>
           </div>
 
-          <div className='w-full text-end mt-8'>
+          <div className='w-full mt-8 text-center'>
             <button
               type='submit'
-              className='bg-black text-white px-16 py-3 text-sm hover:bg-gray-900'
+              className='bg-black text-white py-3 p-12 border-1 rounded-2xl hover:bg-white hover:text-black  text-sm'
             >
               PLACE ORDER
             </button>

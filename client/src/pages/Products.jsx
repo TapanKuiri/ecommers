@@ -15,8 +15,6 @@ export default function Products() {
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
 
-  // console.log("products run:");
-
   // Toggle category filter
   const toggleCategory = (e) => {
     const value = e.target.value;
@@ -28,7 +26,7 @@ export default function Products() {
   };
 
   // Apply filters
-  const applyFilter = async () => {
+  const applyFilter = async (pageNumber=1) => {
     setIsLoading(true);
     let productCopy = [...products];
 
@@ -36,7 +34,7 @@ export default function Products() {
     if (category.length > 0) {
       try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
-          category,
+          category, page: pageNumber, limit: 20
         });
         if (data?.success) {
           productCopy = data.products;
@@ -69,8 +67,8 @@ export default function Products() {
 
   // Re-apply filters
   useEffect(() => {
-    applyFilter();
-  }, [category, search, sortType]);
+    applyFilter(page);
+  }, [category, search, sortType,page]);
 
   //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
@@ -80,6 +78,7 @@ export default function Products() {
     if (!container) return;
 
     const { scrollTop, clientHeight, scrollHeight } = container;
+    console.log(scrollHeight, clientHeight, scrollTop)
 
     // console.log("ScrollTop:", scrollTop, "ClientHeight:", clientHeight, "ScrollHeight:", scrollHeight);
 
@@ -115,7 +114,7 @@ export default function Products() {
             className={`h-3 sm:hidden transition-transform duration-200 ${
               showFilter ? 'rotate-90' : ''
             }`}
-            src={assets.drowdown}
+            src={assets.dropdown}
             alt="dropdown"
           />
         </p>
