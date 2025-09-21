@@ -11,6 +11,7 @@ import axios from 'axios';
 export default  function Cart(){
   const {currency, cartItems,updateQuantity, navigate, backendUrl, setTotalCartAmount} = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   // console.log("products: cart", products);
 
   const getCartData = async()=>{
@@ -20,14 +21,13 @@ export default  function Cart(){
 
     for(const key in cartItems){
       const response = await axios.post(`${backendUrl}/api/product/single`, {productId: key});
-      // setCartData((prev)=> [...prev, {{...response.data.product}]);
       cartTotal += (response.data.product.finalPrice * cartItems[key]);
-      // console.log(response.data.product.finalPrice * cartItems[key])
       tempData.push({
         ...response.data.product,
         quantity: cartItems[key]
       })
     }
+    setIsLoading(true);
 
     setCartData(tempData);
     setTotalCartAmount(parseFloat(cartTotal.toFixed(2)));
@@ -46,7 +46,7 @@ useEffect(() => {
       </div>
 
       <div>
-        {
+       { isLoading ?   ( 
  
           cartData.map((item, index)=>{
             return (
@@ -69,8 +69,12 @@ useEffect(() => {
              </div>
             )
 
-          })
-        }
+          }) ) : (
+          <div className='w-full flex justify-center items-center'>
+            <img className='w-20' src={assets.spinner} alt="" />
+          </div>
+        )
+        }  
       </div>
 
       <div className='flex justify-end mt-20'>

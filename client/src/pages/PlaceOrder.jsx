@@ -14,7 +14,8 @@ export default function PlaceOrder  ()  {
     token,
     cartItems,
     setCartItems,
-    getCartAmount,
+    // getCartAmount,
+    totalCartAmount,
     delivery_fee,
     products
   } = useContext(ShopContext);
@@ -39,7 +40,10 @@ export default function PlaceOrder  ()  {
   const onSubmitHandler = async (e) => {
 
     e.preventDefault();
-    if(getCartAmount() < 10){
+    // if(getCartAmount() < 10){
+    //   return;
+    // }  
+    if(totalCartAmount < 10){
       return;
     }  
     try {
@@ -62,7 +66,7 @@ export default function PlaceOrder  ()  {
       const orderData = {
         address: formData,
         items: orderItems,
-        amount: getCartAmount() + delivery_fee,
+        amount: totalCartAmount + delivery_fee,
         paymentMethod: method,
         payment: false
       };

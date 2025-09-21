@@ -109,25 +109,25 @@ const getCartCount = () =>{
         return totalCount;
 }
 
-//   const getCartAmount = () => {
-//   let totalAmount = 0;
+  const getCartAmount = () => {
+  let totalAmount = 0;
 
-//   for (const itemId in cartItems) {
-//     // let itemInfo = products.find((product) => product._id === itemId);
+  for (const itemId in cartItems) {
+    // let itemInfo = products.find((product) => product._id === itemId);
 
-//     // if (itemInfo && cartItems[itemId] > 0) {
-//     //   totalAmount += itemInfo.finalPrice * cartItems[itemId];
-//     // }
+    // if (itemInfo && cartItems[itemId] > 0) {
+    //   totalAmount += itemInfo.finalPrice * cartItems[itemId];
+    // }
 
-//     try{
-//       // const response
-//     }catch(err){
+    try{
+      // const response
+    }catch(err){
 
-//     }
-//   }
+    }
+  }
 
-//   return parseFloat(totalAmount.toFixed(2));
-// };
+  return parseFloat(totalAmount.toFixed(2));
+};
   
 
    const getUserCart = async (token) => {
@@ -234,7 +234,7 @@ const getCartCount = () =>{
     buyHandler,
     updateQuantity,
     getCartCount,
-    // getCartAmount,
+    getCartAmount,
     getUserCart,
     navigate,
     backendUrl,
