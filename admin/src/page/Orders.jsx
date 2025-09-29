@@ -7,6 +7,8 @@ import { assets } from "../assets/assets";
 export const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
 
+  // console.log(orders);
+
   const fetchAllOrders = async () => {
     if (!token) return null;
     try {
@@ -41,6 +43,7 @@ export const Orders = ({ token }) => {
       toast.error(err.message);
     }
   };
+ 
 
   useEffect(() => {
     fetchAllOrders();
@@ -126,10 +129,12 @@ export const Orders = ({ token }) => {
             </div>
 
             {/* Status Dropdown */}
-            <div className="flex items-center">
+            <div className={ `flex items-center flex-row md:flex-col lg:flex-col gap-3`}>
+
               <select
                 onChange={(event) => statusHandler(event, order._id)}
                 value={order.status}
+                disabled={order.status === "Cancelled"}
                 className="p-2 rounded-lg border border-gray-300 shadow-sm font-medium 
                 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 
                 transition"
@@ -140,7 +145,14 @@ export const Orders = ({ token }) => {
                 <option value="Out for delivery">Out for delivery</option>
                 <option value="Delivered">Delivered</option>
               </select>
+            <div className={`${order.status === 'Cancelled' ? 'bg-red-400' : 'bg-green-500'} p-3 px-5 border-0 rounded-2xl`}>
+              <div className="text-black">
+                  {order.status}
+
+              </div>
             </div>
+            </div>
+
           </div>
         ))}
       </div>

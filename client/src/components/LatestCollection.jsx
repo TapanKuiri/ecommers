@@ -4,13 +4,11 @@ import { Title } from "./Title";
 import { ProductItem } from "./ProductItem";
 import { assets } from "../assets/assets";
 import { Loading } from "./loading/Loading";
+import { Timer } from "./timer/Timer";
 
 export const LatestCollection =  () => {
   // Context state coming from ShopContext
-  const { products, search, setPage, page, isLoading, hasMore } = useContext(ShopContext);
-
-  // Local state for rotating banner images
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { products, search, setPage, isLoading, hasMore } = useContext(ShopContext);
 
   // Reference to container div for scroll listener
   const containerRef = useRef(null);
@@ -19,25 +17,12 @@ export const LatestCollection =  () => {
   const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
 
   /**
-   * Banner auto-rotating effect
-   * Changes image every 2 seconds
-   */
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % allImages.length);
-    }, 2000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
-
-  /**
    * Infinite scroll handler
    * Increases page count when user reaches near bottom
    */
   const handleInfiniteScroll = () => {
     try {
-      // ✅ Prevent multiple calls if already loading or no more products
+      //  Prevent multiple calls if already loading or no more products
       if (!hasMore || isLoading) return;
 
       const container = containerRef.current;
@@ -48,7 +33,6 @@ export const LatestCollection =  () => {
       // When user is near the bottom (5px threshold)
       if (scrollTop + clientHeight >= scrollHeight - 5) {
         setPage((prev) => prev + 1);
-        // console.log("Fetching page:", page + 1);
       }
     } catch (err) {
       console.log("Scroll error:", err);
@@ -66,7 +50,7 @@ export const LatestCollection =  () => {
 
     // Cleanup listener when component unmounts
     return () => container.removeEventListener("scroll", handleInfiniteScroll);
-  }, [hasMore, isLoading]); // ✅ Re-run if hasMore/isLoading changes
+  }, [hasMore, isLoading]); //  Re-run if hasMore/isLoading changes
 
   return (
     <div
@@ -74,15 +58,7 @@ export const LatestCollection =  () => {
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-x-hidden"
     >
       {/* Rotating banner - only visible when not searching */}
-      {!search && (
-        <div className="h-[300px] md:h-[400px] w-full overflow-hidden rounded-xl transition-all duration-700 relative">
-          <img
-            className="w-full h-full object-cover rounded-xl"
-            src={allImages[currentIndex]}
-            alt="banner"
-          />
-        </div>
-      )}
+      {!search && ( <Timer allImages={allImages}/>)}
 
       {/* Title Section */}
       <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">

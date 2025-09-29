@@ -39,9 +39,9 @@ function App() {
       <NavbarLayout />
 
       <Suspense fallback={<div className="flex justify-center items-center mt-50 mb-40">
-  <img src={assets.spinner} className="w-20 h-20" alt="Loading..." />
-</div>
-}>
+          <img src={assets.spinner} className="w-20 h-20" alt="Loading..." />
+        </div>
+        }>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />

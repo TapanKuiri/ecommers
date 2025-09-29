@@ -6,19 +6,12 @@ import { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { Title } from '../components/Title';
 import { useNavigate } from 'react-router-dom';
+import { Timer } from '../components/timer/Timer';
 
 export default function Service(){
   const { backendUrl, token } = useContext(ShopContext);
   const allImages = [assets.repair1, assets.repair2, assets.repair3];
-  const [currentIndex, setCurrentIndex] = useState(0);
   const navigate  = useNavigate();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % allImages.length);
-    }, 2000);
-    // return () => clearInterval(interval);
-  }, []);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -98,11 +91,7 @@ export default function Service(){
       <div className='flex flex-col items-center gap-4 w-full px-4 animate-fade-in-down'>
         {/* Banner with fade animation */}
         <div className='h-90 w-full overflow-hidden rounded-xl shadow-lg transition-all duration-700 relative z-10'>
-          <img
-            src={allImages[currentIndex]}
-            alt='Repair Banner'
-            className='w-full h-full object-cover rounded-xl scale-100 hover:scale-105 transition-transform duration-700'
-          />
+        <Timer allImages={allImages}/>
         </div>
 
 

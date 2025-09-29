@@ -12,8 +12,7 @@ import { Services } from './page/Services.';
 
 // Export backend URL
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
-console.log('Backend URL:', backendUrl);
-export const currency = '₹';
+ export const currency = '₹';
 
 function App() {
   const [token, setToken] = useState(
