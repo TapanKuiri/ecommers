@@ -10,6 +10,8 @@ export default function Orders  ()  {
   const [status, setStatus] = useState('');
   const [expandedOrderIndex, setExpandedOrderIndex] = useState(null);
 
+  console.log(orderData)
+
   const loadOrderData = async () => {
     // if (!token) return;
     try {

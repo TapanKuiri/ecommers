@@ -72,17 +72,36 @@ const userOrders = async (req, res) =>{
 }
 
 //update order status from admin panel
-const updateStatus = async (req, res) =>{
-    try{  
-     const {orderId, status} = req.body;
-     await orderModel.findByIdAndUpdate(orderId, {status});
-     res.json({success:true, message:'Status Updated'})
+ 
+const updateStatus = async (req, res) => {
+    try {  
+        const { orderId, status } = req.body;
+        const userOrderModel = await orderModel.findById(orderId);
 
-    }catch(err){
-        console.lod(err);
-        res.json({success: false, message: err.message});
+        if (!userOrderModel) {
+            return res.json({ success: false, message: "Order not found" });
+        }
+
+        // Update order status
+        userOrderModel.status = status;
+
+        // If delivered, mark payment as true
+        if (status === 'Delivered') {
+            userOrderModel.payment = true;
+        }else{
+          userOrderModel.payment = false;
+        }
+
+        await userOrderModel.save();
+
+        res.json({ success: true, message: 'Status Updated' });
+
+    } catch (err) {
+        console.log(err);
+        res.json({ success: false, message: err.message });
     }
-}
+};
+
 
 // const orderModel = require('../models/orderModel'); // or use import if you're using ES Modules
 
