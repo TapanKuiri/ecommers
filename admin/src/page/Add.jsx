@@ -5,78 +5,100 @@ import { toast } from "react-toastify";
 import { assets } from "../assets/assets";
 
 export const Add = ({ token }) => {
-  const [image1, setImage1] = useState(false);
-  const [image2, setImage2] = useState(false);
-  const [image3, setImage3] = useState(false);
-  const [image4, setImage4] = useState(false);
+  const [formData, setFormData] = useState({
+    image1: null,
+    image2: null,
+    image3: null,
+    image4: null,
+    name: "",
+    description: "",
+    price: "",
+    discount: "",
+    finalPrice: "",
+    category: "Electric & Electronic",
+    bestseller: false,
+  });
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [discount, setDiscount] = useState("");
-  const [finalPrice, setFinalPrice] = useState("");
-  const [category, setCategory] = useState("Electric & Electronic");
-  const [bestseller, setBestseller] = useState(false);
-
-  // Auto calculate final price
+  // Calculate final price automatically
   useEffect(() => {
-    const actualPrice = parseFloat(price) || 0;
-    const discountPercentage = parseFloat(discount) || 0;
+    const actualPrice = parseFloat(formData.price) || 0;
+    const discountPercentage = parseFloat(formData.discount) || 0;
     const discountedAmount =
       actualPrice - (actualPrice * discountPercentage) / 100;
-    setFinalPrice(discountedAmount.toFixed(2));
-  }, [price, discount]);
+    setFormData((prev) => ({
+      ...prev,
+      finalPrice: discountedAmount.toFixed(2),
+    }));
+  }, [formData.price, formData.discount]);
 
+  // Handle text, number, select, checkbox inputs
+  const onchangeHandler = (e) => {
+    const { name, type, value, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  // Handle file uploads
+  const onFileChange = (e, field) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, [field]: file }));
+    }
+  };
+
+  // Submit form
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("price", price);
-      formData.append("discount", discount);
-      formData.append("finalPrice", finalPrice);
-      formData.append("category", category);
-      formData.append("bestseller", bestseller);
-      image1 && formData.append("image1", image1);
-      image2 && formData.append("image2", image2);
-      image3 && formData.append("image3", image3);
-      image4 && formData.append("image4", image4);
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("description", formData.description);
+      data.append("price", formData.price);
+      data.append("discount", formData.discount);
+      data.append("finalPrice", formData.finalPrice);
+      data.append("category", formData.category);
+      data.append("bestseller", formData.bestseller);
 
-      const response = await axios.post(
-        `${backendUrl}/api/product/add`,
-        formData,
-        { headers: { token } }
-      );
+      formData.image1 && data.append("image1", formData.image1);
+      formData.image2 && data.append("image2", formData.image2);
+      formData.image3 && data.append("image3", formData.image3);
+      formData.image4 && data.append("image4", formData.image4);
+
+      const response = await axios.post(`${backendUrl}/api/product/add`, data, {
+        headers: { token },
+      });
 
       if (response.data.success) {
         toast.success(response.data.message);
-        setName("");
-        setDescription("");
-        setPrice("");
-        setDiscount("");
-        setFinalPrice("");
-        setCategory("Electric & Electronic");
-        setBestseller(false);
-        setImage1(false);
-        setImage2(false);
-        setImage3(false);
-        setImage4(false);
+        // Reset form
+        setFormData({
+          image1: null,
+          image2: null,
+          image3: null,
+          image4: null,
+          name: "",
+          description: "",
+          price: "",
+          discount: "",
+          finalPrice: "",
+          category: "Electric & Electronic",
+          bestseller: false,
+        });
       } else {
         toast.error(response.data.message);
       }
     } catch (err) {
-      toast.error("Something went wrong");
-      console.error(err);
+      const msg = err.response?.data?.message || "Upload failed!";
+      toast.error(msg);
     }
   };
 
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col w-full items-start gap-4 bg-blue-100 p-6 sm:p-10 rounded-lg shadow-lg transition-all duration-500 ease-in-out"
-
-      // className="flex flex-col w-full items-start gap-6 bg-white p-6 sm:p-10 rounded-2xl shadow-xl transition-all duration-500 ease-in-out border border-gray-200"
+      className="flex flex-col w-full items-start gap-4 bg-blue-100 p-6 sm:p-10 rounded-lg shadow-lg"
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-4">
         ➕ Add New Product
@@ -86,25 +108,22 @@ export const Add = ({ token }) => {
       <div className="w-full">
         <p className="mb-2 text-gray-700 font-semibold">Upload Images</p>
         <div className="flex gap-4 flex-wrap">
-          {[image1, image2, image3, image4].map((img, i) => {
-            const setImg = [setImage1, setImage2, setImage3, setImage4][i];
+          {[1, 2, 3, 4].map((num) => {
+            const imgField = `image${num}`;
+            const file = formData[imgField];
             return (
-              <label
-                key={i}
-                htmlFor={`image${i + 1}`}
-                className="cursor-pointer group"
-              >
+              <label key={num} htmlFor={imgField} className="cursor-pointer group">
                 <img
                   className="w-24 h-24 object-cover rounded-lg border-2 border-dashed border-gray-300 
-                  group-hover:border-blue-500 group-hover:shadow-md transition-all duration-300"
-                  src={img ? URL.createObjectURL(img) : assets.upload_icon}
+                    group-hover:border-blue-500 group-hover:shadow-md transition-all duration-300"
+                  src={file ? URL.createObjectURL(file) : assets.upload_icon}
                   alt="upload_area"
                 />
                 <input
-                  onChange={(e) => setImg(e.target.files[0])}
                   type="file"
-                  id={`image${i + 1}`}
+                  id={imgField}
                   hidden
+                  onChange={(e) => onFileChange(e, imgField)}
                 />
               </label>
             );
@@ -116,8 +135,9 @@ export const Add = ({ token }) => {
       <div className="w-full">
         <p className="mb-1 text-gray-700 font-medium">Product Name</p>
         <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
+          name="name"
+          value={formData.name}
+          onChange={onchangeHandler}
           className="w-full max-w-[600px] px-4 py-2 border border-gray-300 rounded-md 
           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
           type="text"
@@ -129,8 +149,9 @@ export const Add = ({ token }) => {
       <div className="w-full">
         <p className="mb-1 text-gray-700 font-medium">Product Description</p>
         <textarea
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
+          name="description"
+          value={formData.description}
+          onChange={onchangeHandler}
           className="w-full max-w-[600px] px-4 py-2 border border-gray-300 rounded-md 
           resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
           rows={4}
@@ -143,8 +164,9 @@ export const Add = ({ token }) => {
         <div className="w-full max-w-[260px]">
           <p className="mb-1 text-gray-700 font-medium">Category</p>
           <select
-            onChange={(e) => setCategory(e.target.value)}
-            value={category}
+            name="category"
+            onChange={onchangeHandler}
+            value={formData.category}
             className="w-full px-4 py-2 border border-gray-300 rounded-md 
             focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           >
@@ -165,8 +187,9 @@ export const Add = ({ token }) => {
         <div className="w-full max-w-[160px]">
           <p className="mb-1 text-gray-700 font-medium">Price (₹)</p>
           <input
-            onChange={(e) => setPrice(e.target.value)}
-            value={price}
+            name="price"
+            onChange={onchangeHandler}
+            value={formData.price}
             className="w-full px-4 py-2 border border-gray-300 rounded-md 
             focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             type="number"
@@ -177,8 +200,9 @@ export const Add = ({ token }) => {
         <div className="w-full max-w-[160px]">
           <p className="mb-1 text-gray-700 font-medium">Discount (%)</p>
           <input
-            onChange={(e) => setDiscount(e.target.value)}
-            value={discount}
+            name="discount"
+            onChange={onchangeHandler}
+            value={formData.discount}
             className="w-full px-4 py-2 border border-gray-300 rounded-md 
             focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
             type="number"
@@ -189,7 +213,7 @@ export const Add = ({ token }) => {
         <div className="w-full max-w-[180px]">
           <p className="mb-1 text-gray-700 font-medium">Final Price</p>
           <input
-            value={finalPrice}
+            value={formData.finalPrice}
             readOnly
             className="w-full px-4 py-2 bg-gray-100 border border-gray-300 
             rounded-md text-gray-700 cursor-not-allowed"
@@ -201,8 +225,9 @@ export const Add = ({ token }) => {
       {/* Bestseller Checkbox */}
       <div className="flex items-center gap-2 mt-2">
         <input
-          onChange={() => setBestseller((prev) => !prev)}
-          checked={bestseller}
+          name="bestseller"
+          onChange={onchangeHandler}
+          checked={formData.bestseller}
           type="checkbox"
           id="bestseller"
           className="accent-blue-600 cursor-pointer w-5 h-5"

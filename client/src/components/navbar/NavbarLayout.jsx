@@ -4,18 +4,18 @@ import { useState, useContext } from 'react'
 import { assets } from '../../assets/assets';
 import { ShopContext } from '../../context/ShopContext';
 // import { NavbarLinks } from './NavbarLinks';
-import { NavbarLinks } from './NavbarLinks/';
+import { NavbarLinks } from './NavbarLinks';
 import { NavSidebarMenu } from './NavSidebarMenu';
-import { NavProfile } from './NavProfile/';
+import { NavProfile } from './NavProfile';
 import { SearchBar } from '../SearchBar';
 
 
 
 export const NavbarLayout = () => {
-    const [isVisible, setIsVisible] = useState(false);
+    // const [isVisible, setIsVisible] = useState(false);
     const {setShowSearch, showSearch, getCartCount} = useContext(ShopContext);
      
-
+  console.log("navbr is run");
      
 
   return (

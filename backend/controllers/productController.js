@@ -2,6 +2,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import productModel from '../models/productModel.js';
  // add product
 const addProduct = async (req, res) => {
+    let uplodedImagesId = [];
     try{
         const {name, description, price,discount,finalPrice,  category, subCategory, bestseller} = req.body;
         // console.log("final", finalPrice)
@@ -18,6 +19,7 @@ const addProduct = async (req, res) => {
         let imageUrl = await Promise.all(
             images.map(async (image)=>{
                 let result = await cloudinary.uploader.upload(image.path, {resource_type: 'image'});
+                uplodedImagesId.push(result.public_id);
                 return result.secure_url;
             })
         )
@@ -36,9 +38,7 @@ const addProduct = async (req, res) => {
             // sizes: JSON.parse(sizes) // Uncomment if you're using sizes in JSON format
         };
 
-
         // console.log(productData);
-
         const product = new productModel(productData);
         await product.save();
  
@@ -46,7 +46,19 @@ const addProduct = async (req, res) => {
         res.json({success: true, message: 'Product added successfully'});
 
     }catch(err){
-        console.log(err);
+        console.log(err.message);
+        if(uplodedImagesId.length  > 0){
+          await Promise.all(
+            uplodedImagesId.map(async (publicId) =>{
+              try{
+                await cloudinary.uploader.destroy(publicId);
+                // console.log(`Rolled back: ${publicId}`);
+              }catch(err){
+                console.log("Failed to delete image ", err);
+              }
+            })
+          )
+        }
         res.json({success: false, message: err.message}); 
     }
 }
@@ -135,7 +147,7 @@ const singleProduct = async (req, res) => {
 // controllers/productController.js
  const relatedProducts = async (req, res) => {
   try {
-    let { category, page = 1, limit = 20 } = req.body;
+    let { category, page = 1, limit = 2 } = req.body;
 
     // convert to number (req.body values come as strings sometimes)
     page = parseInt(page);
@@ -206,8 +218,7 @@ const totalProducts = async (req, res) => {
 };
 
 
-
-  const listAdminProducts = async (req, res) => {
+const listAdminProducts = async (req, res) => {
   try {
     // console.log("run");
 

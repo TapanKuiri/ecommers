@@ -1,78 +1,33 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export const NavSidebarMenu = ({ isVisible, setIsVisible }) => {
+export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
+  console.log("NavSidebarMenu is rendered");
+
+  const links = [
+    {path: "/", label: "HOME", end: true},
+    {path: '/products', label: "PRODUCTS"},
+    {path: '/HandMade', label: "HANDMADE"},
+    {path: '/service', label: "SERVICE"}
+  ];
+
+  const getNavLinkClass = ({isActive})=>
+      ` flex flex-col items-center h-7 w-auto p-3 mx-[3%] justify-center gap-1 font-extrabold ${isActive?
+        'bg-black text-white rounded-2xl':'text-black'
+      }`
+  ;
+
+
   return (
-    <div className=" ">
-      <div className={`transition-all duration-300 w-full z-5 fixed`}>
-        {/* Rounded container */}
-        <div className="flex w-full h-10 text-gray-700 shadow-md rounded-lg overflow-hidden bg-gray-50">
-          
-          {/* HOME */}
-          <NavLink
-            onClick={() => setIsVisible(false)}
-            className={({ isActive }) =>
-              `text-center flex items-center justify-center text-sm font-medium w-1/4 border-r 
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white"
-                  : "bg-gray-50 hover:bg-blue-100"
-              }`
-            }
-            to="/"
-          >
-            HOME
+    <div>
+      <ul className="lg:hidden md:hidden flex flex-row justify-between items-center w-full text-sm text-gray-700 bg-gray-200 py-3">
+        {links.map(({path, label, end})=>(
+          <NavLink key={label} to={path} end={end} className={getNavLinkClass}>
+             {label}
           </NavLink>
-
-          {/* PRODUCTS */}
-          <NavLink
-            onClick={() => setIsVisible(false)}
-            className={({ isActive }) =>
-              `text-center flex items-center justify-center text-sm font-medium w-1/4 border-r 
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
-                  : "bg-gray-50 hover:bg-green-100"
-              }`
-            }
-            to="/products"
-          >
-            PRODUCTS
-          </NavLink>
-
-          {/* HANDMADE */}
-          <NavLink
-            onClick={() => setIsVisible(false)}
-            className={({ isActive }) =>
-              `text-center flex items-center justify-center text-sm font-medium w-1/4 border-r 
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-pink-500 to-rose-600 text-white"
-                  : "bg-gray-50 hover:bg-pink-100"
-              }`
-            }
-            to="/HandMade"
-          >
-            HANDMADE
-          </NavLink>
-
-          {/* SERVICE */}
-          <NavLink
-            onClick={() => setIsVisible(false)}
-            className={({ isActive }) =>
-              `text-center flex items-center justify-center text-sm font-medium w-1/4 
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-purple-500 to-indigo-700 text-white"
-                  : "bg-gray-50 hover:bg-purple-100"
-              }`
-            }
-            to="/service"
-          >
-            SERVICE
-          </NavLink>
-        </div>
-      </div>
+        ))}
+      </ul>
     </div>
+
   );
-};
+});

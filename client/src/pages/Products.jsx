@@ -34,7 +34,7 @@ export default function Products() {
     if (category.length > 0) {
       try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
-          category, page: pageNumber, limit: 20
+          category, page: pageNumber, limit: 2
         });
         if (data?.success) {
           productCopy = data.products;
@@ -72,7 +72,8 @@ export default function Products() {
 
   //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
-    if(category.length > 0 ) return;
+    // if(category.length > 0 ) return;
+    console.log("it is run");
     
     const container = containerRef.current;
     if (!container) return;
