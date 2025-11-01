@@ -38,7 +38,7 @@ function App() {
       <ToastContainer />
       <NavbarLayout />
 
-      <Suspense fallback={<div className="flex justify-center items-center mt-50 mb-40">
+      <Suspense fallback={<div className="flex justify-center items-center mt-50 mb-40 ">
           <img src={assets.spinner} className="w-20 h-20" alt="Loading..." />
         </div>
         }>

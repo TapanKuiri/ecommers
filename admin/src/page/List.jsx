@@ -55,12 +55,13 @@ export const List = ({ token }) => {
 
       <div className="flex flex-col gap-3">
         {/* -------- Table Head -------- */}
-        <div className="hidden md:grid grid-cols-[1fr_2fr_1fr_1fr_1fr] items-center py-3 px-4 
+        <div className="hidden md:grid grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr] items-center py-3 px-4 
         border-b bg-gray-100 text-sm font-semibold text-gray-600 uppercase tracking-wide rounded-t-lg">
           <span>Image</span>
           <span>Name</span>
           <span>Category</span>
           <span>Price</span>
+          <span>FinalP</span>
           <span className="text-center">Action</span>
         </div>
 
@@ -68,7 +69,7 @@ export const List = ({ token }) => {
         {list.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-[1fr_2fr_1fr] md:grid-cols-[1fr_2fr_1fr_1fr_1fr] items-center 
+            className="grid grid-cols-[1fr_2fr_1fr] md:grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr] items-center 
             gap-4 py-4 px-4 border bg-white shadow-sm hover:shadow-md transition rounded-lg text-sm"
           >
             {/* Product Image */}
@@ -79,7 +80,7 @@ export const List = ({ token }) => {
             />
 
             {/* Name */}
-            <p className="font-medium text-gray-800">{item.name}</p>
+            <p className="font-medium text-gray-800 ">{item.name}</p>
 
             {/* Category */}
             <p className="text-gray-600">{item.category}</p>
@@ -88,6 +89,11 @@ export const List = ({ token }) => {
             <p className="font-semibold text-blue-600">
               {currency}
               {item.price}
+            </p>
+
+            <p className="font-semibold text-blue-600">
+              {currency}
+              {item.finalPrice}
             </p>
 
             {/* Delete Button */}

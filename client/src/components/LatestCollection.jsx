@@ -9,7 +9,7 @@ import { Timer } from "./timer/Timer";
 export const LatestCollection =  () => {
   // Context state coming from ShopContext
   const { products, search, setPage, isLoading, hasMore } = useContext(ShopContext);
-
+ 
   // Reference to container div for scroll listener
   const containerRef = useRef(null);
 

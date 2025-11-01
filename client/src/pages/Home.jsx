@@ -5,7 +5,7 @@ import { OurPolicy } from '../components/footer/OurPolicy'
 
 export default function Home   (){
   return (
-    <div className=' md:mx-10 mx-2'> 
+    <div className='lg:mx-10 md:mx-10 mx-2 '> 
       
       <LatestCollection/>
       <BestSeller/>

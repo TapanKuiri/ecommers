@@ -20,20 +20,18 @@ export const NavbarLayout = () => {
 
   return (
 
-    <div className='flex'>
+  <div className='flex flex-col w-full '>
 
    
     {/* // <div className='flex fixed items-center justify-between bg-gray-300 text-white p-1 md:mx-10 mx-0'> */}
-    <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-7 py-2'>
+    <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-7 py-1'>
 
         <Link to='/' >
             <img src={assets.logo} className='w-13 rounded-2xl mx-1  ' alt='logo'/>
         </Link>
-
-
+ 
         <SearchBar/>
           <NavbarLinks/>
-
 
           <div className='flex  items-center gap-2'>
                  
@@ -56,10 +54,11 @@ export const NavbarLayout = () => {
            
           </div>
     </div>
-    <div className='w-full lg:hidden sm:hidden md:hidden '>
+
+    <div className='fixed left-0 top-14 w-full z-30 flex items-center justify-between text-white '>
         <NavSidebarMenu/>
     </div>
-      </div>
+  </div>
     
 )
 }
