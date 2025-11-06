@@ -66,8 +66,6 @@ const addProduct = async (req, res) => {
 // list products
 
 const listProducts = async(req, res)=>{
-
- 
 try {
     let { page, limit } = req.body;
 
@@ -86,10 +84,9 @@ try {
       .limit(limit)
       .lean();  // returns plain JS objects (faster than Mongoose docs).
 
-      // .sort({ createdAt: -1 });
-      // console.log(products);
+    // const total = await productModel.countDocuments();
+    const total = await productModel.estimatedDocumentCount();
 
-    const total = await productModel.countDocuments();
 
     res.json({
       success: true,
@@ -145,46 +142,86 @@ const singleProduct = async (req, res) => {
 
 
 // controllers/productController.js
- const relatedProducts = async (req, res) => {
-  try {
-    let { category, page = 1, limit = 2 } = req.body;
+//  const relatedProducts = async (req, res) => {
+//   try {
+//     let { category, page = 1, limit = 2 } = req.body;
 
-    // convert to number (req.body values come as strings sometimes)
+//     // convert to number (req.body values come as strings sometimes)
+//     page = parseInt(page);
+//     limit = parseInt(limit);
+ 
+//     if (!category) {
+//       return res.status(400).json({ success: false, message: "Category is required" });
+//     }
+
+//     const products = await productModel
+//       .find(
+//         { category },
+//         { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, category: 1 }
+//       )
+//       .skip((page - 1) * limit)
+//       .limit(limit)
+//       .lean();
+
+ 
+//     const totalCount = await productModel.countDocuments({ category });
+
+//     res.json({
+//       success: true,
+//       products,
+//       totalCount,
+//       hasMore: page * limit < totalCount,
+
+//       // hasMore: page * limit < total,
+//       // pagination: {
+//       //   page,
+//       //   limit,
+//       //   totalPages: Math.ceil(totalCount / limit), 
+//       //   totalProducts: totalCount,
+//       // },
+//     });
+//   } catch (err) {
+//     console.error("Error fetching related products:", err);
+//     res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
+const relatedProducts = async (req, res) => {
+  try {
+    let { category, page = 1, limit = 8 } = req.body;
+
     page = parseInt(page);
     limit = parseInt(limit);
- 
-    if (!category) {
+
+    if (!category || category.length === 0) {
       return res.status(400).json({ success: false, message: "Category is required" });
     }
 
+    // If category is array, match any of them
+    const categoryFilter = Array.isArray(category) ? { $in: category } : category;
 
     const products = await productModel
       .find(
-        { category },
+        { category: categoryFilter },
         { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, category: 1 }
       )
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .lean();
 
- 
-    const totalCount = await productModel.countDocuments({ category });
+    const totalCount = await productModel.countDocuments({ category: categoryFilter });
 
     res.json({
       success: true,
       products,
-      pagination: {
-        page,
-        limit,
-        totalPages: Math.ceil(totalCount / limit),
-        totalProducts: totalCount,
-      },
+      totalCount,
+      hasMore: page * limit < totalCount
     });
   } catch (err) {
     console.error("Error fetching related products:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
-
 
 
 // Search products by name, description, or category

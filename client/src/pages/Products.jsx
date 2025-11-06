@@ -7,10 +7,11 @@ import axios from 'axios';
 import { Loading } from '../components/loading/Loading';
 
 export default function Products() {
-  const { products, search, backendUrl, page, setPage, isLoading, setIsLoading } = useContext(ShopContext);
+  const { products, search, backendUrl, page, setPage,hasMore, setHasMore, isLoading, setIsLoading } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  // let count = useRef(0);
   const [sortType, setSortType] = useState('relevent');
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
@@ -28,16 +29,22 @@ export default function Products() {
   // Apply filters
   const applyFilter = async (pageNumber=1) => {
     setIsLoading(true);
+    // console.log("Products: ", products)
     let productCopy = [...products];
 
     // Category filter - backend fetch
     if (category.length > 0) {
+      count.current = category.length;
+      // console.log("category", category.length);
+
       try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
-          category, page: pageNumber, limit: 2
+          category, page: pageNumber, limit: 20
         });
+        // console.log("data: ", data.hasMore);
         if (data?.success) {
           productCopy = data.products;
+          setHasMore(data.hasMore);
         }
       } catch (err) {
         console.error('Error fetching category filtered products:', err.message);
@@ -56,6 +63,14 @@ export default function Products() {
         break;
     }
 
+    // if (pageNumber === 1) {
+    //   setFilterProducts(productCopy);
+    // } else {
+    //   setFilterProducts((prev) => [...prev, ...productCopy]);
+    // }
+
+    // setIsLoading(false);
+
     setFilterProducts(productCopy);
     setIsLoading(false);
   };
@@ -72,32 +87,38 @@ export default function Products() {
 
   //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
-    // if(category.length > 0 ) return;
-    console.log("it is run");
+    if(count > 0 ) return;
+    // console.log("scrolling...");
+    // console.log("len", category.length);
     
     const container = containerRef.current;
     if (!container) return;
 
     const { scrollTop, clientHeight, scrollHeight } = container;
-    console.log(scrollHeight, clientHeight, scrollTop)
+    // console.log(scrollHeight, clientHeight, scrollTop)
 
     // console.log("ScrollTop:", scrollTop, "ClientHeight:", clientHeight, "ScrollHeight:", scrollHeight);
 
     // Check if reached bottom
     if (scrollTop + clientHeight >= scrollHeight - 5) {
-      console.log("Reached bottom ");
+      // console.log("Reached bottom ");
       setPage((prev) => prev + 1); // load next page
     }
   };
 
+
   useEffect(() => {
       const container = containerRef.current;
-      if (!container) return;
+      // console.log("container: ", container);
+    // if(category.length > 0 ) return;
+    // console.log("len: ", category.length)
+
+      if (!container) return;         
   
       container.addEventListener("scroll", handelInfiniteScroll);
       return () => container.removeEventListener("scroll", handelInfiniteScroll);
 
-  }, [category]);
+  }, []);
 
   return (
     <div
