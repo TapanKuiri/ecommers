@@ -14,9 +14,6 @@ import { SearchBar } from '../SearchBar';
 export const NavbarLayout = () => {
     // const [isVisible, setIsVisible] = useState(false);
     const {setShowSearch, showSearch, getCartCount} = useContext(ShopContext);
-     
-  console.log("navbr is run");
-     
 
   return (
 

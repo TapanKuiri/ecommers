@@ -188,7 +188,7 @@ const singleProduct = async (req, res) => {
 
 const relatedProducts = async (req, res) => {
   try {
-    let { category, page = 1, limit = 8 } = req.body;
+    let { category, page = 1, limit = 20 } = req.body;
 
     page = parseInt(page);
     limit = parseInt(limit);

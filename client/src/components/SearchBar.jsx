@@ -37,7 +37,7 @@ export const SearchBar = () => {
 
   return (
     <div className="relative flex border-t border-b w-[48%] bg-gray-50 text-center md:w-40 lg:w-96 rounded-md">
-      <div className="inline-flex items-center justify-center border border-gray-500 px-5 h-12 rounded-md w-full">
+      <div className="inline-flex items-center justify-center border border-gray-500 px-4 h-10 rounded-md w-full">
         <input
           type="text"
           placeholder="Search"

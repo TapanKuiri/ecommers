@@ -7,7 +7,6 @@ import { Loading } from "./loading/Loading";
 import { Timer } from "./timer/Timer";
 
 export const LatestCollection =  () => {
-  // Context state coming from ShopContext
   const { products, search, setPage, isLoading, hasMore } = useContext(ShopContext);
  
   // Reference to container div for scroll listener
@@ -15,7 +14,6 @@ export const LatestCollection =  () => {
 
   // Array of banner images
   const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
-
   /**
    * Infinite scroll handler
    * Increases page count when user reaches near bottom
@@ -39,9 +37,7 @@ export const LatestCollection =  () => {
     }
   };
 
-  /**
-   * Attach infinite scroll event listener to the container
-   */
+  //   Attach infinite scroll event listener to the container
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;

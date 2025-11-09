@@ -157,6 +157,8 @@ const getCartCount = () =>{
         limit: 20,
       });
 
+      console.log("it is called--------------");
+
       if (response.data.success) {
         const productsData = response.data.products;
 

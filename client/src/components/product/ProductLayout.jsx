@@ -17,32 +17,25 @@ export default function ProductLayout(){
   const {products, currency, addToCart, buyHandler, productClicked, setProductClicked} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
-  const [size, setSize] = useState('');
  
 
   const fetchProductData = async () =>{
+    console.log("fetching product data", productId);
     try{
         const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
         if(response.data.success){ 
-          
           setProductData(response.data.product); 
-          // setTimeout(()=>{
-
             setProductClicked(true);
-          // },3000)
-
           setImage(response.data.product.image[0]); 
         }
     }catch(err){
         console.log(err);
     }
-
   }
-
  
   useEffect(()=>{
-    fetchProductData();
-  },[productId, products]);
+     fetchProductData();
+  },[productId]);
 
   return  (productClicked) ? (
   <div>

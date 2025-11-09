@@ -25,12 +25,13 @@ import { assets } from './assets/assets';
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+const GoogleAuthWrapper = () => (
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <Login />
+  </GoogleOAuthProvider>
+);
+
 function App() {
-  const GoogleAuthWrapper = () => (
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <Login />
-    </GoogleOAuthProvider>
-  );
 
   return (
     <div className="pt-16">

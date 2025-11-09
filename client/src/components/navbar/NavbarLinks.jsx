@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 
 export const NavbarLinks = React.memo( () => {
-  console.log("NavbarLinks is rendered");
+  // console.log("NavbarLinks is rendered");
 
   const links =  [
     { path: "/", label: "HOME", end: true },

@@ -11,7 +11,7 @@ export default function Products() {
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  // let count = useRef(0);
+  let filterLength = useRef(0);
   const [sortType, setSortType] = useState('relevent');
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
@@ -30,26 +30,27 @@ export default function Products() {
   const applyFilter = async (pageNumber=1) => {
     setIsLoading(true);
     // console.log("Products: ", products)
+     
     let productCopy = [...products];
 
     // Category filter - backend fetch
-    if (category.length > 0) {
-      count.current = category.length;
-      // console.log("category", category.length);
+    // if (filterLength > 0) return;
+      // count.current = category.length;
+      console.log("category", category);
 
       try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
           category, page: pageNumber, limit: 20
         });
-        // console.log("data: ", data.hasMore);
+        // console.log("data: ", data.products);
         if (data?.success) {
           productCopy = data.products;
-          setHasMore(data.hasMore);
+          // setHasMore(data.hasMore);
         }
       } catch (err) {
         console.error('Error fetching category filtered products:', err.message);
       }
-    }
+    // }
 
     // Sorting
     switch (sortType) {
@@ -75,23 +76,32 @@ export default function Products() {
     setIsLoading(false);
   };
 
+  console.log("filterLne", filterLength.current);
+
   // Initialize products
   useEffect(() => {
     setFilterProducts(products);
   }, [products]);
 
+
   // Re-apply filters
   useEffect(() => {
+    filterLength.current = category.length;
+    if(filterLength.current <= 0 ){
+      setPage(1);
+      setSortType('relevent');
+      setFilterProducts(products);
+      return;
+    } 
     applyFilter(page);
   }, [category, search, sortType,page]);
 
   //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
-    if(count > 0 ) return;
-    // console.log("scrolling...");
-    // console.log("len", category.length);
+    if(filterLength.current > 0 ) return;
     
     const container = containerRef.current;
+    // console.log("container: ", container);
     if (!container) return;
 
     const { scrollTop, clientHeight, scrollHeight } = container;
@@ -101,7 +111,7 @@ export default function Products() {
 
     // Check if reached bottom
     if (scrollTop + clientHeight >= scrollHeight - 5) {
-      // console.log("Reached bottom ");
+      console.log("Reached bottom ############");
       setPage((prev) => prev + 1); // load next page
     }
   };

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
-  console.log("NavSidebarMenu is rendered");
+  // console.log("NavSidebarMenu is rendered");
 
   const links = [
     {path: "/", label: "HOME", end: true},
