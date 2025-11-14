@@ -13,12 +13,16 @@ export default function Products() {
   const [category, setCategory] = useState([]);
   let filterLength = useRef(0);
   const [sortType, setSortType] = useState('relevent');
+  // const [isSortClicked, setIsSortClicked] = useState(false);
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+  const isSortClickedRef = useRef(false);
+
 
   // Toggle category filter
   const toggleCategory = (e) => {
     const value = e.target.value;
+    setPage(1); // Reset to first page on filter change
     if (category.includes(value)) {
       setCategory((prev) => prev.filter((item) => item !== value));
     } else {
@@ -29,106 +33,86 @@ export default function Products() {
   // Apply filters
   const applyFilter = async (pageNumber=1) => {
     setIsLoading(true);
+    // if ( !hasMore) return;
     // console.log("Products: ", products)
-     
-    let productCopy = [...products];
-
-    // Category filter - backend fetch
-    // if (filterLength > 0) return;
-      // count.current = category.length;
-      console.log("category", category);
-
+    let productCopy = null;
+    if(filterLength.current > 0){
       try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
           category, page: pageNumber, limit: 20
         });
         // console.log("data: ", data.products);
-        if (data?.success) {
-          productCopy = data.products;
-          // setHasMore(data.hasMore);
+       if (data?.success) {
+          setFilterProducts((prev) => pageNumber === 1 ? data.products : [...prev, ...data.products]);
+          setHasMore(data.hasMore);
         }
+
       } catch (err) {
         console.error('Error fetching category filtered products:', err.message);
       }
-    // }
 
-    // Sorting
-    switch (sortType) {
-      case 'low-high':
-        productCopy.sort((a, b) => a.finalPrice - b.finalPrice);
-        break;
-      case 'high-low':
-        productCopy.sort((a, b) => b.finalPrice - a.finalPrice);
-        break;
-      default:
-        break;
+    }else{
+
+      productCopy = [...products];
+
+      setFilterProducts(productCopy);
+      setIsLoading(false);
     }
 
-    // if (pageNumber === 1) {
-    //   setFilterProducts(productCopy);
-    // } else {
-    //   setFilterProducts((prev) => [...prev, ...productCopy]);
-    // }
-
-    // setIsLoading(false);
-
-    setFilterProducts(productCopy);
+    // Sorting
+    if(sortType === 'low-high'){
+      isSortClickedRef.current = true;
+      filterProducts.sort((a,b) => a.finalPrice - b.finalPrice);
+      setIsLoading(false);
+      setFilterProducts(filterProducts);
+      
+    }else if(sortType === 'high-low'){
+      isSortClickedRef.current = true;
+      filterProducts.sort((a,b) => b.finalPrice - a.finalPrice);
+      setIsLoading(false);
+      setFilterProducts(filterProducts);
+    }else if(sortType === 'relevent'){
+      setIsLoading(true);
+      isSortClickedRef.current = false;
+    }
+    
     setIsLoading(false);
   };
-
-  console.log("filterLne", filterLength.current);
-
-  // Initialize products
-  useEffect(() => {
-    setFilterProducts(products);
-  }, [products]);
-
 
   // Re-apply filters
   useEffect(() => {
     filterLength.current = category.length;
-    if(filterLength.current <= 0 ){
-      setPage(1);
-      setSortType('relevent');
-      setFilterProducts(products);
-      return;
-    } 
     applyFilter(page);
+    // if(filterLength.current == 0 ){
+      // setPage(1);
+      // setFilterProducts(products);
+      // return;
+    // } 
   }, [category, search, sortType,page]);
 
   //  Infinite Scroll (inside container)
   const handelInfiniteScroll = () => {
-    if(filterLength.current > 0 ) return;
-    
+    if(isSortClickedRef.current) return;
     const container = containerRef.current;
-    // console.log("container: ", container);
     if (!container) return;
-
     const { scrollTop, clientHeight, scrollHeight } = container;
-    // console.log(scrollHeight, clientHeight, scrollTop)
-
-    // console.log("ScrollTop:", scrollTop, "ClientHeight:", clientHeight, "ScrollHeight:", scrollHeight);
-
-    // Check if reached bottom
-    if (scrollTop + clientHeight >= scrollHeight - 5) {
-      console.log("Reached bottom ############");
+    if (scrollTop + clientHeight >= scrollHeight - 20) {
       setPage((prev) => prev + 1); // load next page
     }
   };
 
+   useEffect(()=>{
+      setHasMore(true);
+    },[])
 
   useEffect(() => {
       const container = containerRef.current;
-      // console.log("container: ", container);
-    // if(category.length > 0 ) return;
-    // console.log("len: ", category.length)
-
       if (!container) return;         
   
       container.addEventListener("scroll", handelInfiniteScroll);
       return () => container.removeEventListener("scroll", handelInfiniteScroll);
 
-  }, []);
+  }, [page]);
 
   return (
     <div
@@ -231,3 +215,5 @@ export default function Products() {
     </div>
   );
 };
+
+ 

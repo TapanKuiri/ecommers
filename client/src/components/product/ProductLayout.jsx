@@ -13,9 +13,11 @@ import { Loading } from '../loading/Loading';
 export default function ProductLayout(){
   
   const {productId} = useParams();
+
   // console.log(productId);
-  const {products, currency, addToCart, buyHandler, productClicked, setProductClicked} = useContext(ShopContext);
+  const {products, currency, addToCart, buyHandler, productClicked, setProductClicked, clickedProductIDRef} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
+  // clickedProductIDRef.current = productId;
   const [image, setImage] = useState('')
  
 
@@ -27,15 +29,20 @@ export default function ProductLayout(){
           setProductData(response.data.product); 
             setProductClicked(true);
           setImage(response.data.product.image[0]); 
+          // console.log("single product data:", response.data.product.image[0]);
         }
     }catch(err){
         console.log(err);
     }
   }
+
+  // console.log("product image: ", image);
  
   useEffect(()=>{
+    //  productId = clickedProductIDRef.current;
+    // console.log("ProductLayout useEffect triggered for productId:", productId);
      fetchProductData();
-  },[productId]);
+  },[ ]);
 
   return  (productClicked) ? (
   <div>

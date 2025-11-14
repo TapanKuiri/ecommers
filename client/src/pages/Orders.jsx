@@ -106,7 +106,7 @@ export default function Orders  ()  {
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               {/* Left: Product Info */}
-              <div className="flex items-start gap-5 text-sm">
+              <a href={`/product/${item._id}`} className="flex items-start gap-4 text-sm ">
                 <img
                   className="w-20 sm:w-24 h-20 object-cover rounded-lg border border-gray-200"
                   src={item?.image?.[0] || 'https://via.placeholder.com/80'}
@@ -135,7 +135,7 @@ export default function Orders  ()  {
                     </p>
                   </div>
                 </div>
-              </div>
+              </a>
 
               {/* Right: Status + Actions */}
               <div className="md:w-1/2 flex justify-between items-center">

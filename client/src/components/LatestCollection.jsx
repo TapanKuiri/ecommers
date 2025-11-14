@@ -5,28 +5,26 @@ import { ProductItem } from "./ProductItem";
 import { assets } from "../assets/assets";
 import { Loading } from "./loading/Loading";
 import { Timer } from "./timer/Timer";
+import { useLocation } from "react-router-dom";
 
 export const LatestCollection =  () => {
-  const { products, search, setPage, isLoading, hasMore } = useContext(ShopContext);
+  const { products, search, setPage, isLoading, hasMore, currentPositionRef,setHasMore } = useContext(ShopContext);
+  const {pathname } = useLocation(); 
  
   // Reference to container div for scroll listener
   const containerRef = useRef(null);
 
   // Array of banner images
   const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
-  /**
-   * Infinite scroll handler
-   * Increases page count when user reaches near bottom
-   */
+  
   const handleInfiniteScroll = () => {
     try {
-      //  Prevent multiple calls if already loading or no more products
-      if (!hasMore || isLoading) return;
-
+      // if (!hasMore || isLoading) return;
       const container = containerRef.current;
       if (!container) return;
 
       const { scrollTop, clientHeight, scrollHeight } = container;
+      currentPositionRef.current = scrollTop;
 
       // When user is near the bottom (5px threshold)
       if (scrollTop + clientHeight >= scrollHeight - 5) {
@@ -37,15 +35,25 @@ export const LatestCollection =  () => {
     }
   };
 
+  useEffect(() => {
+      if (containerRef.current) {
+          containerRef.current.scrollTop = currentPositionRef.current;
+      }
+  }, [pathname]);
+
+  useEffect(()=>{
+    setHasMore(true);
+  },[])
+
   //   Attach infinite scroll event listener to the container
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     container.addEventListener("scroll", handleInfiniteScroll);
-
     // Cleanup listener when component unmounts
-    return () => container.removeEventListener("scroll", handleInfiniteScroll);
+    return () =>{
+        container.removeEventListener("scroll", handleInfiniteScroll);
+    }  
   }, [hasMore, isLoading]); //  Re-run if hasMore/isLoading changes
 
   return (

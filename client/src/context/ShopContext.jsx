@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useRef } from "react";
 
 export const ShopContext = createContext();
 
@@ -27,6 +28,8 @@ const ShopContextProvider = (props) => {
   const [profileImage, setProfileImage] = useState("");
   const [productClicked, setProductClicked] =  useState(false);
   const [totalCartAmount, setTotalCartAmount] = useState(0); 
+  const currentPositionRef = useRef(0);
+  const clickedProductIDRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -157,9 +160,8 @@ const getCartCount = () =>{
         limit: 20,
       });
 
-      console.log("it is called--------------");
 
-      if (response.data.success) {
+      if (response.data.success) { 
         const productsData = response.data.products;
 
         setProducts((prev) =>
@@ -208,6 +210,7 @@ const getCartCount = () =>{
   // -------------------- TRIGGER PRODUCT FETCH --------------------
   useEffect(() => {
     if (page >= 1 && searchFilteredProducts.length === 0) {
+      // console.log("hasMore:", hasMore, "isLoading:", isLoading);
       getProductsData(page);
     }
   }, [page, searchFilteredProducts]);
@@ -253,10 +256,14 @@ const getCartCount = () =>{
     isLoading,
     setIsLoading,
     hasMore,
+    setHasMore,
     setProductClicked,
     productClicked,
     setTotalCartAmount,
-    totalCartAmount
+    totalCartAmount,
+    currentPositionRef,
+    clickedProductIDRef
+    
   };
 
   return (

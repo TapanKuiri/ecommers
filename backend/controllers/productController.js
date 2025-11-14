@@ -210,6 +210,7 @@ const relatedProducts = async (req, res) => {
       .lean();
 
     const totalCount = await productModel.countDocuments({ category: categoryFilter });
+    console.log("totalCount:", totalCount);
 
     res.json({
       success: true,
