@@ -6,6 +6,8 @@ const adminAuth = async (req, res, next) =>{
         // console.log("token: ",token);
         if(!token) return res.json({success: false, message:'Not authorized, please login'});
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        // const userId = decoded.id;
+
 
         // console.log("decoded: ", decoded);
         // console.log(process.env.ADMIN_PASSWORD);

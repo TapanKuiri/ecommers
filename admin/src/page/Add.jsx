@@ -173,14 +173,14 @@ export const Add = ({ token }) => {
             <option value="Electric & Electronic">Electric & Electronic</option>
             <option value="Home & Kitchen">Home & Kitchen</option>
             <option value="Mobile & Laptop">Mobile & Laptop</option>
-            <option value="Hand Made">Hand Made</option>
+            {/* <option value="Hand Made">Hand Made</option> */}
             <option value="Bag & Luggage">Bag & Luggage</option>
-            <option value="Fasion">Fasion</option>
-            <option value="Festive & Gift">Festive & Gift</option>
-            <option value="Daily Needs">Daily Needs</option>
+            {/* <option value="Fasion">Fasion</option> */}
+            {/* <option value="Festive & Gift">Festive & Gift</option> */}
+            {/* <option value="Daily Needs">Daily Needs</option> */}
             <option value="Sports">Sports</option>
-            <option value="Beauty & Health Care">Beauty & Health Care</option>
-            <option value="Project & Toys">Project & Toys</option>
+            {/* <option value="Beauty & Health Care">Beauty & Health Care</option> */}
+            {/* <option value="Project & Toys">Project & Toys</option> */}
           </select>
         </div>
 

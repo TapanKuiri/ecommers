@@ -17,7 +17,7 @@ export const Services = ({ token }) => {
       );
 
       if (response.data.success) {
-        setServiceList(response.data.service);
+        setServiceList(response.data.services);
       } else {
         toast.error(response.data.message);
       }

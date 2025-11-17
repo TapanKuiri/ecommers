@@ -148,12 +148,12 @@ export default function Products() {
               'Home & Kitchen',
               'Mobile & Laptop',
               'Bag & Luggage',
-              'Fashion',
-              'Festive & Gift',
-              'Daily Needs',
+              // 'Fashion',
+              // 'Festive & Gift',
+              // 'Daily Needs',
               'Sports',
-              'Beauty & Health Care',
-              'Project & Toys',
+              // 'Beauty & Health Care',
+              // 'Project & Toys',
             ].map((cat, idx) => (
               <label className="flex gap-2" key={idx}>
                 <input

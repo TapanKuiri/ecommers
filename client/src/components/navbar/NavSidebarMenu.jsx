@@ -7,7 +7,7 @@ export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
   const links = [
     {path: "/", label: "HOME", end: true},
     {path: '/products', label: "PRODUCTS"},
-    {path: '/HandMade', label: "HANDMADE"},
+    // {path: '/HandMade', label: "HANDMADE"},
     {path: '/service', label: "SERVICE"}
   ];
 
@@ -21,7 +21,7 @@ export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
   return (
     <div className="w-full ">
       
-      <ul className="lg:hidden md:hidden flex flex-row justify-between items-center w-atuo text-sm text-gray-700 bg-gray-200 py-2 px-2">
+      <ul className="lg:hidden md:hidden flex flex-row justify-between items-center w-atuo text-sm text-gray-700 bg-gray-200 py-2 px-5">
         {links.map(({path, label, end})=>(
           <NavLink key={label} to={path} end={end} className={getNavLinkClass}>
              {label}

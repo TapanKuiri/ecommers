@@ -49,7 +49,6 @@ const placeService = async (req, res) => {
     };
 
     const newService = new serviceModel(serviceData);
-    console.log("New Repair Data:", newService);
     await newService.save();
 
     res.json({ success: true, message: "Service request submitted successfully!" });
@@ -60,11 +59,14 @@ const placeService = async (req, res) => {
 };
 
 const listService = async (req, res)=>{
- try{    const {userId} = req.body;
+ try{    
+          // const {userId} = req.body;
           // const service = await serviceModel.find({});
           // console.log("id: ", userId);
-          const services = await serviceModel.find({ userId }).sort({ createdAt: -1 });
-          // console.log(services);
+          // const services = await serviceModel({}).sort({createdAt: -1});
+          const services = await serviceModel.find({}).sort({ createdAt: -1 });
+
+          console.log("services",services);
 
           res.json({success: true, services});
      }catch(err){
