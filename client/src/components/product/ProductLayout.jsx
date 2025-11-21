@@ -22,27 +22,22 @@ export default function ProductLayout(){
  
 
   const fetchProductData = async () =>{
-    console.log("fetching product data", productId);
-    try{
+   try{
         const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
         if(response.data.success){ 
           setProductData(response.data.product); 
             setProductClicked(true);
           setImage(response.data.product.image[0]); 
-          // console.log("single product data:", response.data.product.image[0]);
         }
     }catch(err){
         console.log(err);
     }
   }
 
-  // console.log("product image: ", image);
  
   useEffect(()=>{
-    //  productId = clickedProductIDRef.current;
-    // console.log("ProductLayout useEffect triggered for productId:", productId);
      fetchProductData();
-  },[ ]);
+  },[ productClicked]);
 
   return  (productClicked) ? (
   <div>

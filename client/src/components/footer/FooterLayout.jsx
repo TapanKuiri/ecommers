@@ -8,7 +8,9 @@ export const FooterLayout = () => {
             <div className='flex flex-col items-center justify-center text-center py-6'>
             <img src={assets.logo} className='mb-5 w-32' alt='logo' />
             <p className='w-full md:w-2/3 text-gray-400 p-3'>
-                We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones.
+            It connects users to the nearest available sellers and service partners using GPS and a matching algorithm.
+            You can place orders online from the comfort of your home, and products will be delivered to you directly from your nearest local shop.
+                {/* We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones. */}
             </p>
         </div>
 

@@ -97,7 +97,10 @@ export default function Service(){
 
         <div className='text-xl sm:text-2xl my-3 text-center animate-fade-in'>
           <Title text1='REPAIR' text2='INFORMATION' />
+          <hr />
+          <p>Electric Service</p>
         </div>
+
 
         <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
           {/* Product Name and Problem */}

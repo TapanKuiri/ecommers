@@ -6,10 +6,13 @@ import { memo } from 'react'
 
 
 export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) => {
-     const {currency, setProductClicked} = useContext(ShopContext);
+     const {currency, setProductClicked, productClicked} = useContext(ShopContext);
 
   return (
-    <Link to={`/product/${id}`} onClick={()=>setProductClicked(false)} className='text-green-700 cursor-pointer '>
+
+
+   
+    <Link to={`/product/${id}`} onClick={()=>setProductClicked((prev) => !prev)} className='text-green-700 cursor-pointer '>
         <div className='overflow-hidden'> 
             {/* <img src={image[0]} alt='img0'  /> */}
             <img src={image?.[0] || image || '/default-image.png'} alt={name || 'Product'} />
@@ -18,6 +21,7 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
         <div className='mx-2'>
           <p className='pt-3 pb-1 text-sm'>{name}</p>
         <div className='flex justify-between px-4'>
+            
             <p className='text-sm font-medium line-through text-gray-500'>
               {currency ? currency : "₹"}{price}
             </p>
@@ -32,5 +36,6 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
 
 
     </Link>
+    
   )
 })
