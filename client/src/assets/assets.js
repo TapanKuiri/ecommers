@@ -22,7 +22,8 @@ import coll5 from './coll5.jpeg';
 import textSvg from './textSvg.svg'
 import dropdown from './dropdown.png';
 import shareIcon from './share.png';
-
+import logo21 from './logo21.png';
+import logo2 from './logo2.png';
 
 export const assets = {
   textSvg,
@@ -48,5 +49,8 @@ export const assets = {
     telephone,
     bin,
     dropdown,
-    shareIcon
+    shareIcon,
+    logo2,
+
+    logo21,
 }

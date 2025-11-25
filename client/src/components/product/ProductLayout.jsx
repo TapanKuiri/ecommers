@@ -13,6 +13,8 @@ import { Loading } from '../loading/Loading';
 export default function ProductLayout(){
   
   const {productId} = useParams();
+  const [productIdState, setProductIdState] = useState(productId);
+  console.log("productId", productId);
 
   // console.log(productId);
   const {products, currency, addToCart, buyHandler, productClicked, setProductClicked, clickedProductIDRef} = useContext(ShopContext);
@@ -22,11 +24,12 @@ export default function ProductLayout(){
  
 
   const fetchProductData = async () =>{
-   try{
-        const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
+    try{
+      const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
+
         if(response.data.success){ 
           setProductData(response.data.product); 
-            setProductClicked(true);
+          setProductClicked(true);
           setImage(response.data.product.image[0]); 
         }
     }catch(err){
@@ -34,10 +37,10 @@ export default function ProductLayout(){
     }
   }
 
- 
-  useEffect(()=>{
+
+  // useEffect(()=>{
      fetchProductData();
-  },[ productClicked]);
+  // },[ productId]);
 
   return  (productClicked) ? (
   <div>

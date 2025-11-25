@@ -147,11 +147,11 @@ export default function Products() {
               'Electric & Electronic',
               'Home & Kitchen',
               'Mobile & Laptop',
-              'Bag & Luggage',
+              // 'Bag & Luggage',
               // 'Fashion',
               // 'Festive & Gift',
               // 'Daily Needs',
-              'Sports',
+              // 'Sports',
               // 'Beauty & Health Care',
               // 'Project & Toys',
             ].map((cat, idx) => (
