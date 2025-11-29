@@ -7,7 +7,7 @@ export const NavbarLinks = React.memo( () => {
   const links =  [
     { path: "/", label: "HOME", end: true },
     { path: "/products", label: "PRODUCTS" },
-    // { path: "/HandMade", label: "HANDMADE" },
+    { path: "/refurbisher", label: "REFURBISHER"},
     { path: "/service", label: "SERVICE" },
   ];
 

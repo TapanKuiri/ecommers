@@ -12,7 +12,7 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
 
 
    
-    <Link to={`/product/${id}`} onClick={()=>setProductClicked(true)} className='text-green-700 cursor-pointer '>
+    <Link to={`/product/${id}`}  className='text-green-700 cursor-pointer '>
         <div className='overflow-hidden'> 
             {/* <img src={image[0]} alt='img0'  /> */}
             <img src={image?.[0] || image || '/default-image.png'} alt={name || 'Product'} />

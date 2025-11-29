@@ -8,6 +8,7 @@ export const Services = ({ token }) => {
   const [serviceList, setServiceList] = useState([]);
 
   const fetchAllServices = async () => {
+    console.log("service list response");
     if (!token) return;
     try {
       const response = await axios.post(
@@ -15,6 +16,7 @@ export const Services = ({ token }) => {
         {},
         { headers: { token } }
       );
+
 
       if (response.data.success) {
         setServiceList(response.data.services);

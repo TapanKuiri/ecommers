@@ -6,7 +6,7 @@ export const FooterLayout = () => {
     <div>
         <div className='flex flex-col bg-gray-200 sm:grid grid-cols-[3fr_1fr_1fr] gap-10 sm:gap-0 justify-around items-center py-20 text-xs sm:text-xs md:text-base text-gray-900'>
             <div className='flex flex-col items-center justify-center text-center py-6'>
-            <img src={assets.logo21} className='mb-5 w-32' alt='logo' />
+            < img src={assets.logo21} className='mb-5 w-32' alt='logo' />
  
 
 

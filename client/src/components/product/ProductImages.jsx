@@ -3,8 +3,6 @@ import { assets } from '../../assets/assets'
 import ShareButton from '../share/ShareButton'
 
 export const ProductImages = ({productData, setImage, image}) => {
-  console.log("data", productData)
-
   
 
   return (

@@ -5,7 +5,7 @@ import { assets } from "../assets/assets";
 import { Loading } from "../components/loading/Loading";
 import axios from "axios";
 
-export default function HandMade(){
+export default function Refurbisher(){
   const { backendUrl, search,  searchFilteredProducts } = useContext(ShopContext);
 
   const [myProducts, setMyProducts] = useState([]);
@@ -82,6 +82,23 @@ export default function HandMade(){
       ref={containerRef}
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
+      <div className="flex justify-center items-center text-center">
+
+            <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdKzu1BHP_pBPkkqrkLMZsX2cGci0A2xp3RLrZnssgdyWntAg/viewform?usp=preview"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="relative group w-full max-w-md px-6 py-3 font-semibold text-white bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl border border-emerald-400 shadow-lg shadow-emerald-300/30 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-green-400/40"
+        >
+            <span class="relative z-10">Sell Your Old Products</span>
+
+            <span
+              class="absolute inset-0 scale-125 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700"
+              ></span>
+      </a>
+        </div>
+
+
       <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
         {isLoading && myProducts.length === 0 ? (
           <Loading />

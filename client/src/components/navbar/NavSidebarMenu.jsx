@@ -7,7 +7,7 @@ export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
   const links = [
     {path: "/", label: "HOME", end: true},
     {path: '/products', label: "PRODUCTS"},
-    {path: '/HandMade', label: "REFURBISHED"},
+    {path: '/refurbisher', label: "REFURBISHED"},
     {path: '/service', label: "SERVICE"}
   ];
 

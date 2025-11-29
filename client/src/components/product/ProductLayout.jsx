@@ -14,11 +14,10 @@ export default function ProductLayout(){
   
   const {productId} = useParams();
   const [productIdState, setProductIdState] = useState(productId);
-  console.log("productId", productId);
 
   // console.log(productId);
   const {products, currency, addToCart, buyHandler, productClicked, setProductClicked, clickedProductIDRef} = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState({});
   // clickedProductIDRef.current = productId;
   const [image, setImage] = useState('')
  
@@ -38,9 +37,10 @@ export default function ProductLayout(){
   }
 
 
-  // useEffect(()=>{
+  useEffect(()=>{
+     setProductClicked(false);      
      fetchProductData();
-  // },[ productId]);
+  },[ productId]);
 
   return  (productClicked) ? (
   <div>
