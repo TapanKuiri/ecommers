@@ -3,6 +3,8 @@ import { assets } from '../../assets/assets'
 import ShareButton from '../share/ShareButton'
 
 export const ProductImages = ({productData, setImage, image}) => {
+  if (!productData?.image || productData.image.length === 0) return null;
+
   
 
   return (

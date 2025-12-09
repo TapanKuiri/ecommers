@@ -71,15 +71,16 @@ export const LatestCollection =  () => {
 
           {/* Seller Registration */}
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScn9kq3SUIyRDsQi4aTWaLurEbmkVcxzLbWG3XcXnSqm9s8NQ/viewform?usp=dialog" 
+            // href="https://docs.google.com/forms/d/e/1FAIpQLScn9kq3SUIyRDsQi4aTWaLurEbmkVcxzLbWG3XcXnSqm9s8NQ/viewform?usp=dialog" 
             target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdKzu1BHP_pBPkkqrkLMZsX2cGci0A2xp3RLrZnssgdyWntAg/viewform?usp=header"
             rel="noopener noreferrer"
             className="px-5 py-3 border-2 border-blue-500 rounded-lg font-medium
                       transition-all duration-300 hover:bg-blue-500 hover:text-white
                       hover:shadow-lg hover:shadow-blue-300
                       transform hover:-translate-y-1 hover:scale-105"
           >
-            Register as a Seller
+            Sale your old products.
           </a>
 
           {/* Service Partner Registration */}

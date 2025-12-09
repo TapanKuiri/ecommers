@@ -9,10 +9,8 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
      const {currency, setProductClicked, productClicked} = useContext(ShopContext);
 
   return (
-
-
-   
     <Link to={`/product/${id}`}  className='text-green-700 cursor-pointer '>
+
         <div className='overflow-hidden'> 
             {/* <img src={image[0]} alt='img0'  /> */}
             <img src={image?.[0] || image || '/default-image.png'} alt={name || 'Product'} />

@@ -1,144 +1,219 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { ShopContext } from "../context/ShopContext";
-import { ProductItem } from "../components/ProductItem";
-import { assets } from "../assets/assets";
-import { Loading } from "../components/loading/Loading";
-import axios from "axios";
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import { ShopContext } from '../context/ShopContext';
+import { assets } from '../assets/assets';
+import { Title } from '../components/Title';
+import { ProductItem } from '../components/ProductItem';
+import axios from 'axios';
+import { Loading } from '../components/loading/Loading';
 
-export default function Refurbisher(){
-  const { backendUrl, search,  searchFilteredProducts } = useContext(ShopContext);
-
-  const [myProducts, setMyProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
-
+export default function Refurbisher() {
+  const { products, search, backendUrl, page, setPage,hasMore, setHasMore, isLoading, setIsLoading } = useContext(ShopContext);
+  const [showFilter, setShowFilter] = useState(false);
+  const [filterProducts, setFilterProducts] = useState([]);
+  const [category, setCategory] = useState([]);
+  let filterLength = useRef(0);
+  const [sortType, setSortType] = useState('relevent');
+  // const [isSortClicked, setIsSortClicked] = useState(false);
+  // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+  const isSortClickedRef = useRef(false);
 
-  // Fetch products by page
-  const fetchHandMadeProducts = async () => {
-    try {
-      setIsLoading(true);
-      // if(!search){
-        
+
+  // Toggle category filter
+  const toggleCategory = (e) => {
+    const value = e.target.value;
+    setPage(1); // Reset to first page on filter change
+    if (category.includes(value)) {
+      setCategory((prev) => prev.filter((item) => item !== value));
+    } else {
+      setCategory((prev) => [...prev, value]);
+    }
+  };
+
+  // Apply filters
+  const applyFilter = async (pageNumber=1) => {
+    setIsLoading(true);
+    // if ( !hasMore) return;
+    // console.log("Products: ", products)
+    let productCopy = null;
+    if(filterLength.current > 0){
+      try {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
-          category: "Hand Made",
-          page,
-          limit: 50, // adjust as needed
+          category, page: pageNumber, limit: 20
         });
-      
-
-      if (data.success) {
-        const newProducts = data.products || [];
-        if (newProducts.length === 0) {
-          setHasMore(false);
-        } else {
-          setMyProducts((prev) => [...prev, ...newProducts]);
+        // console.log("data: ", data.products);
+       if (data?.success) {
+          setFilterProducts((prev) => pageNumber === 1 ? data.products : [...prev, ...data.products]);
+          setHasMore(data.hasMore);
         }
+
+      } catch (err) {
+        console.error('Error fetching category filtered products:', err.message);
       }
-    // }else{
-    //   setMyProducts(searchFilteredProducts);
-    // }
-      setIsLoading(false);
-    } catch (err) {
-      console.error("Error fetching handmade products:", err.message);
+
+    }else{
+
+      productCopy = [...products];
+
+      setFilterProducts(productCopy);
       setIsLoading(false);
     }
-  };
 
-  useEffect(() => {
-    fetchHandMadeProducts();
-  }, [page]);
-
-  // Infinite scroll
-  const handleInfiniteScroll = () => {
-    try {
-      const container = containerRef.current;
-      if (!container || !hasMore || isLoading) return;
-
-      const { scrollTop, clientHeight, scrollHeight } = container;
-
-      console.log(scrollTop, clientHeight, scrollHeight)
-
-      if (scrollTop + clientHeight >= scrollHeight - 5) {
-        console.log("Reached bottom ✅");
-        setPage((prev) => prev + 1);
-      }
-    } catch (err) {
-      console.log(err);
+    // Sorting
+    if(sortType === 'low-high'){
+      isSortClickedRef.current = true;
+      filterProducts.sort((a,b) => a.finalPrice - b.finalPrice);
+      setIsLoading(false);
+      setFilterProducts(filterProducts);
+      
+    }else if(sortType === 'high-low'){
+      isSortClickedRef.current = true;
+      filterProducts.sort((a,b) => b.finalPrice - a.finalPrice);
+      setIsLoading(false);
+      setFilterProducts(filterProducts);
+    }else if(sortType === 'relevent'){
+      setIsLoading(true);
+      isSortClickedRef.current = false;
     }
+    
+    setIsLoading(false);
   };
 
+  // Re-apply filters
   useEffect(() => {
+    filterLength.current = category.length;
+    applyFilter(page);
+    // if(filterLength.current == 0 ){
+      // setPage(1);
+      // setFilterProducts(products);
+      // return;
+    // } 
+  }, [category, search, sortType,page]);
+
+  //  Infinite Scroll (inside container)
+  const handelInfiniteScroll = () => {
+    if(isSortClickedRef.current) return;
     const container = containerRef.current;
     if (!container) return;
+    const { scrollTop, clientHeight, scrollHeight } = container;
+    if (scrollTop + clientHeight >= scrollHeight - 20) {
+      setPage((prev) => prev + 1); // load next page
+    }
+  };
 
-    container.addEventListener("scroll", handleInfiniteScroll);
-    return () => container.removeEventListener("scroll", handleInfiniteScroll);
-  }, []);
+   useEffect(()=>{
+      setHasMore(true);
+    },[])
+
+  useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;         
+  
+      container.addEventListener("scroll", handelInfiniteScroll);
+      return () => container.removeEventListener("scroll", handelInfiniteScroll);
+
+  }, [page]);
 
   return (
     <div
       ref={containerRef}
       className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
-      <div className="flex justify-center items-center text-center">
-
-            <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSdKzu1BHP_pBPkkqrkLMZsX2cGci0A2xp3RLrZnssgdyWntAg/viewform?usp=preview"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="relative group w-full max-w-md px-6 py-3 font-semibold text-white bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl border border-emerald-400 shadow-lg shadow-emerald-300/30 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-green-400/40"
+      {/* Filter Sidebar */}
+      <div className="min-w-60 bg-gradient-to-r  rounded-2xl">
+        <p
+          className="my-2 text-xl flex items-center cursor-pointer bg-green-500 rounded-2xl gap-2 pl-2"
+          onClick={() => setShowFilter(!showFilter)}
         >
-            <span class="relative z-10">Sell Your Old Products</span>
+          FILTERS
+          <img
+            className={`h-3 sm:hidden transition-transform duration-200 ${
+              showFilter ? 'rotate-90' : ''
+            }`}
+            src={assets.dropdown}
+            alt="dropdown"
+          />
+        </p>
 
-            <span
-              class="absolute inset-0 scale-125 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700"
-              ></span>
-      </a>
+        {/* Categories */}
+        <div
+          className={`border border-gray-300 sm:block pl-1 py-3 mt-6 ${
+            showFilter ? '' : 'hidden sm:block '
+          }`}
+        >
+          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+            {[
+              'Electric & Electronic',
+              'Home & Kitchen',
+              'Mobile & Laptop',
+              // 'Bag & Luggage',
+              // 'Fashion',
+              // 'Festive & Gift',
+              // 'Daily Needs',
+              // 'Sports',
+              // 'Beauty & Health Care',
+              // 'Project & Toys',
+            ].map((cat, idx) => (
+              <label className="flex gap-2" key={idx}>
+                <input
+                  className="w-3"
+                  type="checkbox"
+                  value={cat}
+                  checked={category.includes(cat)}
+                  onChange={toggleCategory}
+                />
+                {cat}
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Products */}
+      <div className="flex-1">
+        <div className="flex justify-between text-base sm:text-2xl mb-4">
+          <Title text1="ALL" text2="COLLECTIONS" />
+          <select
+            onChange={(e) => setSortType(e.target.value)}
+            className="border-1 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-sm px-2"
+          >
+            <option value="relevent">Sort By: Relevant</option>
+            <option value="low-high">Sort by: Low to High</option>
+            <option value="high-low">Sort by: High to Low</option>
+          </select>
         </div>
 
-
-      <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
-        {isLoading && myProducts.length === 0 ? (
-          <Loading />
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 gap-y-7">
-            {myProducts.length > 0 ? (
-              myProducts.map((item, index) => (
-                <div
+        {/* Product Cards */}
+         
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+            {filterProducts.length > 0 ? (
+              filterProducts.map((item, index) => (
+                <ProductItem
                   key={index}
-                  className="transition-transform transform overflow-hidden"
-                >
-                  <ProductItem
-                    id={item._id}
-                    image={item.image}
-                    name={item.name}
-                    price={item.price}
-                    discount={item.discount}
-                    finalPrice={item.finalPrice}
-                  />
-                </div>
+                  name={item.name}
+                  id={item._id}
+                  discount={item.discount}
+                  finalPrice={item.finalPrice}
+                  price={item.price}
+                  image={item.image}
+                />
               ))
+            
+            
             ) : (
-              <p className="col-span-full text-gray-500 text-lg mt-10">
-                No handmade products found 😞
-              </p>
+              <p></p>
             )}
           </div>
-        )}
-
-        {/* Spinner at bottom for new pages */}
-        {isLoading && myProducts.length > 0 && (
-          <div className="flex justify-center py-4">
-            <img
-              src={assets.spinner}
-              alt="Loading..."
-              className="w-10 h-10 animate-spin"
-            />
-          </div>
-        )}
+          {isLoading && (
+            <div className=" ">
+              <Loading />
+            </div>
+          )}
+         
       </div>
     </div>
   );
 };
+
+ 

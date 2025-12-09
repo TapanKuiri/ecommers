@@ -30,6 +30,7 @@ const ShopContextProvider = (props) => {
   const [totalCartAmount, setTotalCartAmount] = useState(0); 
   const currentPositionRef = useRef(0);
   const clickedProductIDRef = useRef(null);
+  
 
   const navigate = useNavigate();
 

@@ -6,14 +6,13 @@ import { ProductImages } from './ProductImages';
 import { ProductInfo } from './ProductInfo';
 import { ProductRelatedProduct } from './ProductRelatedProduct';
 import { backendUrl } from '../../App';
-import axios from 'axios'
+import axios from 'axios';
 import { Loading } from '../loading/Loading';
 
 
 export default function ProductLayout(){
   
   const {productId} = useParams();
-  const [productIdState, setProductIdState] = useState(productId);
 
   // console.log(productId);
   const {products, currency, addToCart, buyHandler, productClicked, setProductClicked, clickedProductIDRef} = useContext(ShopContext);
@@ -23,6 +22,7 @@ export default function ProductLayout(){
  
 
   const fetchProductData = async () =>{
+    console.log('fetching product data');
     try{
       const response = await axios.post(`${backendUrl}/api/product/single`,{productId});
 
@@ -33,7 +33,7 @@ export default function ProductLayout(){
         }
     }catch(err){
         console.log(err);
-    }
+    } 
   }
 
 

@@ -4,7 +4,7 @@ import './index.css';
 import { Routes, Route } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
-const Products = lazy(() => import('./pages/Products'));
+// const Products = lazy(() => import('./pages/Refurbisher'));
 const Refurbisher = lazy(() => import('./pages/Refurbisher'));
 const Service = lazy(() => import('./pages/Service'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -45,7 +45,7 @@ function App() {
         }>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+          {/* <Route path="/products" element={<Products />} /> */}
           <Route path="/refurbisher" element={<Refurbisher/>} />
           <Route path="/service" element={<Service />} />
           <Route path="/contact" element={<Contact />} />
