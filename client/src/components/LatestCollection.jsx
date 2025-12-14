@@ -80,7 +80,7 @@ export const LatestCollection =  () => {
                       hover:shadow-lg hover:shadow-blue-300
                       transform hover:-translate-y-1 hover:scale-105"
           >
-            Sale your old products.
+            Sell your old products
           </a>
 
           {/* Service Partner Registration */}

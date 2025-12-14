@@ -24,13 +24,25 @@ export const NavbarLayout = () => {
     <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-7 py-1'>
 
         <Link to='/' >
-            <img src={assets.logo2} className='w-13 rounded-xl p-0.5 border-1 border-slate-50  ' alt='logo'/>
+            <img src={assets.logo2} className='w-13 rounded-xl p-1 border-1 border-slate-50  ' alt='logo'/>
         </Link>
  
         <SearchBar/>
           <NavbarLinks/>
 
-          <div className='flex  items-center gap-2'>
+          <div className='flex  items-center lg:gap-2'>
+                <a
+                href="https://wa.me/918617892989"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={assets.whatsappIcon}
+                  className="w-8.5 min-w-5 h-8.5 mr-1 bg-gray-300 cursor-pointer"
+                  alt="WhatsApp"
+                />
+              </a>
+
                  
                  <NavProfile/>
                 <Link to='/cart' className='relative '>

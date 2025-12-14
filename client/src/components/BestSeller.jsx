@@ -21,8 +21,7 @@ export const BestSeller = () => {
         <div className='text-center py-8 text-3xl'>
             <Title text1={'BEST'} text2={'SELLER'}/>
             <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-            It connects users to the nearest available sellers and service partners using GPS and a matching algorithm.
-            You can place orders online from the comfort of your home, and products will be delivered to you directly from your nearest local shop.
+            FixyBuy is a technology-driven platform offering expert repair services and certified refurbished products across Electric & Electronics, Home & Kitchen appliances, Mobile & Laptop categories. Powered by skilled technicians and advanced diagnostics, we ensure optimal performance, reliability, and smart value for every customer.
             {/* We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones.    */}
 </p>     </div>
 
