@@ -25,6 +25,22 @@ import shareIcon from './share.png';
 import logo2 from './logoNew.png';
 import logo21 from './logoNoTag.png';
 import whatsappIcon from './whatsapp.png';
+import img1 from './img1.png';
+import img2 from './img2.png';
+import img3 from './img3.jpeg';
+import img4 from './img4.jpeg';
+
+import home1 from './home1.jpeg';
+import home2 from './home2.jpeg';
+import home3 from './home3.jpeg';
+import home4 from './home4.jpeg';
+import home5 from './home5.jpeg';
+
+import h1 from './h1.jpeg';
+import h2 from './h2.jpeg';
+import h4 from './h4.jpeg';
+import h3 from './h3.jpeg';
+import h5 from './h5.jpeg';
 
 export const assets = {
   textSvg,
@@ -54,5 +70,20 @@ export const assets = {
     logo2,
 
     logo21,
-    whatsappIcon
+    whatsappIcon,
+    img1,
+    img2,
+    img3,
+    img4,
+    home1,
+    home2,
+    home3,
+    home4,
+    home5,
+
+    h1,
+    h2,
+    h4,
+    h3,
+    h5,
 }

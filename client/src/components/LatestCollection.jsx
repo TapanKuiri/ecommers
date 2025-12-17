@@ -15,7 +15,9 @@ export const LatestCollection =  () => {
   const containerRef = useRef(null);
 
   // Array of banner images
-  const allImages = [assets.coll1, assets.coll2, assets.coll3, assets.coll4];
+  const allImages = [assets.h1, assets.h4, assets.h5, assets.h2, assets.h3];
+  // const allImages = [assets.img1, assets.img2, assets.img3, assets.img4];
+// 
   
   const handleInfiniteScroll = () => {
     try {
@@ -59,7 +61,7 @@ export const LatestCollection =  () => {
   return (
     <div
       ref={containerRef}
-      className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-x-hidden"
+      className="my-1 px-1  py-7 lg:py-1 rounded-xl shadow-md duration-500 h-[90vh] overflow-x-hidden"
     >
 
       
@@ -101,7 +103,7 @@ export const LatestCollection =  () => {
 
 
       {/* Title Section */}
-      <div className="text-center mt-5 pb-8 text-3xl font-semibold text-gray-800 relative">
+      <div className="text-center mt-5 lg:px-2 pb-8 text-3xl font-semibold text-gray-800 relative">
         <Title text1="LATEST" text2="COLLECTION" />
 
         {/* Products Grid */}

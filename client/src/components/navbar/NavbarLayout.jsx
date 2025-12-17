@@ -24,7 +24,8 @@ export const NavbarLayout = () => {
     <div className='fixed top-0 left-0 w-full z-50 flex items-center justify-between bg-gray-300 text-white px-2 md:px-7 py-1'>
 
         <Link to='/' >
-            <img src={assets.logo2} className='w-13 rounded-xl p-1 border-1 border-slate-50  ' alt='logo'/>
+            <img src={assets.logo21} 
+            className='w-9 h-9 flex items-center justify-center rounded-full border border-gray-800 cursor-pointer hover:scale-105 transition duration-300 bg-gray-50 overflow-hidden'alt='logo'/>
         </Link>
  
         <SearchBar/>
