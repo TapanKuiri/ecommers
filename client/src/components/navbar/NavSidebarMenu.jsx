@@ -6,9 +6,9 @@ export const NavSidebarMenu = React.memo( ({ isVisible, setIsVisible }) => {
 
   const links = [
     {path: "/", label: "HOME", end: true},
-    {path: '/refurbisher', label: "REFURBISHED"},
+    {path: '/refurbisher', label: "SERVICE"},
     // {path: '/refurbisher', label: "REFURBISHED"},
-    {path: '/service', label: "SERVICE"}
+    {path: '/service', label: "GET HELP"}
   ];
 
   const getNavLinkClass = ({isActive})=>

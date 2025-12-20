@@ -18,7 +18,7 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
         </div>
         <div className='mx-2'>
           <p className='pt-3 pb-1 text-sm'>{name}</p>
-        <div className='flex justify-between px-4'>
+        {/* <div className='flex justify-between px-4'>
             
             <p className='text-sm font-medium line-through text-gray-500'>
               {currency ? currency : "₹"}{price}
@@ -29,7 +29,7 @@ export const ProductItem = memo(({id, image, name, price,discount,finalPrice}) =
             <p className='text-sm font-medium text-green-600'>
               {currency}{finalPrice}
             </p>
-        </div>
+        </div> */}
       </div>
 
 

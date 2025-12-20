@@ -97,7 +97,7 @@ export default function PlaceOrder  ()  {
     >
       {/* Left Side - Delivery Info */}
       <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
-        <Title text1='DELIVERY' text2='INFORMATION' />
+        <Title text1='ADD' text2='ADDRESS' />
 
         <div className='flex gap-3'>
           <input
@@ -222,7 +222,7 @@ export default function PlaceOrder  ()  {
               type='submit'
               className='bg-black text-white py-3 p-12 border-1 rounded-2xl hover:bg-white hover:text-black  text-sm'
             >
-              PLACE ORDER
+              CONFIRM BOOKING
             </button>
           </div>
         </div>

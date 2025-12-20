@@ -119,7 +119,7 @@ export default function Orders  ()  {
                       {currency}
                       {(item.finalPrice + 10).toFixed(2)}
                     </p>
-                    <p className="bg-purple-100 px-2 py-1 rounded-md">Qty: {item.quantity}</p>
+                    {/* <p className="bg-purple-100 px-2 py-1 rounded-md">Qty: {item.quantity}</p> */}
                   </div>
                   <div className="mt-2 text-gray-500 text-sm leading-6">
                     <p>
@@ -129,9 +129,9 @@ export default function Orders  ()  {
                     <p>
                       <span className="font-medium text-gray-600">Payment:</span>{' '}
                       {item.paymentMethod}{' '}
-                      <span className={item.payment ? 'text-green-600' : 'text-red-500'}>
+                      {/* <span className={item.payment ? 'text-green-600' : 'text-red-500'}>
                         {item.payment ? ' - Paid' : ' - Pending'}
-                      </span>
+                      </span> */}
                     </p>
                   </div>
                 </div>
@@ -169,11 +169,11 @@ export default function Orders  ()  {
             {/* Tracking Steps */}
             {expandedOrderIndex === index && (
               <div className="mt-4 pl-4 border-l-4 border-blue-300 text-sm text-gray-700 space-y-1">
-                <p>✅ <strong>Order Placed</strong></p>
-                <p>{['Packing', 'Shipped', 'Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Packed</strong></p>
-                <p>{['Shipped', 'Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Shipped</strong></p>
-                <p>{['Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Out for Delivery</strong></p>
-                <p>{item.status === 'Delivered' ? '✅' : '⏳'} <strong>Delivered</strong></p>
+                <p>✅ <strong>Book Confirmed</strong></p>
+                <p>{['Packing', 'Shipped', 'Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Accepted</strong></p>
+                {/* <p>{['Shipped', 'Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Shipped</strong></p> */}
+                <p>{['Out for delivery', 'Delivered'].includes(item.status) ? '✅' : '⏳'} <strong>Service partner on the way</strong></p>
+                <p>{item.status === 'Delivered' ? '✅' : '⏳'} <strong>Service Completed</strong></p>
               </div>
             )}
           </div>

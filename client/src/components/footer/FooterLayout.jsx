@@ -11,8 +11,7 @@ export const FooterLayout = () => {
 
 
             <p className='w-full md:w-2/3 text-gray-400 p-3'>
-            FixyBuy is a technology-driven platform offering expert repair services and certified
-             refurbished products across Electric & Electronics, Home & Kitchen appliances, Mobile & Laptop categories. Powered by skilled technicians and advanced diagnostics, we ensure optimal performance, reliability, and smart value for every customer.
+            FixyBuy is a technology-driven platform offering expert repair & installation services. Powered by skilled technicials and advanced diagonostics, we ensure optimal performance, reliability, and smart value for every customer.
                 {/* We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones. */}
             </p>
         </div>
@@ -27,6 +26,18 @@ export const FooterLayout = () => {
                     <li>Privacy police</li>
                 </ul>
             </div>
+
+            <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSd2-ge48KmptIRVtPqM2TFl15pYrqhSDNXNtz3296L9VX7wCw/viewform?usp=publish-editor"
+            target=" "
+            rel="noopener noreferrer"
+            className="px-5 py-3 border-2 border-green-500 rounded-lg font-medium
+                      transition-all duration-300 hover:bg-green-500 hover:text-white
+                      hover:shadow-lg hover:shadow-green-300
+                      transform hover:-translate-y-1 hover:scale-105"
+          >
+            Register as a Service Partner
+          </a>
 
             <div className='text-center'>
                 <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>

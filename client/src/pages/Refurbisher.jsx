@@ -125,7 +125,7 @@ export default function Refurbisher() {
           className="my-2 text-xl flex items-center cursor-pointer bg-green-500 rounded-2xl gap-2 pl-2"
           onClick={() => setShowFilter(!showFilter)}
         >
-          FILTERS
+          BANNER
           <img
             className={`h-3 sm:hidden transition-transform duration-200 ${
               showFilter ? 'rotate-90' : ''
@@ -141,12 +141,13 @@ export default function Refurbisher() {
             showFilter ? '' : 'hidden sm:block '
           }`}
         >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+          <p className="mb-3 text-sm font-medium">Service CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             {[
-              'Electric & Electronic',
-              'Home & Kitchen',
-              'Mobile & Laptop',
+              'Electrician', 'Plumber', 'Carpenter', 'Ac & Appliance Repair', 'Mobile & Laptop Technician',
+              // 'Electric & Electronic',
+              // 'Home & Kitchen',
+              // 'Mobile & Laptop',
               // 'Bag & Luggage',
               // 'Fashion',
               // 'Festive & Gift',
@@ -173,7 +174,7 @@ export default function Refurbisher() {
       {/* Products */}
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
-          <Title text1="ALL" text2="COLLECTIONS" />
+          <Title text1="ALL" text2="SERVICES" />
           <select
             onChange={(e) => setSortType(e.target.value)}
             className="border-1 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-sm px-2"

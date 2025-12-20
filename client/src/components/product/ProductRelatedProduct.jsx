@@ -66,7 +66,7 @@ export const ProductRelatedProduct = ({ category }) => {
         <div  >
           
             <div className="text-center text-3xl py-2">
-                 <Title text1={'RELATED'} text2={'PRODUCTS'}/>
+                 <Title text1={'RELATED'} text2={'SERVICES'}/>
             </div>
             <div  >
 

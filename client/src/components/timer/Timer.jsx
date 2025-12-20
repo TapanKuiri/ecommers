@@ -15,11 +15,11 @@ export const Timer = ({allImages}) => {
 
   return (
     <div>
-       <div className="w-full h-auto md:h-[400px] lg:h-[500px] overflow-hidden rounded-xl transition-all duration-700 relative bg-black">
+      <div className="relative w-full overflow-hidden rounded-xl mt-2">
+   
         <img
           src={allImages[currentIndex]}
-          alt="banner"
-          className={ `w-full h-full object-contain rounded-xl `}
+          className="relative w-full h-full object-contain"
         />
       </div>
 

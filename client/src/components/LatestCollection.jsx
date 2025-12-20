@@ -69,10 +69,10 @@ export const LatestCollection =  () => {
       {/* Rotating banner - only visible when not searching */}
       {!search && ( <Timer allImages={allImages}/>)}
 
-      <div className="flex justify-center gap-6 text-gray-700 mt-6 mb-4 text-sm sm:text-base">
+      <div className="flex justify-center bg-amber-300 gap-3 text-gray-700 mt-6 mb-4 text-sm sm:text-base">
 
           {/* Seller Registration */}
-          <a
+          {/* <a
             // href="https://docs.google.com/forms/d/e/1FAIpQLScn9kq3SUIyRDsQi4aTWaLurEbmkVcxzLbWG3XcXnSqm9s8NQ/viewform?usp=dialog" 
             target="_blank"
             href="https://docs.google.com/forms/d/e/1FAIpQLSdKzu1BHP_pBPkkqrkLMZsX2cGci0A2xp3RLrZnssgdyWntAg/viewform?usp=header"
@@ -83,10 +83,10 @@ export const LatestCollection =  () => {
                       transform hover:-translate-y-1 hover:scale-105"
           >
             Sell your old products
-          </a>
+          </a> */}
 
           {/* Service Partner Registration */}
-          <a
+          {/* <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSd2-ge48KmptIRVtPqM2TFl15pYrqhSDNXNtz3296L9VX7wCw/viewform?usp=publish-editor"
             target=" "
             rel="noopener noreferrer"
@@ -96,18 +96,18 @@ export const LatestCollection =  () => {
                       transform hover:-translate-y-1 hover:scale-105"
           >
             Register as a Service Partner
-          </a>
+          </a> */}
 
         </div>
 
 
 
       {/* Title Section */}
-      <div className="text-center mt-5 lg:px-2 pb-8 text-3xl font-semibold text-gray-800 relative">
-        <Title text1="LATEST" text2="COLLECTION" />
+      <div className="text-center   pt-0 lg:px-2 pb-8 text-3xl font-semibold text-gray-800 relative">
+        <Title text1="EXPLORE" text2="SERVICES" />
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1 gap-y-7">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-1 gap-y-7">
           {products.length > 0 ? (
             products.map((item) => (
               <div

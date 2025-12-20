@@ -45,7 +45,7 @@ export const ProductInfo = ({productData, currency, addToCart, buyHandler}) => {
              onClick={() => buyHandler(productData._id)}
             className='bg-green-500 hover:bg-green-600 transition-all duration-200 ease-in-out w-1/2 text-white py-3 text-lg font-semibold rounded-md ml-2'
           >
-            ⚡ Buy Now
+            ⚡ Book Now
           </button>
         </div>
 
@@ -54,10 +54,10 @@ export const ProductInfo = ({productData, currency, addToCart, buyHandler}) => {
           <hr className='mt-8 sm:w-4/5'/>
           <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
             {/* <p>100% Original product.</p> */}
-            <p>Free delivery within 2 hours.</p>
+            <p>Get Services Within 2 Hours</p>
 
-            <p>Cash on delivery is available on this product.</p>
-            <p>Easy return and exchange policy withing 7 days.</p>
+            <p>Up to 30 days of warranty</p>
+            <p>Certified service partner</p>
           </div>
 
 
