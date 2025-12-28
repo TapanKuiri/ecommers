@@ -66,8 +66,6 @@ const listService = async (req, res)=>{
           // const services = await serviceModel({}).sort({createdAt: -1});
           const services = await serviceModel.find({}).sort({ createdAt: -1 });
 
-          console.log("services",services);
-
           res.json({success: true, services});
      }catch(err){
           console.log(err);

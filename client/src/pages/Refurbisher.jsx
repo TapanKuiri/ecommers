@@ -125,7 +125,7 @@ export default function Refurbisher() {
           className="my-2 text-xl flex items-center cursor-pointer bg-green-500 rounded-2xl gap-2 pl-2"
           onClick={() => setShowFilter(!showFilter)}
         >
-          BANNER
+          Select Service Caegory
           <img
             className={`h-3 sm:hidden transition-transform duration-200 ${
               showFilter ? 'rotate-90' : ''

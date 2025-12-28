@@ -170,11 +170,11 @@ export const Add = ({ token }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md 
             focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           >
-            <option value="Electric & Electronic">Electric & Electronic</option>
-            <option value="Home & Kitchen">Home & Kitchen</option>
-            <option value="Mobile & Laptop">Mobile & Laptop</option>
-            <option value="Hand Made">Refurbished</option>
-            {/* <option value="Bag & Luggage">Bag & Luggage</option> */}
+            <option value="Electrician">Electrician</option>
+            <option value="Plumber">Plumber</option>
+            <option value="Carpenter">Carpenter</option>
+            <option value="AC & Appliances Repair">AC & Appliances Repair</option>
+            <option value="Mobile & Laptop Technician">Mobile & Laptop Technician</option>
             {/* <option value="Fasion">Fasion</option> */}
             {/* <option value="Festive & Gift">Festive & Gift</option> */}
             {/* <option value="Daily Needs">Daily Needs</option> */}
