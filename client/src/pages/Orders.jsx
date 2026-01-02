@@ -117,7 +117,7 @@ export default function Orders  ()  {
                   <div className="flex items-center gap-3 mt-1 text-sm text-gray-600">
                     <p className="bg-green-100 px-2 py-1 rounded-md">
                       {currency}
-                      {(item.finalPrice + 10).toFixed(2)}
+                      {(item.finalPrice + 49).toFixed(2)}
                     </p>
                     {/* <p className="bg-purple-100 px-2 py-1 rounded-md">Qty: {item.quantity}</p> */}
                   </div>

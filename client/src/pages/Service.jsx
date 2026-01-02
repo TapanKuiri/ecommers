@@ -10,7 +10,7 @@ import { Timer } from '../components/timer/Timer';
 
 export default function Service(){
   const { backendUrl, token } = useContext(ShopContext);
-  const allImages = [assets.repair1, assets.repair2, assets.repair3];
+  const allImages = [assets.service1, assets.service2, assets.service3];
   const navigate  = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -96,9 +96,9 @@ export default function Service(){
 
 
         <div className='text-xl sm:text-2xl my-3 text-center animate-fade-in'>
-          <Title text1='REPAIR' text2='INFORMATION' />
+          <Title text1='BOOK A ' text2='CONSULTATION' />
           <hr />
-          <p>Electric Service</p>
+          {/* <p>Electric Service</p> */}
         </div>
 
 
@@ -108,7 +108,7 @@ export default function Service(){
             required
             className='border border-gray-300 rounded py-1.5 px-3.5 w-full focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all'
             type='text'
-            placeholder='Product Name'
+            placeholder='Service Name'
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
@@ -220,7 +220,7 @@ export default function Service(){
             type='submit'
             className='bg-black text-white px-10 py-2 rounded-lg hover:bg-white hover:text-black transition-all hover:shadow-md active:scale-95'
           >
-            Submit
+            Free Book
           </button>
         </div>
       </div>

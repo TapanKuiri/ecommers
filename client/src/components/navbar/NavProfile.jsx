@@ -79,7 +79,7 @@ export const NavProfile = () => {
               className="cursor-pointer hover:text-black transition hover:bg-green-300 rounded-md px-2"
               onClick={() => setDropdownVisible(false)}
             >
-             ℹ️ Get Help
+             ℹ️ Consultant
             </Link>
 
             <p

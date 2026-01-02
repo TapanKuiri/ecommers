@@ -25,7 +25,7 @@ export const CartTotal = () => {
             <div className='flex justify-between'>
                 <b>Total</b>
                 {/* <b>{currency}{totalCartAmount === 0 ? 0 : totalCartAmount+delivery_fee}</b> */}
-                <b>{currency}{totalCartAmount === 0 ? 0 : totalCartAmount+49}</b>
+                <b>{currency}{totalCartAmount === 0 ? 0 : (totalCartAmount+49).toFixed(2)}</b>
             </div>
         </div>
     </div>

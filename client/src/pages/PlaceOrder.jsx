@@ -71,6 +71,7 @@ export default function PlaceOrder  ()  {
         payment: false
       };
 
+
       if (method === 'cod') {
         const response = await axios.post(`${backendUrl}/api/order/place`, orderData, {
           headers: { token }

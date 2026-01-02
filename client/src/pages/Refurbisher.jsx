@@ -41,7 +41,7 @@ export default function Refurbisher() {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
           category, page: pageNumber, limit: 20
         });
-        // console.log("data: ", data.products);
+        console.log("data: ", data.products);
        if (data?.success) {
           setFilterProducts((prev) => pageNumber === 1 ? data.products : [...prev, ...data.products]);
           setHasMore(data.hasMore);

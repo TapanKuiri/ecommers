@@ -9,9 +9,6 @@ import logo from './mlogo.png';
 import bin from './bin.png';
 import profile from './profile1.png';
 import cart from './cart.png';
-import repair1 from './repair1.jpg';
-import repair2 from './repair2.jpg';
-import repair3 from './repair3.jpg';
 import spinner from  './spinner.svg';
 import google from './google.png';
 import coll1 from './coll1.png';
@@ -42,6 +39,10 @@ import h4 from './h4.jpeg';
 import h3 from './h3.jpeg';
 import h5 from './h5.jpeg';
 
+import service1 from './service1.jpeg';
+import service2 from './service2.jpeg';
+import service3 from './service3.jpeg';
+
 export const assets = {
   textSvg,
   coll1,
@@ -51,9 +52,6 @@ export const assets = {
   coll5,
   google,
   spinner,
-  repair1,
-  repair2,  
-  repair3,
   cart,
   profile,
     contact,
@@ -86,4 +84,8 @@ export const assets = {
     h4,
     h3,
     h5,
+
+    service1,
+    service2,
+    service3
 }

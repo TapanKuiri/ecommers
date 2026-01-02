@@ -168,11 +168,11 @@ export default function MyServices  ()  {
                   {["Ready for Pickup", "Delivered"].includes(service.status)
                     ? "✅"
                     : "⏳"}{" "}
-                  <strong>Ready for Pickup</strong>
+                  <strong>Ready for Consultantion</strong>
                 </p>
                 <p>
                   {["Delivered"].includes(service.status) ? "✅" : "⏳"}{" "}
-                  <strong>Delivered</strong>
+                  <strong>Executed</strong>
                 </p>
                 {/* <p>✅ <strong>Request Submitted</strong></p>
                 <p>{['Under Review', 'Deivered','Ready for Pickup'].includes(service.status) ? '✅' : '⏳'} <strong>Under Review</strong></p>

@@ -193,6 +193,7 @@ const relatedProducts = async (req, res) => {
     page = parseInt(page);
     limit = parseInt(limit);
 
+
     if (!category || category.length === 0) {
       return res.status(400).json({ success: false, message: "Category is required" });
     }
