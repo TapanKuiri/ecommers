@@ -8,7 +8,7 @@ import { Loading } from '../components/loading/Loading';
 
 export default function Refurbisher() {
   const { products, search, backendUrl, page, setPage,hasMore, setHasMore, isLoading, setIsLoading } = useContext(ShopContext);
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   let filterLength = useRef(0);
@@ -17,6 +17,7 @@ export default function Refurbisher() {
   // const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
   const isSortClickedRef = useRef(false);
+  const [backgroundColor, serBackgroundColor] = useState(false);
 
 
   // Toggle category filter
@@ -41,7 +42,6 @@ export default function Refurbisher() {
         const { data } = await axios.post(`${backendUrl}/api/product/relatedProducts`, {
           category, page: pageNumber, limit: 20
         });
-        console.log("data: ", data.products);
        if (data?.success) {
           setFilterProducts((prev) => pageNumber === 1 ? data.products : [...prev, ...data.products]);
           setHasMore(data.hasMore);
@@ -117,11 +117,11 @@ export default function Refurbisher() {
   return (
     <div
       ref={containerRef}
-      className="my-1 px-1 py-12 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
+      className="my-1 px-1 py-2 rounded-xl shadow-md duration-500 h-[80vh] overflow-y-auto"
     >
       {/* Filter Sidebar */}
       <div className="min-w-60 bg-gradient-to-r  rounded-2xl">
-        <p
+        {/* <p
           className="my-2 text-xl flex items-center cursor-pointer bg-green-500 rounded-2xl gap-2 pl-2"
           onClick={() => setShowFilter(!showFilter)}
         >
@@ -133,7 +133,7 @@ export default function Refurbisher() {
             src={assets.dropdown}
             alt="dropdown"
           />
-        </p>
+        </p> */}
 
         {/* Categories */}
         <div
@@ -141,12 +141,12 @@ export default function Refurbisher() {
             showFilter ? '' : 'hidden sm:block '
           }`}
         >
-          <p className="mb-3 text-sm font-medium">Service CATEGORIES</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+          <p className="mb-3  text-center text-sm font-medium">Service CATEGORIES</p>
+          <div className="grid  grid-cols-3 lg:mx-20 gap-2 text-sm font-light text-gray-700">
             {[
               'Electrician', 'Plumber', 'Carpenter', 'Ac & Appliance Repair', 'Mobile & Laptop Technician',
               // 'Electric & Electronic',
-              // 'Home & Kitchen',
+              // 'Home & Kitchen', 
               // 'Mobile & Laptop',
               // 'Bag & Luggage',
               // 'Fashion',
@@ -156,13 +156,14 @@ export default function Refurbisher() {
               // 'Beauty & Health Care',
               // 'Project & Toys',
             ].map((cat, idx) => (
-              <label className="flex gap-2" key={idx}>
+              <label className={ `flex items-center gap-2 h-16 bg-gray-300 px-2  rounded-2xl`} key={idx}>
                 <input
-                  className="w-3"
+                  className="w-3 "
                   type="checkbox"
                   value={cat}
                   checked={category.includes(cat)}
                   onChange={toggleCategory}
+                  // onClick={serBackgroundColor((prev) => !prev)}
                 />
                 {cat}
               </label>
@@ -173,21 +174,21 @@ export default function Refurbisher() {
 
       {/* Products */}
       <div className="flex-1">
-        <div className="flex justify-between text-base sm:text-2xl mb-4">
+        <div className="flex justify-center text-base sm:text-2xl mb-4">
           <Title text1="ALL" text2="SERVICES" />
-          <select
+          {/* <select
             onChange={(e) => setSortType(e.target.value)}
             className="border-1 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-sm px-2"
           >
             <option value="relevent">Sort By: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
-          </select>
+          </select> */}
         </div>
 
         {/* Product Cards */}
          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
             {filterProducts.length > 0 ? (
               filterProducts.map((item, index) => (
                 <ProductItem

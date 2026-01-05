@@ -39,9 +39,9 @@ import h4 from './h4.jpeg';
 import h3 from './h3.jpeg';
 import h5 from './h5.jpeg';
 
-import service1 from './service1.jpeg';
-import service2 from './service2.jpeg';
-import service3 from './service3.jpeg';
+import service1 from './service1.png';
+import service2 from './service2.png';
+import service3 from './service3.png';
 
 export const assets = {
   textSvg,

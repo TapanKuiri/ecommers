@@ -90,7 +90,9 @@ export default function Service(){
     >
       <div className='flex flex-col items-center gap-4 w-full px-4 animate-fade-in-down'>
         {/* Banner with fade animation */}
-        <div className='h-90 w-full overflow-hidden rounded-xl shadow-lg transition-all duration-700 relative z-10'>
+        {/* <div className='h-90 w-full overflow-hidden rounded-xl shadow-lg transition-all duration-700 relative z-10'> */}
+        
+        <div className=' '>
         <Timer allImages={allImages}/>
         </div>
 

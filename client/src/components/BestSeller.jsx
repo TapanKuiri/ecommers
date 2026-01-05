@@ -19,9 +19,10 @@ export const BestSeller = () => {
   return (
     <div className='my-10 mx-4'>
         <div className='text-center py-8 text-3xl'>
-            <Title text1={'BEST'} text2={'SELLER'}/>
+            <Title text1={'NO. 1 '} text2={'SERVICE COMPANY'}/>
             <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-            FixyBuy is a technology-driven platform offering expert repair services and certified refurbished products across Electric & Electronics, Home & Kitchen appliances, Mobile & Laptop categories. Powered by skilled technicians and advanced diagnostics, we ensure optimal performance, reliability, and smart value for every customer.
+            FixyBuy is a technology-driven paltform offering expert repair & installation services. Powered by skilled technicians and advanced diagonostic, we ensure optimal performance, reliabiliy and smart value for every customer. 
+            {/* FixyBuy is a technology-driven platform offering expert repair services and certified refurbished products across Electric & Electronics, Home & Kitchen appliances, Mobile & Laptop categories. Powered by skilled technicians and advanced diagnostics, we ensure optimal performance, reliability, and smart value for every customer. */}
             {/* We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones.    */}
 </p>     </div>
 

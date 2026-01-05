@@ -200,19 +200,16 @@ const relatedProducts = async (req, res) => {
 
     // If category is array, match any of them
     const categoryFilter = Array.isArray(category) ? { $in: category } : category;
-
+    
     const products = await productModel
-      .find(
-        { category: categoryFilter },
-        { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, category: 1 }
-      )
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .lean();
-
+    .find(
+      { category: categoryFilter },
+      { name: 1, image: 1, price: 1, finalPrice: 1, discount: 1, category: 1 }
+    )
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .lean();
     const totalCount = await productModel.countDocuments({ category: categoryFilter });
-    console.log("totalCount:", totalCount);
-
     res.json({
       success: true,
       products,
