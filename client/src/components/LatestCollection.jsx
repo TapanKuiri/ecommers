@@ -15,7 +15,7 @@ export const LatestCollection =  () => {
   const containerRef = useRef(null);
 
   // Array of banner images
-  const allImages = [assets.h1, assets.h4, assets.h5, assets.h2, assets.h3];
+  const allImages = [ assets.h4, assets.h2, assets.h3];
   // const allImages = [assets.img1, assets.img2, assets.img3, assets.img4];
 // 
   

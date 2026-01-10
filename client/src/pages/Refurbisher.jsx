@@ -144,7 +144,8 @@ export default function Refurbisher() {
           <p className="mb-3  text-center text-sm font-medium">Service CATEGORIES</p>
           <div className="grid  grid-cols-3 lg:mx-20 gap-2 text-sm font-light text-gray-700">
             {[
-              'Electrician', 'Plumber', 'Carpenter', 'Ac & Appliance Repair', 'Mobile & Laptop Technician',
+              'Electrician', 'Plumber', 'Carpenter', 'Ac & Appliance Repair', 
+              // 'Mobile & Laptop Technician',
               // 'Electric & Electronic',
               // 'Home & Kitchen', 
               // 'Mobile & Laptop',

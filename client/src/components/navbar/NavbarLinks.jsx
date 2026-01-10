@@ -6,9 +6,9 @@ export const NavbarLinks = React.memo( () => {
 
   const links =  [
     { path: "/", label: "HOME", end: true },
-    { path: "/refurbisher", label: "REFURBISHED" },
+    { path: "/refurbisher", label: "SERVICE" },
     // { path: "/refurbisher", label: "REFURBISHER"},
-    { path: "/service", label: "SERVICE" },
+    { path: "/service", label: "CONSULTANT" },
   ];
 
   const getNavLinkClass = ({ isActive }) =>

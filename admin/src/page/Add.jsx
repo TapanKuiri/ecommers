@@ -174,7 +174,7 @@ export const Add = ({ token }) => {
             <option value="Plumber">Plumber</option>
             <option value="Carpenter">Carpenter</option>
             <option value="AC & Appliances Repair">AC & Appliances Repair</option>
-            <option value="Mobile & Laptop Technician">Mobile & Laptop Technician</option>
+            {/* <option value="Mobile & Laptop Technician">Mobile & Laptop Technician</option> */}
             {/* <option value="Fasion">Fasion</option> */}
             {/* <option value="Festive & Gift">Festive & Gift</option> */}
             {/* <option value="Daily Needs">Daily Needs</option> */}
