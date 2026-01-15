@@ -11,8 +11,7 @@ export const FooterLayout = () => {
 
 
             <p className='w-full md:w-2/3 text-gray-400 p-3'>
-            FixyBuy is a technology-driven platform offering expert repair & installation services. Powered by skilled technicials and advanced diagonostics, we ensure optimal performance, reliability, and smart value for every customer.
-                {/* We offer a wide range of quality products, unique handmade crafts, and a reliable repair service for faulty items — giving you both new treasures and second chances for the old ones. */}
+            FixyBuy Electrical repair services provides reliable home service that you can book at your convenience.
             </p>
         </div>
 
